@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkatb=self.webpackChunkatb||[]).push([[9981],{778:e=>{e.exports=JSON.parse('{"permalink":"/atb/blog/tags/hello","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

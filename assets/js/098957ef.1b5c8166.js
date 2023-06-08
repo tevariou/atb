@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkatb=self.webpackChunkatb||[]).push([[1086],{4:a=>{a.exports=JSON.parse('[{"label":"facebook","permalink":"/atb/blog/tags/facebook","count":1},{"label":"hello","permalink":"/atb/blog/tags/hello","count":2},{"label":"docusaurus","permalink":"/atb/blog/tags/docusaurus","count":4},{"label":"hola","permalink":"/atb/blog/tags/hola","count":1}]')}}]);
