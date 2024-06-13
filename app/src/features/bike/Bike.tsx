@@ -6,7 +6,8 @@ import { BikeGeometry } from "../../utils/bike-geometry";
 import { Wheel } from "../../utils/wheel";
 
 export const Bike = () => {
-  const [pathStr, setPathStr] = useState("");
+  const [framePath, setFramePath] = useState("");
+  const [crankPath, setCrankPath] = useState("");
 
   const bike = new BikeGeometry(
     389,
@@ -26,22 +27,29 @@ export const Bike = () => {
   const rearWheel = new Wheel(584, 66);
 
   useEffect(() => {
-    const l = d3.line()([
-      [0, 0],
+    const frame = d3.line()([
+      [bike.bbCoordinates.x, bike.bbCoordinates.y],
       [bike.headTubeBottomCoordinate.x, bike.headTubeBottomCoordinate.y],
       [bike.headTubeTopCoordinate.x, bike.headTubeTopCoordinate.y],
       [bike.seatTubeTopCoordinate.x, bike.seatTubeTopCoordinate.y],
       [bike.rearAxleCoordinate.x, bike.rearAxleCoordinate.y],
-      [0, 0],
+      [bike.bbCoordinates.x, bike.bbCoordinates.y],
       [bike.seatTubeTopCoordinate.x, bike.seatTubeTopCoordinate.y],
       [bike.headTubeTopCoordinate.x, bike.headTubeTopCoordinate.y],
       [bike.headTubeBottomCoordinate.x, bike.headTubeBottomCoordinate.y],
       [bike.frontAxleCoordinate.x, bike.frontAxleCoordinate.y],
     ]);
 
-    console.log(Math.sqrt(Math.pow(bike.rearAxleCoordinate.x - bike.frontAxleCoordinate.x, 2) + Math.pow(bike.rearAxleCoordinate.y - bike.frontAxleCoordinate.y, 2)))
+    // console.log(Math.sqrt(Math.pow(bike.rearAxleCoordinate.x - bike.frontAxleCoordinate.x, 2) + Math.pow(bike.rearAxleCoordinate.y - bike.frontAxleCoordinate.y, 2)))
 
-    if (l) setPathStr(l);
+    if (frame) setFramePath(frame);
+
+    const crankCoordinates = bike.putCrank(165)
+    const crank = d3.line()([
+      [bike.bbCoordinates.x, bike.bbCoordinates.y],
+      [crankCoordinates.x, crankCoordinates.y],
+    ])
+    if (crank) setCrankPath(crank);
   }, []);
 
   return (
@@ -51,7 +59,8 @@ export const Bike = () => {
         <circle fill="white" stroke="black" cx={bike.frontAxleCoordinate.x} cy={bike.frontAxleCoordinate.y} r={frontWheel.radius} />
         <circle fill="black" stroke="black" cx={bike.rearAxleCoordinate.x} cy={bike.rearAxleCoordinate.y} r={rearWheel.radiusWithTire} />
         <circle fill="white" stroke="black" cx={bike.rearAxleCoordinate.x} cy={bike.rearAxleCoordinate.y} r={rearWheel.radius} />
-        <path d={pathStr} stroke="blue" strokeWidth="5" fill="none"  />
+        <path d={framePath} stroke="blue" strokeWidth="5" fill="none"  />
+        <path d={crankPath} stroke="red" strokeWidth="5" fill="none" />
       </g>
     </svg>
   )

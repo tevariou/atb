@@ -90,4 +90,11 @@ export class BikeGeometry {
       y: Math.sin(this.seatTubeAngle) * this.seatTubeLength + this.bbCoordinates.y
     };
   }
+
+  putCrank(length = 0): Coordinates {
+    return {
+      x: length + this.bbCoordinates.x,
+      y: this.bbCoordinates.y
+    };
+  }
 }
