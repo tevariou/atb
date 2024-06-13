@@ -1,6 +1,7 @@
 import "./App.css"
 import { Counter } from "./features/counter/Counter"
 import { Quotes } from "./features/quotes/Quotes"
+import { Bike } from "./features/bike/Bike"
 import logo from "./logo.svg"
 
 const App = () => {
@@ -61,6 +62,7 @@ const App = () => {
           </a>
         </span>
       </header>
+      <Bike />
     </div>
   )
 }
