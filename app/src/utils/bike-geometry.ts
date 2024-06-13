@@ -27,6 +27,9 @@ export class BikeGeometry {
   protected crownToAxleLength: number = 0;
   protected frontCenterLength: number = 0;
   protected crankLength: number = 0;
+  protected spacersLength: number = 0;
+  protected stemLength: number = 0;
+  protected stemAngle: number = 0;
 
   constructor(
     reachLength= 0,
@@ -41,6 +44,9 @@ export class BikeGeometry {
     crownToAxleLength= 0,
     frontCenterLength = 0,
     crankLength = 0,
+    spacersLength = 0,
+    stemLength = 0,
+    stemAngle = 0
   ){
     this.reachLength = reachLength;
     this.stackLength = stackLength;
@@ -54,6 +60,9 @@ export class BikeGeometry {
     this.crownToAxleLength = crownToAxleLength;
     this.frontCenterLength = frontCenterLength;
     this.crankLength = crankLength;
+    this.spacersLength = spacersLength;
+    this.stemLength = stemLength;
+    this.stemAngle = toRadians(stemAngle);
   }
 
   private get headTubeTopCoordinates(): Coordinates {
@@ -203,6 +212,42 @@ export class BikeGeometry {
     return d3.line()([
       [this.crank.top.x, this.crank.top.y],
       [this.crank.bottom.x, this.crank.bottom.y]
+    ]) || "";
+  }
+
+  private get spacers(): Line {
+    return {
+      top: {
+        x: -Math.cos(this.headTubeAngle) * this.spacersLength + this.headTube.top.x,
+        y: Math.sin(this.headTubeAngle) * this.spacersLength + this.headTube.top.y
+      },
+      bottom: this.headTube.top,
+    };
+  }
+
+  drawSpacers(): string {
+    return d3.line()([
+      [this.spacers.top.x, this.spacers.top.y],
+      [this.spacers.bottom.x, this.spacers.bottom.y]
+    ]) || "";
+  }
+
+  private get stem(): Line {
+    const x = -Math.cos(this.headTubeAngle) * this.stemLength;
+    const y = Math.sin(this.headTubeAngle) * this.stemLength;
+    return {
+      top: {
+        x: Math.sin(this.stemAngle) * x + Math.cos(this.stemAngle) * y + this.spacers.top.x,
+        y: -Math.cos(this.stemAngle) * x + Math.sin(this.stemAngle) * y + this.spacers.top.y
+      },
+      bottom: this.spacers.top,
+    }
+  }
+
+  drawStem(): string {
+    return d3.line()([
+      [this.stem.top.x, this.stem.top.y],
+      [this.stem.bottom.x, this.stem.bottom.y]
     ]) || "";
   }
 
