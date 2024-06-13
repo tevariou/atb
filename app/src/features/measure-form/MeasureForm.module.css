@@ -1,0 +1,36 @@
+.formContainer{
+  width: 80%;
+  background: #222a53;
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 6px;
+  padding: 10px;
+}
+.formContainerLabel {
+  margin-bottom: 8px;
+  text-align: left;
+  font-weight: bold;
+  color:white;
+  display: block;
+}
+.formContainerInput{
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid white;
+  padding: 5px 10px 5px 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+button[type="submit"],
+input[type="submit"] {
+  background: #ec5990;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  margin-top: 40px;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: 100;
+  letter-spacing: 10px;
+}

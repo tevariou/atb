@@ -2,26 +2,12 @@ import { useState, useEffect } from "react"
 
 import * as d3 from "d3";
 
-import { BikeGeometry } from "../../utils/bike-geometry";
 import { Wheel } from "../../utils/wheel";
+import type { BikeGeometry } from "../../utils/bike-geometry";
 
-export const Bike = () => {
+export const Bike = ({bike} : {bike:BikeGeometry}) => {
   const [framePath, setFramePath] = useState("");
   const [crankPath, setCrankPath] = useState("");
-
-  const bike = new BikeGeometry(
-    389,
-    653,
-    200,
-    69,
-    450,
-    72.5,
-    490,
-    55,
-    63.5,
-    440,
-    0
-  );
 
   const frontWheel = new Wheel(584, 66);
   const rearWheel = new Wheel(584, 66);
