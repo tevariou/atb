@@ -30,6 +30,7 @@ export class BikeGeometry {
   protected spacersLength: number = 0;
   protected stemLength: number = 0;
   protected stemAngle: number = 0;
+  protected riderInseamLength: number = 0;
 
   constructor(
     reachLength= 0,
@@ -46,7 +47,8 @@ export class BikeGeometry {
     crankLength = 0,
     spacersLength = 0,
     stemLength = 0,
-    stemAngle = 0
+    stemAngle = 0,
+    riderInseamLength = 0
   ){
     this.reachLength = reachLength;
     this.stackLength = stackLength;
@@ -63,6 +65,7 @@ export class BikeGeometry {
     this.spacersLength = spacersLength;
     this.stemLength = stemLength;
     this.stemAngle = toRadians(stemAngle);
+    this.riderInseamLength = riderInseamLength;
   }
 
   private get headTubeTopCoordinates(): Coordinates {
@@ -248,6 +251,24 @@ export class BikeGeometry {
     return d3.line()([
       [this.stem.top.x, this.stem.top.y],
       [this.stem.bottom.x, this.stem.bottom.y]
+    ]) || "";
+  }
+
+  private get seatPost(): Line {
+    const seatPostLength = this.riderInseamLength - this.crankLength - this.seatTubeLength
+    return {
+      top: {
+        x: -Math.cos(this.seatTubeAngle) * seatPostLength + this.seatTube.top.x,
+        y: Math.sin(this.seatTubeAngle) * seatPostLength + this.seatTube.top.y
+      },
+      bottom: this.seatTube.top
+    }
+  }
+
+  drawSeatPost(): string {
+    return d3.line()([
+      [this.seatPost.top.x, this.seatPost.top.y],
+      [this.seatPost.bottom.x, this.seatPost.bottom.y]
     ]) || "";
   }
 
