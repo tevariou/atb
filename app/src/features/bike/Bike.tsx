@@ -12,9 +12,13 @@ export const Bike = () => {
   const [seatStay, setSeatStay] = useState("");
   const [topTube, setTopTube] = useState("");
   const [crank, setCrank] = useState("");
+  const [crankDown, setCrankDown] = useState("");
   const [spacers, setSpacers] = useState("");
   const [stem, setStem] = useState("");
   const [seatPost, setSeatPost] = useState("");
+  const [riderUpperLeg, setRiderUpperLeg] = useState("");
+  const [riderLowerLeg, setRiderLowerLeg] = useState("");
+  const [riderFeet, setRiderFeet] = useState("");
 
   const bike = new BikeGeometry(
     389,
@@ -32,8 +36,10 @@ export const Bike = () => {
     95,
     35,
     0,
-    900,
-    0
+    870,
+    0,
+    390,
+    270
   );
 
   const frontWheel = new Wheel(584, 75);
@@ -51,6 +57,10 @@ export const Bike = () => {
     setSpacers(bike.drawSpacers());
     setStem(bike.drawStem());
     setSeatPost(bike.drawSeatPost());
+    setRiderUpperLeg(bike.drawRiderUpperLeg());
+    setRiderLowerLeg(bike.drawRiderLowerLeg());
+    setCrankDown(bike.drawCrankDown());
+    setRiderFeet(bike.drawRiderFeet());
   }, []);
 
   return (
@@ -68,9 +78,13 @@ export const Bike = () => {
         <path d={seatStay} stroke="blue" strokeWidth="5" fill="none" />
         <path d={topTube} stroke="blue" strokeWidth="5" fill="none" />
         <path d={crank} stroke="red" strokeWidth="5" fill="none" />
+        <path d={crankDown} stroke="red" strokeDasharray="5" strokeWidth="5" fill="none" />
         <path d={spacers} stroke="red" strokeWidth="5" fill="none" />
         <path d={stem} stroke="red" strokeWidth="5" fill="none" />
         <path d={seatPost} stroke="red" strokeWidth="5" fill="none" />
+        <path d={riderUpperLeg} stroke="green" strokeWidth="5" fill="none" />
+        <path d={riderLowerLeg} stroke="green" strokeWidth="5" fill="none" />
+        <path d={riderFeet} stroke="green" strokeWidth="5" fill="none" />
       </g>
     </svg>
   )
