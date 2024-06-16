@@ -82,24 +82,24 @@ export class BikeGeometry {
     this.qFactor = qFactor;
   }
 
-  private get headTubeTopCoordinates(): Coordinates {
+  private get headTubeStartCoordinates(): Coordinates {
     return {
       x: this.reachLength + this.bbCoordinates.x,
       y: this.stackLength + this.bbCoordinates.y
     };
   }
 
-  private get headTubeBottomCoordinates(): Coordinates {
+  private get headTubeEndCoordinates(): Coordinates {
     return {
-      x: Math.cos(this.headTubeAngle) * this.headTubeLength + this.headTubeTopCoordinates.x,
-      y: -Math.sin(this.headTubeAngle) * this.headTubeLength + this.headTubeTopCoordinates.y
+      x: Math.cos(this.headTubeAngle) * this.headTubeLength + this.headTubeStartCoordinates.x,
+      y: -Math.sin(this.headTubeAngle) * this.headTubeLength + this.headTubeStartCoordinates.y
     };
   }
 
   private get headTube(): Line {
     return {
-      start: this.headTubeTopCoordinates,
-      end: this.headTubeBottomCoordinates
+      start: this.headTubeStartCoordinates,
+      end: this.headTubeEndCoordinates
     };
   }
 
@@ -112,7 +112,7 @@ export class BikeGeometry {
 
   get downTube(): Line {
     return {
-      start: this.headTubeBottomCoordinates,
+      start: this.headTubeEndCoordinates,
       end: this.bbCoordinates
     };
   }
@@ -133,14 +133,14 @@ export class BikeGeometry {
     }
 
     return {
-      x: Math.sin(this.headTubeAngle) * this.forkOffsetLength  + Math.sqrt(this.crownToAxleLength**2 - this.forkOffsetLength**2) * Math.cos(this.headTubeAngle) + this.headTubeBottomCoordinates.x,
-      y: Math.cos(this.headTubeAngle) * this.forkOffsetLength - Math.sqrt(this.crownToAxleLength**2 - this.forkOffsetLength**2) * Math.sin(this.headTubeAngle) + this.headTubeBottomCoordinates.y
+      x: Math.sin(this.headTubeAngle) * this.forkOffsetLength  + Math.sqrt(this.crownToAxleLength**2 - this.forkOffsetLength**2) * Math.cos(this.headTubeAngle) + this.headTubeEndCoordinates.x,
+      y: Math.cos(this.headTubeAngle) * this.forkOffsetLength - Math.sqrt(this.crownToAxleLength**2 - this.forkOffsetLength**2) * Math.sin(this.headTubeAngle) + this.headTubeEndCoordinates.y
     };
   }
 
   private get fork(): Line {
     return {
-      start: this.headTubeBottomCoordinates,
+      start: this.headTubeEndCoordinates,
       end: this.frontAxleCoordinates
     };
   }
@@ -196,7 +196,7 @@ export class BikeGeometry {
 
   drawTopTube(): string {
     return d3.line()([
-      [this.headTubeTopCoordinates.x, this.headTubeTopCoordinates.y],
+      [this.headTubeStartCoordinates.x, this.headTubeStartCoordinates.y],
       [this.seatTubeTopCoordinates.x, this.seatTubeTopCoordinates.y]
     ]) || "";
   }
@@ -283,13 +283,16 @@ export class BikeGeometry {
   }
 
   private get seatPost(): Line {
-    const x = -Math.cos(this.seatTubeAngle) * (this.riderInseamLength - this.crankLength - this.seatTubeLength) + this.seatTube.start.x;
-    const y = Math.sin(this.seatTubeAngle) * (this.riderInseamLength - this.crankLength - this.seatTubeLength) + this.seatTube.start.y;
-    const d = Math.sqrt(distance(this.bbCoordinates, {x, y})**2 + (this.qFactor / 2)**2);
-    const seatPostLength = this.riderInseamLength - this.crankLength - this.seatTubeLength >= 0 ? this.riderInseamLength - this.crankLength - this.seatTubeLength : 0;
+    let seatPostLength = Math.sqrt(this.riderInseamLength**2 - this.qFactor**2) - this.crankLength - this.seatTubeLength;
+    seatPostLength = Number.isNaN(seatPostLength) || seatPostLength < 1 ? 0 : seatPostLength;
+
+    const x = -Math.cos(this.seatTubeAngle) * seatPostLength + this.seatTube.start.x;
+    const y = Math.sin(this.seatTubeAngle) * seatPostLength + this.seatTube.start.y;
+    const d = distance(this.bbCoordinates, {x, y});
+
     const getXWithOffset = (seatPostLength: number) => -Math.cos(this.seatTubeAngle) * seatPostLength + this.seatTube.start.x - this.seatPostOffset;
     const getYWithOffset = (seatPostLength: number) => Math.sin(this.seatTubeAngle) * seatPostLength + this.seatTube.start.y;
-    const getDWithOffset = (seatPostLength: number) => Math.sqrt(distance(this.bbCoordinates, {x: getXWithOffset(seatPostLength), y: getYWithOffset(seatPostLength)})**2 + (this.qFactor / 2 )**2);
+    const getDWithOffset = (seatPostLength: number) => distance(this.bbCoordinates, {x: getXWithOffset(seatPostLength), y: getYWithOffset(seatPostLength)});
     const getSeatPostLength = (seatPostLength: number): number => {
       if (seatPostLength === 0 || d >= getDWithOffset(seatPostLength)) {
           return seatPostLength;
@@ -315,7 +318,18 @@ export class BikeGeometry {
     ]) || "";
   }
 
+  private get fromSaddleToPedal(): number {
+    return Math.sqrt((distance(this.seatPost.start, this.bbCoordinates) + this.crankLength)**2 + this.qFactor**2);
+  }
+
   private get heel(): Coordinates {
+    if (this.fromSaddleToPedal > this.riderInseamLength) {
+      return {
+        x: this.seatPost.start.x,
+        y: this.seatPost.start.y - this.riderInseamLength
+      }
+    }
+
     return {
       x: this.crank.end.x - this.riderFootLength * 2 / 3,
       y: this.crank.end.y
@@ -323,6 +337,13 @@ export class BikeGeometry {
   }
 
   private get riderKnee(): Coordinates {
+    if (this.fromSaddleToPedal > this.riderInseamLength) {
+      return {
+        x: this.seatPost.start.x,
+        y: this.seatPost.start.y - this.riderUpperLegLength
+      }
+    }
+
     const lowerLeg = this.riderInseamLength - this.riderUpperLegLength;
     const theta = Math.atan((this.seatPost.start.y - this.heel.y) / (this.seatPost.start.x - this.heel.x));
     const d = Math.sqrt(distance(this.heel, this.seatPost.start)**2 + (this.qFactor / 2)**2);
