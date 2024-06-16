@@ -37,6 +37,9 @@ export class BikeGeometry {
   protected riderUpperLegLength: number = 0;
   protected riderFootLength: number = 0;
   protected qFactor: number = 0;
+  protected handlebarWidth: number = 0;
+  protected riderArmLength: number = 0;
+  protected riderSpineLength: number = 0;
 
   constructor(
     reachLength= 0,
@@ -58,7 +61,10 @@ export class BikeGeometry {
     seatPostOffset = 0,
     riderUpperLegLength = 0,
     riderFootLength = 0,
-    qFactor = 0
+    qFactor = 0,
+    handlebarWidth = 0,
+    riderArmLength = 0,
+    riderSpineLength = 0
   ){
     this.reachLength = reachLength;
     this.stackLength = stackLength;
@@ -80,6 +86,9 @@ export class BikeGeometry {
     this.riderUpperLegLength = riderUpperLegLength;
     this.riderFootLength = riderFootLength;
     this.qFactor = qFactor;
+    this.handlebarWidth = handlebarWidth;
+    this.riderArmLength = riderArmLength;
+    this.riderSpineLength = riderSpineLength;
   }
 
   private get headTubeStartCoordinates(): Coordinates {
@@ -396,6 +405,55 @@ export class BikeGeometry {
     return d3.line()([
       [this.riderLowerLeg.start.x, this.riderLowerLeg.start.y],
       [this.riderLowerLeg.end.x, this.riderLowerLeg.end.y]
+    ]) || "";
+  }
+
+  private get handlebar(): Coordinates {
+    return this.stem.start;
+  }
+
+  private get fromSadleToHandlebar(): number {
+    return distance(this.seatPost.start, this.handlebar);
+  }
+
+  private get riderShoulder(): Coordinates {
+    const projectedArmlength = Math.sqrt(this.riderArmLength**2 - (this.handlebarWidth / 2)**2);
+    const d = (this.riderSpineLength**2 - projectedArmlength**2 + this.fromSadleToHandlebar**2) / (2 * this.fromSadleToHandlebar);
+    const h = Math.sqrt(this.riderSpineLength**2 - d**2);
+    const x = this.seatPost.start.x + ((this.handlebar.x - this.seatPost.start.x) * d / this.fromSadleToHandlebar + (this.handlebar.y - this.seatPost.start.y) * h / this.fromSadleToHandlebar);
+    const y = this.seatPost.start.y - ((this.handlebar.y - this.seatPost.start.y) * d / this.fromSadleToHandlebar - (this.handlebar.x - this.seatPost.start.x) * h / this.fromSadleToHandlebar);
+    return {
+      x: x,
+      y: y
+    };
+  }
+
+  private get riderSpine(): Line {
+    return {
+      start: this.seatPost.start,
+      end: this.riderShoulder
+    };
+  }
+
+  drawRiderSpine(): string {
+    return d3.line()([
+      [this.riderSpine.start.x, this.riderSpine.start.y],
+      [this.riderSpine.end.x, this.riderSpine.end.y]
+    ]) || "";
+  }
+
+  private get riderArm(): Line {
+    console.log(this.riderShoulder, this.handlebar)
+    return {
+      start: this.riderShoulder,
+      end: this.handlebar
+    };
+  }
+
+  drawRiderArm(): string {
+    return d3.line()([
+      [this.riderArm.start.x, this.riderArm.start.y],
+      [this.riderArm.end.x, this.riderArm.end.y]
     ]) || "";
   }
 
