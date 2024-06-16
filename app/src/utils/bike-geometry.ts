@@ -6,11 +6,13 @@ type Coordinates = {
 }
 
 type Line = {
-  top: Coordinates,
-  bottom: Coordinates
+  start: Coordinates,
+  end: Coordinates
 }
 
 const toRadians = (degrees: number) => degrees * Math.PI / 180;
+
+const distance = (start: Coordinates, end: Coordinates) => Math.sqrt((end.x - start.x)**2 + (end.y - start.y)**2);
 
 export class BikeGeometry {
   bbCoordinates: Coordinates = {x: 0, y: 0};
@@ -34,6 +36,7 @@ export class BikeGeometry {
   protected seatPostOffset: number = 0;
   protected riderUpperLegLength: number = 0;
   protected riderFootLength: number = 0;
+  protected qFactor: number = 0;
 
   constructor(
     reachLength= 0,
@@ -54,7 +57,8 @@ export class BikeGeometry {
     riderInseamLength = 0,
     seatPostOffset = 0,
     riderUpperLegLength = 0,
-    riderFootLength = 0
+    riderFootLength = 0,
+    qFactor = 0
   ){
     this.reachLength = reachLength;
     this.stackLength = stackLength;
@@ -75,6 +79,7 @@ export class BikeGeometry {
     this.seatPostOffset = seatPostOffset;
     this.riderUpperLegLength = riderUpperLegLength;
     this.riderFootLength = riderFootLength;
+    this.qFactor = qFactor;
   }
 
   private get headTubeTopCoordinates(): Coordinates {
@@ -93,29 +98,29 @@ export class BikeGeometry {
 
   private get headTube(): Line {
     return {
-      top: this.headTubeTopCoordinates,
-      bottom: this.headTubeBottomCoordinates
+      start: this.headTubeTopCoordinates,
+      end: this.headTubeBottomCoordinates
     };
   }
 
   drawHeadTube(): string {
     return d3.line()([
-      [this.headTube.top.x, this.headTube.top.y],
-      [this.headTube.bottom.x, this.headTube.bottom.y]
+      [this.headTube.start.x, this.headTube.start.y],
+      [this.headTube.end.x, this.headTube.end.y]
     ]) || "";
   }
 
   get downTube(): Line {
     return {
-      top: this.headTubeBottomCoordinates,
-      bottom: this.bbCoordinates
+      start: this.headTubeBottomCoordinates,
+      end: this.bbCoordinates
     };
   }
 
   drawDownTube(): string {
     return d3.line()([
-      [this.downTube.top.x, this.downTube.top.y],
-      [this.downTube.bottom.x, this.downTube.bottom.y]
+      [this.downTube.start.x, this.downTube.start.y],
+      [this.downTube.end.x, this.downTube.end.y]
     ]) || "";
   }
 
@@ -135,15 +140,15 @@ export class BikeGeometry {
 
   private get fork(): Line {
     return {
-      top: this.headTubeBottomCoordinates,
-      bottom: this.frontAxleCoordinates
+      start: this.headTubeBottomCoordinates,
+      end: this.frontAxleCoordinates
     };
   }
 
   drawFork(): string {
     return d3.line()([
-      [this.fork.top.x, this.fork.top.y],
-      [this.fork.bottom.x, this.fork.bottom.y]
+      [this.fork.start.x, this.fork.start.y],
+      [this.fork.end.x, this.fork.end.y]
     ]) || "";
   }
 
@@ -156,15 +161,15 @@ export class BikeGeometry {
 
   get chainStay(): Line {
     return {
-      top: this.rearAxleCoordinates,
-      bottom: this.bbCoordinates
+      start: this.rearAxleCoordinates,
+      end: this.bbCoordinates
     };
   }
 
   drawChainStay(): string {
     return d3.line()([
-      [this.chainStay.top.x, this.chainStay.top.y],
-      [this.chainStay.bottom.x, this.chainStay.bottom.y]
+      [this.chainStay.start.x, this.chainStay.start.y],
+      [this.chainStay.end.x, this.chainStay.end.y]
     ]) || "";
   }
 
@@ -177,15 +182,15 @@ export class BikeGeometry {
 
   private get seatTube(): Line {
     return {
-      top: this.seatTubeTopCoordinates,
-      bottom: this.bbCoordinates
+      start: this.seatTubeTopCoordinates,
+      end: this.bbCoordinates
     };
   }
 
   drawSeatTube(): string {
     return d3.line()([
-      [this.seatTube.top.x, this.seatTube.top.y],
-      [this.seatTube.bottom.x, this.seatTube.bottom.y]
+      [this.seatTube.start.x, this.seatTube.start.y],
+      [this.seatTube.end.x, this.seatTube.end.y]
     ]) || "";
   }
 
@@ -198,63 +203,63 @@ export class BikeGeometry {
 
   private get seatStay(): Line {
     return {
-      top: this.seatTubeTopCoordinates,
-      bottom: this.rearAxleCoordinates
+      start: this.seatTubeTopCoordinates,
+      end: this.rearAxleCoordinates
     };
   }
 
   drawSeatStay(): string {
     return d3.line()([
-      [this.seatStay.top.x, this.seatStay.top.y],
-      [this.seatStay.bottom.x, this.seatStay.bottom.y]
+      [this.seatStay.start.x, this.seatStay.start.y],
+      [this.seatStay.end.x, this.seatStay.end.y]
     ]) || "";
   }
 
   private get crank(): Line {
     return {
-      top: this.bbCoordinates,
-      bottom: {x: this.bbCoordinates.x + this.crankLength, y: this.bbCoordinates.y}
+      start: this.bbCoordinates,
+      end: {x: this.bbCoordinates.x + this.crankLength, y: this.bbCoordinates.y}
     };
   }
 
   drawCrank(): string {
     return d3.line()([
-      [this.crank.top.x, this.crank.top.y],
-      [this.crank.bottom.x, this.crank.bottom.y]
+      [this.crank.start.x, this.crank.start.y],
+      [this.crank.end.x, this.crank.end.y]
     ]) || "";
   }
 
   private get crankDown(): Line {
     return {
-      top: this.bbCoordinates,
-      bottom: {
-        x: this.crank.bottom.x * Math.cos(toRadians(-90)) - this.crank.bottom.y * Math.sin(toRadians(-90)),
-        y: this.crank.bottom.x * Math.sin(toRadians(-90)) + this.crank.bottom.y * Math.cos(toRadians(-90))
+      start: this.bbCoordinates,
+      end: {
+        x: this.crank.end.x * Math.cos(toRadians(-90)) - this.crank.end.y * Math.sin(toRadians(-90)),
+        y: this.crank.end.x * Math.sin(toRadians(-90)) + this.crank.end.y * Math.cos(toRadians(-90))
       }
     };
   }
 
   drawCrankDown(): string {
     return d3.line()([
-      [this.crankDown.top.x, this.crankDown.top.y],
-      [this.crankDown.bottom.x, this.crankDown.bottom.y]
+      [this.crankDown.start.x, this.crankDown.start.y],
+      [this.crankDown.end.x, this.crankDown.end.y]
     ]) || "";
   }
 
   private get spacers(): Line {
     return {
-      top: {
-        x: -Math.cos(this.headTubeAngle) * this.spacersLength + this.headTube.top.x,
-        y: Math.sin(this.headTubeAngle) * this.spacersLength + this.headTube.top.y
+      start: {
+        x: -Math.cos(this.headTubeAngle) * this.spacersLength + this.headTube.start.x,
+        y: Math.sin(this.headTubeAngle) * this.spacersLength + this.headTube.start.y
       },
-      bottom: this.headTube.top,
+      end: this.headTube.start,
     };
   }
 
   drawSpacers(): string {
     return d3.line()([
-      [this.spacers.top.x, this.spacers.top.y],
-      [this.spacers.bottom.x, this.spacers.bottom.y]
+      [this.spacers.start.x, this.spacers.start.y],
+      [this.spacers.end.x, this.spacers.end.y]
     ]) || "";
   }
 
@@ -262,29 +267,29 @@ export class BikeGeometry {
     const x = -Math.cos(this.headTubeAngle) * this.stemLength;
     const y = Math.sin(this.headTubeAngle) * this.stemLength;
     return {
-      top: {
-        x: Math.sin(this.stemAngle) * x + Math.cos(this.stemAngle) * y + this.spacers.top.x,
-        y: -Math.cos(this.stemAngle) * x + Math.sin(this.stemAngle) * y + this.spacers.top.y
+      start: {
+        x: Math.sin(this.stemAngle) * x + Math.cos(this.stemAngle) * y + this.spacers.start.x,
+        y: -Math.cos(this.stemAngle) * x + Math.sin(this.stemAngle) * y + this.spacers.start.y
       },
-      bottom: this.spacers.top,
+      end: this.spacers.start,
     }
   }
 
   drawStem(): string {
     return d3.line()([
-      [this.stem.top.x, this.stem.top.y],
-      [this.stem.bottom.x, this.stem.bottom.y]
+      [this.stem.start.x, this.stem.start.y],
+      [this.stem.end.x, this.stem.end.y]
     ]) || "";
   }
 
   private get seatPost(): Line {
-    const x = -Math.cos(this.seatTubeAngle) * (this.riderInseamLength - this.crankLength - this.seatTubeLength) + this.seatTube.top.x;
-    const y = Math.sin(this.seatTubeAngle) * (this.riderInseamLength - this.crankLength - this.seatTubeLength) + this.seatTube.top.y;
-    const d = Math.sqrt((x - this.bbCoordinates.x)**2 + (y - this.bbCoordinates.y)**2);
+    const x = -Math.cos(this.seatTubeAngle) * (this.riderInseamLength - this.crankLength - this.seatTubeLength) + this.seatTube.start.x;
+    const y = Math.sin(this.seatTubeAngle) * (this.riderInseamLength - this.crankLength - this.seatTubeLength) + this.seatTube.start.y;
+    const d = Math.sqrt(distance(this.bbCoordinates, {x, y})**2 + (this.qFactor / 2)**2);
     const seatPostLength = this.riderInseamLength - this.crankLength - this.seatTubeLength >= 0 ? this.riderInseamLength - this.crankLength - this.seatTubeLength : 0;
-    const getXWithOffset = (seatPostLength: number) => -Math.cos(this.seatTubeAngle) * seatPostLength + this.seatTube.top.x - this.seatPostOffset;
-    const getYWithOffset = (seatPostLength: number) => Math.sin(this.seatTubeAngle) * seatPostLength + this.seatTube.top.y;
-    const getDWithOffset = (seatPostLength: number) => Math.sqrt((getXWithOffset(seatPostLength) - this.bbCoordinates.x)**2 + (getYWithOffset(seatPostLength) - this.bbCoordinates.y)**2);
+    const getXWithOffset = (seatPostLength: number) => -Math.cos(this.seatTubeAngle) * seatPostLength + this.seatTube.start.x - this.seatPostOffset;
+    const getYWithOffset = (seatPostLength: number) => Math.sin(this.seatTubeAngle) * seatPostLength + this.seatTube.start.y;
+    const getDWithOffset = (seatPostLength: number) => Math.sqrt(distance(this.bbCoordinates, {x: getXWithOffset(seatPostLength), y: getYWithOffset(seatPostLength)})**2 + (this.qFactor / 2 )**2);
     const getSeatPostLength = (seatPostLength: number): number => {
       if (seatPostLength === 0 || d >= getDWithOffset(seatPostLength)) {
           return seatPostLength;
@@ -295,32 +300,32 @@ export class BikeGeometry {
     const yWithOffset = getYWithOffset(getSeatPostLength(seatPostLength));
 
     return {
-      top: {
-        x: xWithOffset <= this.seatTube.top.x ? xWithOffset : this.seatTube.top.x,
-        y: yWithOffset >= this.seatTube.top.y ? yWithOffset : this.seatTube.top.y
+      start: {
+        x: xWithOffset <= this.seatTube.start.x ? xWithOffset : this.seatTube.start.x,
+        y: yWithOffset >= this.seatTube.start.y ? yWithOffset : this.seatTube.start.y
       },
-      bottom: this.seatTube.top
+      end: this.seatTube.start
     }
   }
 
   drawSeatPost(): string {
     return d3.line()([
-      [this.seatPost.top.x, this.seatPost.top.y],
-      [this.seatPost.bottom.x, this.seatPost.bottom.y]
+      [this.seatPost.start.x, this.seatPost.start.y],
+      [this.seatPost.end.x, this.seatPost.end.y]
     ]) || "";
   }
 
   private get heel(): Coordinates {
     return {
-      x: this.crank.bottom.x - this.riderFootLength / 2,
-      y: this.crank.bottom.y
+      x: this.crank.end.x - this.riderFootLength * 2 / 3,
+      y: this.crank.end.y
     }
   }
 
   private get riderKnee(): Coordinates {
     const lowerLeg = this.riderInseamLength - this.riderUpperLegLength;
-    const theta = Math.atan((this.seatPost.top.y - this.heel.y) / (this.seatPost.top.x - this.heel.x));
-    const d = Math.sqrt((this.seatPost.top.x - this.heel.x)**2 + (this.seatPost.top.y - this.heel.y)**2);
+    const theta = Math.atan((this.seatPost.start.y - this.heel.y) / (this.seatPost.start.x - this.heel.x));
+    const d = Math.sqrt(distance(this.heel, this.seatPost.start)**2 + (this.qFactor / 2)**2);
     const gamma = Math.acos((d**2 + lowerLeg**2 - this.riderUpperLegLength**2) / (2 * d * lowerLeg));
     return {
       x:  -lowerLeg * Math.cos(theta - gamma) + this.heel.x,
@@ -330,8 +335,8 @@ export class BikeGeometry {
 
   private get riderFeet(): Line {
     return {
-      top: this.heel,
-      bottom: {
+      start: this.heel,
+      end: {
         x: this.heel.x + this.riderFootLength,
         y: this.heel.y
       }
@@ -340,36 +345,36 @@ export class BikeGeometry {
 
   drawRiderFeet(): string {
     return d3.line()([
-      [this.riderFeet.top.x, this.riderFeet.top.y],
-      [this.riderFeet.bottom.x, this.riderFeet.bottom.y]
+      [this.riderFeet.start.x, this.riderFeet.start.y],
+      [this.riderFeet.end.x, this.riderFeet.end.y]
     ]) || "";
   }
 
   private get riderUpperLeg(): Line {
     return {
-      top: this.seatPost.top,
-      bottom: this.riderKnee
+      start: this.seatPost.start,
+      end: this.riderKnee
     };
   }
 
   drawRiderUpperLeg(): string {
     return d3.line()([
-      [this.riderUpperLeg.top.x, this.riderUpperLeg.top.y],
-      [this.riderUpperLeg.bottom.x, this.riderUpperLeg.bottom.y]
+      [this.riderUpperLeg.start.x, this.riderUpperLeg.start.y],
+      [this.riderUpperLeg.end.x, this.riderUpperLeg.end.y]
     ]) || "";
   }
 
   private get riderLowerLeg(): Line {
     return {
-      top: this.riderKnee,
-      bottom: this.heel
+      start: this.riderKnee,
+      end: this.heel
     };
   }
 
   drawRiderLowerLeg(): string {
     return d3.line()([
-      [this.riderLowerLeg.top.x, this.riderLowerLeg.top.y],
-      [this.riderLowerLeg.bottom.x, this.riderLowerLeg.bottom.y]
+      [this.riderLowerLeg.start.x, this.riderLowerLeg.start.y],
+      [this.riderLowerLeg.end.x, this.riderLowerLeg.end.y]
     ]) || "";
   }
 
