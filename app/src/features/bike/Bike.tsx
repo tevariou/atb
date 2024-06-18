@@ -39,13 +39,14 @@ export const Bike = () => {
     35,
     0,
     870,
-    30,
+    0,
     390,
     300,
     178.5,
     460,
     690,
-    700
+    700,
+    75
   );
 
   const frontWheel = new Wheel(584, 75);
