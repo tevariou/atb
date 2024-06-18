@@ -23,30 +23,32 @@ export const Bike = () => {
   const [riderArm, setRiderArm] = useState("");
 
   const bike = new BikeGeometry(
-    389,
-    653,
-    200,
-    68.5,
-    450,
-    72.5,
-    490,
-    51,
-    63.5,
-    440,
-    0,
-    165,
-    95,
-    35,
-    0,
-    870,
-    0,
-    390,
-    300,
-    178.5,
-    460,
-    690,
-    700,
-    75
+    {
+      reachLength: 389,
+      stackLength: 653,
+      headTubeLength: 200,
+      headTubeAngle: 68.5,
+      chainStayLength: 450,
+      actualSeatTubeAngle: 72.5,
+      seatTubeLength: 490,
+      forkOffsetLength: 51,
+      bbDropLength: 63.5,
+      crownToAxleLength: 440,
+      frontCenterLength: 0,
+      crankLength: 165,
+      spacersLength: 95,
+      stemLength: 35,
+      stemAngle: 0,
+      riderInseamLength: 870,
+      seatPostOffset: 0,
+      riderUpperLegLength: 390,
+      riderFootLength: 300,
+      qFactor: 178.5,
+      handlebarWidth: 460,
+      riderArmLength: 690,
+      riderSpineLength: 700,
+      effectiveSeatTubeAngle: 75
+    }
   );
 
   const frontWheel = new Wheel(584, 75);

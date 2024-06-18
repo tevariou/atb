@@ -17,56 +17,58 @@ const distance = (start: Coordinates, end: Coordinates) => Math.sqrt((end.x - st
 export class BikeGeometry {
   bbCoordinates: Coordinates = {x: 0, y: 0};
 
-  protected reachLength: number = 0;
-  protected stackLength: number = 0;
-  protected headTubeLength: number = 0;
-  protected headTubeAngle: number = 0;
-  protected chainStayLength: number = 0;
-  protected actualSeatTubeAngle: number = 0;
-  protected effectiveSeatTubeAngle: number = 0;
-  protected seatTubeLength: number = 0;
-  protected forkOffsetLength: number = 0;
-  protected bbDropLength: number = 0;
-  protected crownToAxleLength: number = 0;
-  protected frontCenterLength: number = 0;
-  protected crankLength: number = 0;
-  protected spacersLength: number = 0;
-  protected stemLength: number = 0;
-  protected stemAngle: number = 0;
-  protected riderInseamLength: number = 0;
-  protected seatPostOffset: number = 0;
-  protected riderUpperLegLength: number = 0;
-  protected riderFootLength: number = 0;
-  protected qFactor: number = 0;
-  protected handlebarWidth: number = 0;
-  protected riderArmLength: number = 0;
-  protected riderSpineLength: number = 0;
+  protected reachLength = 0;
+  protected stackLength = 0;
+  protected headTubeLength = 0;
+  protected headTubeAngle = 0;
+  protected chainStayLength = 0;
+  protected actualSeatTubeAngle = 0;
+  protected effectiveSeatTubeAngle = 0;
+  protected seatTubeLength = 0;
+  protected forkOffsetLength = 0;
+  protected bbDropLength = 0;
+  protected crownToAxleLength = 0;
+  protected frontCenterLength = 0;
+  protected crankLength = 0;
+  protected spacersLength = 0;
+  protected stemLength = 0;
+  protected stemAngle = 0;
+  protected riderInseamLength = 0;
+  protected seatPostOffset = 0;
+  protected riderUpperLegLength = 0;
+  protected riderFootLength = 0;
+  protected qFactor = 0;
+  protected handlebarWidth = 0;
+  protected riderArmLength = 0;
+  protected riderSpineLength = 0;
 
   constructor(
-    reachLength= 0,
-    stackLength= 0,
-    headTubeLength= 0,
-    headTubeAngle= 0,
-    chainStayLength= 0,
-    actualSeatTubeAngle= 0,
-    seatTubeLength= 0,
-    forkOffsetLength= 0,
-    bbDropLength= 0,
-    crownToAxleLength= 0,
-    frontCenterLength = 0,
-    crankLength = 0,
-    spacersLength = 0,
-    stemLength = 0,
-    stemAngle = 0,
-    riderInseamLength = 0,
-    seatPostOffset = 0,
-    riderUpperLegLength = 0,
-    riderFootLength = 0,
-    qFactor = 0,
-    handlebarWidth = 0,
-    riderArmLength = 0,
-    riderSpineLength = 0,
-    effectiveSeatTubeAngle = 0
+    {
+      reachLength = 0,
+      stackLength = 0,
+      headTubeLength = 0,
+      headTubeAngle = 0,
+      chainStayLength = 0,
+      actualSeatTubeAngle = 0,
+      seatTubeLength = 0,
+      forkOffsetLength = 0,
+      bbDropLength = 0,
+      crownToAxleLength = 0,
+      frontCenterLength = 0,
+      crankLength = 0,
+      spacersLength = 0,
+      stemLength = 0,
+      stemAngle = 0,
+      riderInseamLength = 0,
+      seatPostOffset = 0,
+      riderUpperLegLength = 0,
+      riderFootLength = 0,
+      qFactor = 0,
+      handlebarWidth = 0,
+      riderArmLength = 0,
+      riderSpineLength = 0,
+      effectiveSeatTubeAngle = 0
+    }
   ){
     this.reachLength = reachLength;
     this.stackLength = stackLength;
@@ -186,9 +188,11 @@ export class BikeGeometry {
   }
 
   private get topTubeHorizontal(): Line {
+    const epsilon = -this.effectiveSeatTubeAngle;
+
     return {
       start: {
-        x: - this.headTube.start.y / Math.tan(this.effectiveSeatTubeAngle),
+        x: (this.headTube.start.y - this.bbCoordinates.y) / Math.tan(epsilon) + this.bbCoordinates.x,
         y: this.headTube.start.y
       },
       end: this.headTube.start
@@ -196,22 +200,31 @@ export class BikeGeometry {
   }
 
   private get seatTubeTopCoordinates(): Coordinates {
-    const k = this.topTubeHorizontal.start.y - Math.tan(this.actualSeatTubeAngle) * this.topTubeHorizontal.start.y / Math.tan(this.effectiveSeatTubeAngle);
-    const a = 1 + Math.tan(this.actualSeatTubeAngle)**2;
-    const b = - 2 * k * Math.tan(this.actualSeatTubeAngle);
-    const c = k**2 - this.seatTubeLength**2;
+    const alpha = -this.actualSeatTubeAngle;
+    const h = {
+      x: this.topTubeHorizontal.start.x,
+      y: this.topTubeHorizontal.start.y
+    }
+    const k = h.y - Math.tan(alpha) * h.x;
+    const a = 1 + Math.tan(alpha)**2;
+    const b = 2 * ((k - this.bbCoordinates.y) * Math.tan(alpha) - this.bbCoordinates.x);
+    const c = (k - this.bbCoordinates.y)**2 - this.seatTubeLength**2 + this.bbCoordinates.x**2;
+
     const x = (-b - Math.sqrt(b**2 - 4 * a * c)) / (2 * a);
-    const y = - Math.tan(this.actualSeatTubeAngle) * x + this.topTubeHorizontal.start.y - Math.tan(this.actualSeatTubeAngle) / Math.tan(this.effectiveSeatTubeAngle) * this.topTubeHorizontal.start.y;
+    const y = Math.tan(alpha) * x + h.y - Math.tan(alpha) * h.x;
 
     return {
-      x: x + this.bbCoordinates.x,
-      y: y + this.bbCoordinates.y
+      x: x,
+      y: y
     };
   }
 
   private get seatTubeFlexPointCoordinates(): Coordinates {
+    // The height of flex point is arbitrary, we display it at 1/2 of the seat tube length
     const y = this.bbCoordinates.y + this.seatTubeLength / 2;
-    const x = (this.topTubeHorizontal.start.y - Math.tan(this.actualSeatTubeAngle) * this.topTubeHorizontal.start.y / Math.tan(this.effectiveSeatTubeAngle) - y) / Math.tan(this.actualSeatTubeAngle);
+    const m = (this.topTubeHorizontal.start.y - this.seatTubeTopCoordinates.y) / (this.topTubeHorizontal.start.x - this.seatTubeTopCoordinates.x);
+    // const x = (this.topTubeHorizontal.start.y - Math.tan(this.actualSeatTubeAngle) * this.topTubeHorizontal.start.y / Math.tan(this.effectiveSeatTubeAngle) - y) / Math.tan(this.actualSeatTubeAngle) + this.bbCoordinates.x;
+    const x = (y - this.seatTubeTopCoordinates.y + this.seatTubeTopCoordinates.x * m) / m;
     return {
       x: x,
       y: y
@@ -265,8 +278,8 @@ export class BikeGeometry {
     return {
       start: this.bbCoordinates,
       end: {
-        x: this.crank.end.x * Math.cos(toRadians(-90)) - this.crank.end.y * Math.sin(toRadians(-90)),
-        y: this.crank.end.x * Math.sin(toRadians(-90)) + this.crank.end.y * Math.cos(toRadians(-90))
+        x: (this.crank.end.x - this.bbCoordinates.x) * Math.cos(toRadians(-90)) - (this.crank.end.y - this.bbCoordinates.y) * Math.sin(toRadians(-90)) + this.bbCoordinates.x,
+        y: (this.crank.end.x - this.bbCoordinates.x) * Math.sin(toRadians(-90)) + (this.crank.end.y - this.bbCoordinates.y) * Math.cos(toRadians(-90)) + this.bbCoordinates.y
       }
     };
   }
@@ -429,16 +442,26 @@ export class BikeGeometry {
     return this.stem.start;
   }
 
-  private get fromSadleToHandlebar(): number {
-    return distance(this.seatPost.start, this.handlebar);
-  }
-
   private get riderShoulder(): Coordinates {
+    const h = this.handlebar;
+    const s = this.seatPost.start;
     const projectedArmlength = Math.sqrt(this.riderArmLength**2 - (this.handlebarWidth / 2)**2);
-    const d = (this.riderSpineLength**2 - projectedArmlength**2 + this.fromSadleToHandlebar**2) / (2 * this.fromSadleToHandlebar);
-    const h = Math.sqrt(this.riderSpineLength**2 - d**2);
-    const x = this.seatPost.start.x + ((this.handlebar.x - this.seatPost.start.x) * d / this.fromSadleToHandlebar + (this.handlebar.y - this.seatPost.start.y) * h / this.fromSadleToHandlebar);
-    const y = this.seatPost.start.y - ((this.handlebar.y - this.seatPost.start.y) * d / this.fromSadleToHandlebar - (this.handlebar.x - this.seatPost.start.x) * h / this.fromSadleToHandlebar);
+
+    const m = -(h.x - s.x) / (h.y - s.y);
+    const k = -(s.x**2 + s.y**2 - h.x**2 - h.y**2 - this.riderSpineLength**2 + projectedArmlength**2) / (2 * (h.y - s.y));
+    const a = 1 + m**2;
+    const b = 2 * (m * (k - s.y) - s.x);
+    const c = (k - s.y)**2 - this.riderSpineLength**2 + s.x**2;
+    const delta = b**2 - 4 * a * c;
+
+    // FIXME: handle case when delta < 0
+    let x = (-b - Math.sqrt(delta)) / (2 * a);
+    let y = m * x + k;
+    if (y < h.y) {
+      x = (-b + Math.sqrt(delta)) / (2 * a);
+      y = m * x + k;
+    }
+
     return {
       x: x,
       y: y
