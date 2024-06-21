@@ -14,6 +14,13 @@ const toRadians = (degrees: number) => degrees * Math.PI / 180;
 
 const distance = (start: Coordinates, end: Coordinates) => Math.sqrt((end.x - start.x)**2 + (end.y - start.y)**2);
 
+const rotate = (coordinates: Coordinates, angle: number, origin: Coordinates = {x: 0, y: 0}): Coordinates => {
+  return {
+    x: ((coordinates.x - origin.x) * Math.cos(angle) - (coordinates.y - origin.y) * Math.sin(angle)) + origin.x,
+    y: ((coordinates.x - origin.x) * Math.sin(angle) + (coordinates.y - origin.y) * Math.cos(angle)) + origin.y
+  };
+}
+
 export class BikeGeometry {
   bbCoordinates: Coordinates = {x: 0, y: 0};
 
@@ -146,9 +153,15 @@ export class BikeGeometry {
       };
     }
 
+    const unRotatedFrontAxleWithOffsetCoordinates = {
+      x:this.headTubeEndCoordinates.x + this.forkOffsetLength,
+      y: this.headTubeEndCoordinates.y - this.crownToAxleLength
+    }
+
+    const frontAxleWithOffsetCoordinates = rotate(unRotatedFrontAxleWithOffsetCoordinates, toRadians(90) - this.headTubeAngle, this.headTube.end)
     return {
-      x: Math.sin(this.headTubeAngle) * this.forkOffsetLength  + Math.sqrt(this.crownToAxleLength**2 - this.forkOffsetLength**2) * Math.cos(this.headTubeAngle) + this.headTubeEndCoordinates.x,
-      y: Math.cos(this.headTubeAngle) * this.forkOffsetLength - Math.sqrt(this.crownToAxleLength**2 - this.forkOffsetLength**2) * Math.sin(this.headTubeAngle) + this.headTubeEndCoordinates.y
+      x: frontAxleWithOffsetCoordinates.x,
+      y: frontAxleWithOffsetCoordinates.y
     };
   }
 
