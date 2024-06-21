@@ -19,28 +19,36 @@ export const Bike = () => {
   const [riderUpperLeg, setRiderUpperLeg] = useState("");
   const [riderLowerLeg, setRiderLowerLeg] = useState("");
   const [riderFeet, setRiderFeet] = useState("");
+  const [riderSpine, setRiderSpine] = useState("");
+  const [riderArm, setRiderArm] = useState("");
 
   const bike = new BikeGeometry(
-    389,
-    653,
-    200,
-    68.5,
-    450,
-    72.5,
-    490,
-    51,
-    63.5,
-    440,
-    0,
-    165,
-    95,
-    35,
-    0,
-    870,
-    30,
-    390,
-    300,
-    178.5
+    {
+      reachLength: 389,
+      stackLength: 653,
+      headTubeLength: 200,
+      headTubeAngle: 68.5,
+      chainStayLength: 450,
+      actualSeatTubeAngle: 72.5,
+      seatTubeLength: 490,
+      forkOffsetLength: 51,
+      bbDropLength: 63.5,
+      crownToAxleLength: 440,
+      frontCenterLength: 0,
+      crankLength: 165,
+      spacersLength: 95,
+      stemLength: 35,
+      stemAngle: 0,
+      riderInseamLength: 870,
+      seatPostOffset: 0,
+      riderUpperLegLength: 390,
+      riderFootLength: 300,
+      qFactor: 178.5,
+      handlebarWidth: 460,
+      riderArmLength: 690,
+      riderSpineLength: 700,
+      effectiveSeatTubeAngle: 75
+    }
   );
 
   const frontWheel = new Wheel(584, 75);
@@ -62,6 +70,8 @@ export const Bike = () => {
     setRiderLowerLeg(bike.drawRiderLowerLeg());
     setCrankDown(bike.drawCrankDown());
     setRiderFeet(bike.drawRiderFeet());
+    setRiderSpine(bike.drawRiderSpine());
+    setRiderArm(bike.drawRiderArm());
   }, []);
 
   return (
@@ -102,6 +112,8 @@ export const Bike = () => {
         <path d={riderUpperLeg} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
         <path d={riderLowerLeg} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
         <path d={riderFeet} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
+        <path d={riderSpine} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
+        <path d={riderArm} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
       </g>
     </svg>
   )

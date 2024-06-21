@@ -17,55 +17,66 @@ const distance = (start: Coordinates, end: Coordinates) => Math.sqrt((end.x - st
 export class BikeGeometry {
   bbCoordinates: Coordinates = {x: 0, y: 0};
 
-  protected reachLength: number = 0;
-  protected stackLength: number = 0;
-  protected headTubeLength: number = 0;
-  protected headTubeAngle: number = 0;
-  protected chainStayLength: number = 0;
-  protected seatTubeAngle: number = 0;
-  protected seatTubeLength: number = 0;
-  protected forkOffsetLength: number = 0;
-  protected bbDropLength: number = 0;
-  protected crownToAxleLength: number = 0;
-  protected frontCenterLength: number = 0;
-  protected crankLength: number = 0;
-  protected spacersLength: number = 0;
-  protected stemLength: number = 0;
-  protected stemAngle: number = 0;
-  protected riderInseamLength: number = 0;
-  protected seatPostOffset: number = 0;
-  protected riderUpperLegLength: number = 0;
-  protected riderFootLength: number = 0;
-  protected qFactor: number = 0;
+  protected reachLength = 0;
+  protected stackLength = 0;
+  protected headTubeLength = 0;
+  protected headTubeAngle = 0;
+  protected chainStayLength = 0;
+  protected actualSeatTubeAngle = 0;
+  protected effectiveSeatTubeAngle = 0;
+  protected seatTubeLength = 0;
+  protected forkOffsetLength = 0;
+  protected bbDropLength = 0;
+  protected crownToAxleLength = 0;
+  protected frontCenterLength = 0;
+  protected crankLength = 0;
+  protected spacersLength = 0;
+  protected stemLength = 0;
+  protected stemAngle = 0;
+  protected riderInseamLength = 0;
+  protected seatPostOffset = 0;
+  protected riderUpperLegLength = 0;
+  protected riderFootLength = 0;
+  protected qFactor = 0;
+  protected handlebarWidth = 0;
+  protected riderArmLength = 0;
+  protected riderSpineLength = 0;
 
   constructor(
-    reachLength= 0,
-    stackLength= 0,
-    headTubeLength= 0,
-    headTubeAngle= 0,
-    chainStayLength= 0,
-    seatTubeAngle= 0,
-    seatTubeLength= 0,
-    forkOffsetLength= 0,
-    bbDropLength= 0,
-    crownToAxleLength= 0,
-    frontCenterLength = 0,
-    crankLength = 0,
-    spacersLength = 0,
-    stemLength = 0,
-    stemAngle = 0,
-    riderInseamLength = 0,
-    seatPostOffset = 0,
-    riderUpperLegLength = 0,
-    riderFootLength = 0,
-    qFactor = 0
+    {
+      reachLength = 0,
+      stackLength = 0,
+      headTubeLength = 0,
+      headTubeAngle = 0,
+      chainStayLength = 0,
+      actualSeatTubeAngle = 0,
+      seatTubeLength = 0,
+      forkOffsetLength = 0,
+      bbDropLength = 0,
+      crownToAxleLength = 0,
+      frontCenterLength = 0,
+      crankLength = 0,
+      spacersLength = 0,
+      stemLength = 0,
+      stemAngle = 0,
+      riderInseamLength = 0,
+      seatPostOffset = 0,
+      riderUpperLegLength = 0,
+      riderFootLength = 0,
+      qFactor = 0,
+      handlebarWidth = 0,
+      riderArmLength = 0,
+      riderSpineLength = 0,
+      effectiveSeatTubeAngle = 0
+    }
   ){
     this.reachLength = reachLength;
     this.stackLength = stackLength;
     this.headTubeLength = headTubeLength;
     this.headTubeAngle = toRadians(headTubeAngle);
     this.chainStayLength = chainStayLength;
-    this.seatTubeAngle = toRadians(seatTubeAngle);
+    this.actualSeatTubeAngle = toRadians(actualSeatTubeAngle);
+    this.effectiveSeatTubeAngle = toRadians(effectiveSeatTubeAngle);
     this.seatTubeLength = seatTubeLength;
     this.forkOffsetLength = forkOffsetLength;
     this.bbDropLength = bbDropLength;
@@ -80,6 +91,9 @@ export class BikeGeometry {
     this.riderUpperLegLength = riderUpperLegLength;
     this.riderFootLength = riderFootLength;
     this.qFactor = qFactor;
+    this.handlebarWidth = handlebarWidth;
+    this.riderArmLength = riderArmLength;
+    this.riderSpineLength = riderSpineLength;
   }
 
   private get headTubeStartCoordinates(): Coordinates {
@@ -173,24 +187,55 @@ export class BikeGeometry {
     ]) || "";
   }
 
-  private get seatTubeTopCoordinates(): Coordinates {
+  private get topTubeHorizontal(): Line {
+    const epsilon = -this.effectiveSeatTubeAngle;
+
     return {
-      x: -Math.cos(this.seatTubeAngle) * this.seatTubeLength + this.bbCoordinates.x,
-      y: Math.sin(this.seatTubeAngle) * this.seatTubeLength + this.bbCoordinates.y
+      start: {
+        x: (this.headTube.start.y - this.bbCoordinates.y) / Math.tan(epsilon) + this.bbCoordinates.x,
+        y: this.headTube.start.y
+      },
+      end: this.headTube.start
+    }
+  }
+
+  private get seatTubeTopCoordinates(): Coordinates {
+    const alpha = -this.actualSeatTubeAngle;
+    const h = {
+      x: this.topTubeHorizontal.start.x,
+      y: this.topTubeHorizontal.start.y
+    }
+    const k = h.y - Math.tan(alpha) * h.x;
+    const a = 1 + Math.tan(alpha)**2;
+    const b = 2 * ((k - this.bbCoordinates.y) * Math.tan(alpha) - this.bbCoordinates.x);
+    const c = (k - this.bbCoordinates.y)**2 - this.seatTubeLength**2 + this.bbCoordinates.x**2;
+
+    const x = (-b - Math.sqrt(b**2 - 4 * a * c)) / (2 * a);
+    const y = Math.tan(alpha) * x + h.y - Math.tan(alpha) * h.x;
+
+    return {
+      x: x,
+      y: y
     };
   }
 
-  private get seatTube(): Line {
+  private get seatTubeFlexPointCoordinates(): Coordinates {
+    // The height of flex point is arbitrary, we display it at 1/2 of the seat tube length
+    const y = this.bbCoordinates.y + this.seatTubeLength / 2;
+    const m = (this.topTubeHorizontal.start.y - this.seatTubeTopCoordinates.y) / (this.topTubeHorizontal.start.x - this.seatTubeTopCoordinates.x);
+    // const x = (this.topTubeHorizontal.start.y - Math.tan(this.actualSeatTubeAngle) * this.topTubeHorizontal.start.y / Math.tan(this.effectiveSeatTubeAngle) - y) / Math.tan(this.actualSeatTubeAngle) + this.bbCoordinates.x;
+    const x = (y - this.seatTubeTopCoordinates.y + this.seatTubeTopCoordinates.x * m) / m;
     return {
-      start: this.seatTubeTopCoordinates,
-      end: this.bbCoordinates
+      x: x,
+      y: y
     };
   }
 
   drawSeatTube(): string {
     return d3.line()([
-      [this.seatTube.start.x, this.seatTube.start.y],
-      [this.seatTube.end.x, this.seatTube.end.y]
+      [this.seatTubeTopCoordinates.x, this.seatTubeTopCoordinates.y],
+      [this.seatTubeFlexPointCoordinates.x, this.seatTubeFlexPointCoordinates.y],
+      [this.bbCoordinates.x, this.bbCoordinates.y]
     ]) || "";
   }
 
@@ -233,8 +278,8 @@ export class BikeGeometry {
     return {
       start: this.bbCoordinates,
       end: {
-        x: this.crank.end.x * Math.cos(toRadians(-90)) - this.crank.end.y * Math.sin(toRadians(-90)),
-        y: this.crank.end.x * Math.sin(toRadians(-90)) + this.crank.end.y * Math.cos(toRadians(-90))
+        x: (this.crank.end.x - this.bbCoordinates.x) * Math.cos(toRadians(-90)) - (this.crank.end.y - this.bbCoordinates.y) * Math.sin(toRadians(-90)) + this.bbCoordinates.x,
+        y: (this.crank.end.x - this.bbCoordinates.x) * Math.sin(toRadians(-90)) + (this.crank.end.y - this.bbCoordinates.y) * Math.cos(toRadians(-90)) + this.bbCoordinates.y
       }
     };
   }
@@ -282,32 +327,29 @@ export class BikeGeometry {
     ]) || "";
   }
 
+  private get fromSaddleToPedal(): number {
+    return Math.sqrt((distance(this.seatPost.start, this.bbCoordinates) + this.crankLength)**2 + (this.qFactor / 2)**2);
+  }
+
   private get seatPost(): Line {
-    let seatPostLength = Math.sqrt(this.riderInseamLength**2 - this.qFactor**2) - this.crankLength - this.seatTubeLength;
-    seatPostLength = Number.isNaN(seatPostLength) || seatPostLength < 1 ? 0 : seatPostLength;
-
-    const x = -Math.cos(this.seatTubeAngle) * seatPostLength + this.seatTube.start.x;
-    const y = Math.sin(this.seatTubeAngle) * seatPostLength + this.seatTube.start.y;
-    const d = distance(this.bbCoordinates, {x, y});
-
-    const getXWithOffset = (seatPostLength: number) => -Math.cos(this.seatTubeAngle) * seatPostLength + this.seatTube.start.x - this.seatPostOffset;
-    const getYWithOffset = (seatPostLength: number) => Math.sin(this.seatTubeAngle) * seatPostLength + this.seatTube.start.y;
-    const getDWithOffset = (seatPostLength: number) => distance(this.bbCoordinates, {x: getXWithOffset(seatPostLength), y: getYWithOffset(seatPostLength)});
+    const getXWithOffset = (seatPostLength: number) => -Math.cos(this.actualSeatTubeAngle) * seatPostLength + this.seatTubeTopCoordinates.x - this.seatPostOffset;
+    const getYWithOffset = (seatPostLength: number) => Math.sin(this.actualSeatTubeAngle) * seatPostLength + this.seatTubeTopCoordinates.y;
+    const getDWithOffset = (seatPostLength: number) => Math.sqrt((distance({x: getXWithOffset(seatPostLength), y: getYWithOffset(seatPostLength)}, this.bbCoordinates) + this.crankLength)**2 + (this.qFactor / 2)**2);
     const getSeatPostLength = (seatPostLength: number): number => {
-      if (seatPostLength === 0 || d >= getDWithOffset(seatPostLength)) {
+      if (this.riderInseamLength - getDWithOffset(seatPostLength) < 1) {
           return seatPostLength;
       }
-      return getSeatPostLength(seatPostLength - 1);
+      return getSeatPostLength(seatPostLength + 1);
     };
-    const xWithOffset = getXWithOffset(getSeatPostLength(seatPostLength));
-    const yWithOffset = getYWithOffset(getSeatPostLength(seatPostLength));
+    const xWithOffset = getXWithOffset(getSeatPostLength(0));
+    const yWithOffset = getYWithOffset(getSeatPostLength(0));
 
     return {
       start: {
-        x: xWithOffset <= this.seatTube.start.x ? xWithOffset : this.seatTube.start.x,
-        y: yWithOffset >= this.seatTube.start.y ? yWithOffset : this.seatTube.start.y
+        x: xWithOffset,
+        y: yWithOffset
       },
-      end: this.seatTube.start
+      end: this.seatTubeTopCoordinates
     }
   }
 
@@ -316,10 +358,6 @@ export class BikeGeometry {
       [this.seatPost.start.x, this.seatPost.start.y],
       [this.seatPost.end.x, this.seatPost.end.y]
     ]) || "";
-  }
-
-  private get fromSaddleToPedal(): number {
-    return Math.sqrt((distance(this.seatPost.start, this.bbCoordinates) + this.crankLength)**2 + this.qFactor**2);
   }
 
   private get heel(): Coordinates {
@@ -348,9 +386,10 @@ export class BikeGeometry {
     const theta = Math.atan((this.seatPost.start.y - this.heel.y) / (this.seatPost.start.x - this.heel.x));
     const d = Math.sqrt(distance(this.heel, this.seatPost.start)**2 + (this.qFactor / 2)**2);
     const gamma = Math.acos((d**2 + lowerLeg**2 - this.riderUpperLegLength**2) / (2 * d * lowerLeg));
+
     return {
-      x:  -lowerLeg * Math.cos(theta - gamma) + this.heel.x,
-      y:  -lowerLeg * Math.sin(theta - gamma) + this.heel.y
+      x:  Math.abs(-lowerLeg * Math.cos(theta - gamma)) + this.heel.x,
+      y:  Math.abs(-lowerLeg * Math.sin(theta - gamma)) + this.heel.y
     };
   }
 
@@ -396,6 +435,64 @@ export class BikeGeometry {
     return d3.line()([
       [this.riderLowerLeg.start.x, this.riderLowerLeg.start.y],
       [this.riderLowerLeg.end.x, this.riderLowerLeg.end.y]
+    ]) || "";
+  }
+
+  private get handlebar(): Coordinates {
+    return this.stem.start;
+  }
+
+  private get riderShoulder(): Coordinates {
+    const h = this.handlebar;
+    const s = this.seatPost.start;
+    const projectedArmlength = Math.sqrt(this.riderArmLength**2 - (this.handlebarWidth / 2)**2);
+
+    const m = -(h.x - s.x) / (h.y - s.y);
+    const k = -(s.x**2 + s.y**2 - h.x**2 - h.y**2 - this.riderSpineLength**2 + projectedArmlength**2) / (2 * (h.y - s.y));
+    const a = 1 + m**2;
+    const b = 2 * (m * (k - s.y) - s.x);
+    const c = (k - s.y)**2 - this.riderSpineLength**2 + s.x**2;
+    const delta = b**2 - 4 * a * c;
+
+    // FIXME: handle case when delta < 0
+    let x = (-b - Math.sqrt(delta)) / (2 * a);
+    let y = m * x + k;
+    if (y < h.y) {
+      x = (-b + Math.sqrt(delta)) / (2 * a);
+      y = m * x + k;
+    }
+
+    return {
+      x: x,
+      y: y
+    };
+  }
+
+  private get riderSpine(): Line {
+    return {
+      start: this.seatPost.start,
+      end: this.riderShoulder
+    };
+  }
+
+  drawRiderSpine(): string {
+    return d3.line()([
+      [this.riderSpine.start.x, this.riderSpine.start.y],
+      [this.riderSpine.end.x, this.riderSpine.end.y]
+    ]) || "";
+  }
+
+  private get riderArm(): Line {
+    return {
+      start: this.riderShoulder,
+      end: this.handlebar
+    };
+  }
+
+  drawRiderArm(): string {
+    return d3.line()([
+      [this.riderArm.start.x, this.riderArm.start.y],
+      [this.riderArm.end.x, this.riderArm.end.y]
     ]) || "";
   }
 
