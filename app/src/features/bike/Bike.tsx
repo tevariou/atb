@@ -26,12 +26,12 @@ export const Bike = () => {
     {
       reachLength: 389,
       stackLength: 653,
-      headTubeLength: 200,
-      headTubeAngle: 68.5,
+      headTubeLength: 212,
+      headTubeAngle: 69,
       chainStayLength: 450,
       actualSeatTubeAngle: 72.5,
       seatTubeLength: 490,
-      forkOffsetLength: 51,
+      forkOffsetLength: 55,
       bbDropLength: 63.5,
       crownToAxleLength: 440,
       frontCenterLength: 0,
@@ -47,7 +47,9 @@ export const Bike = () => {
       handlebarWidth: 460,
       riderArmLength: 690,
       riderSpineLength: 700,
-      effectiveSeatTubeAngle: 75
+      effectiveSeatTubeAngle: 72.5,
+      handlebarReach: 76,
+      handlebarHeight: 0,
     }
   );
 
