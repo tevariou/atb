@@ -36,6 +36,7 @@ export class BikeGeometry {
   protected bbDropLength = 0;
   protected crownToAxleLength = 0;
   protected frontCenterLength = 0;
+  protected wheelBase = 0;
   protected crankLength = 0;
   protected spacersLength = 0;
   protected stemLength = 0;
@@ -46,6 +47,8 @@ export class BikeGeometry {
   protected riderFootLength = 0;
   protected qFactor = 0;
   protected handlebarWidth = 0;
+  protected handlebarReach = 0;
+  protected handlebarHeight = 0;
   protected riderArmLength = 0;
   protected riderSpineLength = 0;
 
@@ -62,6 +65,7 @@ export class BikeGeometry {
       bbDropLength = 0,
       crownToAxleLength = 0,
       frontCenterLength = 0,
+      wheelBase = 0,
       crankLength = 0,
       spacersLength = 0,
       stemLength = 0,
@@ -72,6 +76,8 @@ export class BikeGeometry {
       riderFootLength = 0,
       qFactor = 0,
       handlebarWidth = 0,
+      handlebarReach = 0,
+      handlebarHeight = 0,
       riderArmLength = 0,
       riderSpineLength = 0,
       effectiveSeatTubeAngle = 0
@@ -99,8 +105,11 @@ export class BikeGeometry {
     this.riderFootLength = riderFootLength;
     this.qFactor = qFactor;
     this.handlebarWidth = handlebarWidth;
+    this.handlebarReach = handlebarReach;
+    this.handlebarHeight = handlebarHeight;
     this.riderArmLength = riderArmLength;
     this.riderSpineLength = riderSpineLength;
+    this.wheelBase = wheelBase;
   }
 
   private get headTubeStartCoordinates(): Coordinates {
@@ -131,7 +140,7 @@ export class BikeGeometry {
     ]) || "";
   }
 
-  get downTube(): Line {
+  private get downTube(): Line {
     return {
       start: this.headTubeEndCoordinates,
       end: this.bbCoordinates
@@ -153,12 +162,20 @@ export class BikeGeometry {
       };
     }
 
+    if (this.wheelBase !== 0) {
+      return {
+        x: this.rearAxleCoordinates.x + this.wheelBase,
+        y: this.rearAxleCoordinates.y
+      };
+    }
+
     const unRotatedFrontAxleWithOffsetCoordinates = {
-      x:this.headTubeEndCoordinates.x + this.forkOffsetLength,
+      x: this.headTubeEndCoordinates.x + this.forkOffsetLength,
       y: this.headTubeEndCoordinates.y - this.crownToAxleLength
     }
 
     const frontAxleWithOffsetCoordinates = rotate(unRotatedFrontAxleWithOffsetCoordinates, toRadians(90) - this.headTubeAngle, this.headTube.end)
+
     return {
       x: frontAxleWithOffsetCoordinates.x,
       y: frontAxleWithOffsetCoordinates.y
@@ -186,7 +203,7 @@ export class BikeGeometry {
     };
   }
 
-  get chainStay(): Line {
+  private get chainStay(): Line {
     return {
       start: this.rearAxleCoordinates,
       end: this.bbCoordinates
@@ -452,7 +469,10 @@ export class BikeGeometry {
   }
 
   private get handlebar(): Coordinates {
-    return this.stem.start;
+    return {
+      x: this.stem.start.x + this.handlebarReach,
+      y: this.stem.start.y + this.handlebarHeight
+    }
   }
 
   private get riderShoulder(): Coordinates {
