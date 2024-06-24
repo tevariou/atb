@@ -72,7 +72,7 @@ export const Bike = () => {
     setSeatPost(bike.seatPost.draw());
     setRiderUpperLeg(bike.upperLeg.draw());
     setRiderLowerLeg(bike.lowerLeg.draw());
-    setCrankDown(bike.crank.draw());
+    setCrankDown(bike.crankDown.draw());
     setRiderFeet(bike.feet.draw());
     setRiderSpine(bike.spine.draw());
     setRiderArm(bike.arm.draw());
