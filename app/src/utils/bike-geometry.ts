@@ -290,7 +290,6 @@ export class BikeGeometry {
     // The height of flex point is arbitrary, we display it at 1/2 of the seat tube length
     const y = this.bbCoordinates.y + this.seatTubeLength / 2;
     const m = (this.topTubeHorizontal.start.y - this.seatTubeTopCoordinates.y) / (this.topTubeHorizontal.start.x - this.seatTubeTopCoordinates.x);
-    // const x = (this.topTubeHorizontal.start.y - Math.tan(this.actualSeatTubeAngle) * this.topTubeHorizontal.start.y / Math.tan(this.effectiveSeatTubeAngle) - y) / Math.tan(this.actualSeatTubeAngle) + this.bbCoordinates.x;
     const x = (y - this.seatTubeTopCoordinates.y + this.seatTubeTopCoordinates.x * m) / m;
     return {
       x: x,
