@@ -7,7 +7,8 @@ export const Bike = () => {
   const [headTube, setHeadTube] = useState("");
   const [fork, setFork] = useState("");
   const [downTube, setDownTube] = useState("");
-  const [seatTube, setSeatTube] = useState("");
+  const [upperSeatTube, setUpperSeatTube] = useState("");
+  const [lowerSeatTube, setLowerSeatTube] = useState("");
   const [chainStay, setChainStay] = useState("");
   const [seatStay, setSeatStay] = useState("");
   const [topTube, setTopTube] = useState("");
@@ -57,23 +58,24 @@ export const Bike = () => {
   const rearWheel = new Wheel(584, 75);
 
   useEffect(() => {
-    setHeadTube(bike.drawHeadTube());
-    setFork(bike.drawFork());
-    setDownTube(bike.drawDownTube());
-    setSeatTube(bike.drawSeatTube());
-    setChainStay(bike.drawChainStay());
-    setSeatStay(bike.drawSeatStay());
-    setTopTube(bike.drawTopTube());
-    setCrank(bike.drawCrank());
-    setSpacers(bike.drawSpacers());
-    setStem(bike.drawStem());
-    setSeatPost(bike.drawSeatPost());
-    setRiderUpperLeg(bike.drawRiderUpperLeg());
-    setRiderLowerLeg(bike.drawRiderLowerLeg());
-    setCrankDown(bike.drawCrankDown());
-    setRiderFeet(bike.drawRiderFeet());
-    setRiderSpine(bike.drawRiderSpine());
-    setRiderArm(bike.drawRiderArm());
+    setHeadTube(bike.headTube.draw());
+    setFork(bike.fork.draw());
+    setDownTube(bike.downTube.draw());
+    setUpperSeatTube(bike.upperSeatTube.draw());
+    setLowerSeatTube(bike.lowerSeatTube.draw())
+    setChainStay(bike.chainStay.draw());
+    setSeatStay(bike.seatStay.draw());
+    setTopTube(bike.topTube.draw());
+    setCrank(bike.crank.draw());
+    setSpacers(bike.spacers.draw());
+    setStem(bike.stem.draw());
+    setSeatPost(bike.seatPost.draw());
+    setRiderUpperLeg(bike.upperLeg.draw());
+    setRiderLowerLeg(bike.lowerLeg.draw());
+    setCrankDown(bike.crank.draw());
+    setRiderFeet(bike.feet.draw());
+    setRiderSpine(bike.spine.draw());
+    setRiderArm(bike.arm.draw());
   }, []);
 
   return (
@@ -102,7 +104,8 @@ export const Bike = () => {
         <path d={headTube} stroke="blue" strokeWidth="5" fill="none"  />
         <path d={fork} stroke="blue" strokeWidth="5" fill="none" />
         <path d={downTube} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={seatTube} stroke="blue" strokeWidth="5" fill="none" />
+        <path d={upperSeatTube} stroke="blue" strokeWidth="5" fill="none" />
+        <path d={lowerSeatTube} stroke="blue" strokeWidth="5" fill="none" />
         <path d={chainStay} stroke="blue" strokeWidth="5" fill="none" />
         <path d={seatStay} stroke="blue" strokeWidth="5" fill="none" />
         <path d={topTube} stroke="blue" strokeWidth="5" fill="none" />
