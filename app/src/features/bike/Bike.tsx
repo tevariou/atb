@@ -99,8 +99,8 @@ export const Bike = () => {
       <g transform="translate(750 750), scale(0.5), scale(-1 1), rotate(180)">
         <circle fill="url(#rainbow)" fillOpacity="0.5" cx={bike.frontAxleCoordinates.x} cy={bike.frontAxleCoordinates.y} r={frontWheel.radiusWithTire} />
         <circle fill="white" cx={bike.frontAxleCoordinates.x} cy={bike.frontAxleCoordinates.y} r={frontWheel.radius} />
-        <circle fill="url(#rainbow)" fillOpacity="0.5" cx={bike.rearAxleCoordinates.x} cy={bike.rearAxleCoordinates.y} r={rearWheel.radiusWithTire} />
-        <circle fill="white" cx={bike.rearAxleCoordinates.x} cy={bike.rearAxleCoordinates.y} r={rearWheel.radius} />
+        <circle fill="url(#rainbow)" fillOpacity="0.5" cx={bike.chainStay.start.x} cy={bike.chainStay.start.y} r={rearWheel.radiusWithTire} />
+        <circle fill="white" cx={bike.chainStay.start.x} cy={bike.chainStay.start.y} r={rearWheel.radius} />
         <path d={headTube} stroke="blue" strokeWidth="5" fill="none"  />
         <path d={fork} stroke="blue" strokeWidth="5" fill="none" />
         <path d={downTube} stroke="blue" strokeWidth="5" fill="none" />

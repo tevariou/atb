@@ -1,9 +1,11 @@
 import * as d3 from "d3";
 
-type Coordinates = {
+interface Coordinates {
   x: number,
   y: number
 }
+
+type HeadTubeLength = number & { __brand: "HeadTubeLength" };
 
 class Segment {
   protected _start: Coordinates;
@@ -18,7 +20,7 @@ class Segment {
     return d3.line()([
       [this.start.x, this.start.y],
       [this.end.x, this.end.y]
-    ]) || "";
+    ]) ?? "";
   }
   
   get start(): Coordinates{
@@ -27,6 +29,66 @@ class Segment {
 
   get end(): Coordinates{
     return this._end;
+  }
+}
+
+class HeadTube extends Segment {
+  private readonly __brand = "HeadTube";
+
+  constructor(bbCoordinates: Coordinates, headTubeLength: HeadTubeLength, headTubeAngle: number, reachLength: number, stackLength: number){
+    const start = {
+      x: reachLength + bbCoordinates.x,
+      y: stackLength + bbCoordinates.y
+    };
+    const end = {
+      x: Math.cos(headTubeAngle) * headTubeLength + start.x,
+      y: -Math.sin(headTubeAngle) * headTubeLength + start.y
+    };
+
+    super(start, end);
+  }
+}
+
+class ChainStay extends Segment {
+  private readonly __brand = "ChainStay";
+
+  constructor(bbCoordinates: Coordinates, bbDropLength: number, chainStayLength: number){
+    const start = {
+      x: -Math.sqrt(chainStayLength**2 - bbDropLength**2) + bbCoordinates.x,
+      y: bbDropLength + bbCoordinates.y
+    };
+    const end = bbCoordinates;
+
+    super(start, end);
+  }
+}
+
+class Crank extends Segment {
+  private readonly __brand = "Crank";
+
+  constructor(bbCoordinates: Coordinates, crankLength: number){
+    const start = bbCoordinates;
+    const end = {
+      x: crankLength + bbCoordinates.x, 
+      y: bbCoordinates.y
+    }
+
+    super(start, end);
+  }
+}
+
+class TopTubeHorizontal extends Segment {
+  private readonly __brand = "TopTubeHorizontal";
+
+  constructor(headTube: HeadTube, bbCoordinates: Coordinates, effectiveSeatTubeAngle: number){
+    const epsilon = -effectiveSeatTubeAngle;
+    const start = {
+      x: (headTube.start.y - bbCoordinates.y) / Math.tan(epsilon) + bbCoordinates.x,
+      y: headTube.start.y
+    }
+    const end = headTube.start;
+
+    super(start, end);
   }
 }
 
@@ -46,7 +108,7 @@ export class BikeGeometry {
 
   protected reachLength = 0;
   protected stackLength = 0;
-  protected headTubeLength = 0;
+  protected headTubeLength = 0 as HeadTubeLength;
   protected headTubeAngle = 0;
   protected chainStayLength = 0;
   protected actualSeatTubeAngle = 0;
@@ -72,7 +134,7 @@ export class BikeGeometry {
   protected riderArmLength = 0;
   protected riderSpineLength = 0;
 
-  private _headTube: Segment;
+  private readonly _headTube: HeadTube;
   private _downTube: Segment;
   private _topTubeHorizontal: Segment;
   private _upperSeatTube: Segment;
@@ -83,7 +145,7 @@ export class BikeGeometry {
   private _spacers: Segment;
   private _stem: Segment;
   private _seatPost: Segment; 
-  private _chainStay: Segment;
+  private _chainStay: ChainStay;
   private _fork: Segment;
   private _topTube: Segment;
 
@@ -126,7 +188,7 @@ export class BikeGeometry {
   ){
     this.reachLength = reachLength;
     this.stackLength = stackLength;
-    this.headTubeLength = headTubeLength;
+    this.headTubeLength = headTubeLength as HeadTubeLength;
     this.headTubeAngle = toRadians(headTubeAngle);
     this.chainStayLength = chainStayLength;
     this.actualSeatTubeAngle = toRadians(actualSeatTubeAngle);
@@ -152,11 +214,12 @@ export class BikeGeometry {
     this.riderSpineLength = riderSpineLength;
     this.wheelBase = wheelBase;
 
-    this._headTube = new Segment(this.headTubeStartCoordinates, this.headTubeEndCoordinates);
-    this._chainStay = new Segment(this.rearAxleCoordinates, this.bbCoordinates);
-    this._crank = new Segment(this.bbCoordinates, this.crankEndCoordinates);
+    const headTube = new HeadTube(this.bbCoordinates, this.headTubeLength, this.headTubeAngle, this.reachLength, this.stackLength);
+    const chainStay = new ChainStay(this.bbCoordinates, this.bbDropLength, this.chainStayLength);
+    const crank = new Crank(this.bbCoordinates, this.crankLength);
 
-    this._topTubeHorizontal = new Segment(this.topTubeHorizontalStartCoordinates, this.headTube.start)
+    const topTubeHorizontal = new TopTubeHorizontal(headTube, this.bbCoordinates, this.effectiveSeatTubeAngle);
+
     this._crankDown = new Segment(this.bbCoordinates, this.crankDownEndCoordinates)
 
     this._upperSeatTube = new Segment(this.seatTubeTopCoordinates, this.seatTubeFlexPointCoordinates);
@@ -176,24 +239,14 @@ export class BikeGeometry {
     this._lowerLeg = new Segment(this.upperLeg.end, this.feet.start);
     this._spine = new Segment(this.seatPost.start, this.riderShoulderCoordinates);
     this._arm = new Segment(this.spine.end, this.handlebarCoordinates);
+
+    this._headTube = headTube;
+    this._chainStay = chainStay;
+    this._crank = crank;
+    this._topTubeHorizontal = topTubeHorizontal;
   }
 
-  private get headTubeStartCoordinates(): Coordinates {
-    return {
-      x: this.reachLength + this.bbCoordinates.x,
-      y: this.stackLength + this.bbCoordinates.y
-    };
-  }
-
-  private get headTubeEndCoordinates(): Coordinates {
-    const headTubeStartCoordinates = this.headTubeStartCoordinates;
-    return {
-      x: Math.cos(this.headTubeAngle) * this.headTubeLength + headTubeStartCoordinates.x,
-      y: -Math.sin(this.headTubeAngle) * this.headTubeLength + headTubeStartCoordinates.y
-    };
-  }
-
-  get headTube(): Segment {
+  get headTube(): HeadTube {
     return this._headTube;
   }
 
@@ -245,24 +298,8 @@ export class BikeGeometry {
     return this._fork;
   }
 
-  get rearAxleCoordinates(): Coordinates {
-    return {
-      x: -Math.sqrt(this.chainStayLength**2 - this.bbDropLength**2) + this.bbCoordinates.x,
-      y: this.bbDropLength + this.bbCoordinates.y
-    };
-  }
-
-  get chainStay(): Segment {
+  get chainStay(): ChainStay {
     return this._chainStay;
-  }
-
-  private get topTubeHorizontalStartCoordinates(): Coordinates {
-    const epsilon = -this.effectiveSeatTubeAngle;
-
-    return {
-      x: (this.headTube.start.y - this.bbCoordinates.y) / Math.tan(epsilon) + this.bbCoordinates.x,
-      y: this.headTube.start.y
-    }
   }
 
   get topTubeHorizontal() {
@@ -301,13 +338,6 @@ export class BikeGeometry {
 
   get seatStay(): Segment {
     return this._seatStay;
-  }
-
-  private get crankEndCoordinates(): Coordinates {
-    return {
-      x: this.bbCoordinates.x + this.crankLength, 
-      y: this.bbCoordinates.y
-    }
   }
 
   get crank(): Segment {
