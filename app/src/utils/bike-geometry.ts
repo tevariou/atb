@@ -86,31 +86,21 @@ class Crank extends Segment {
   constructor({
     bottomBracket, 
     crankLength, 
-    qFactor
-  }: {bottomBracket: BottomBracket, crankLength: number, qFactor: number}){
+    qFactor,
+    spinAngle = 0,
+  }: {bottomBracket: BottomBracket, crankLength: number, qFactor: number, spinAngle: number}){
     const start = bottomBracket.coordinates;
-    const end = {
-      x: crankLength + bottomBracket.coordinates.x, 
-      y: bottomBracket.coordinates.y
-    }
-
+    const end = rotate(
+      {
+        x: crankLength + bottomBracket.coordinates.x, 
+        y: bottomBracket.coordinates.y
+      },
+      toRadians(-spinAngle),
+      bottomBracket.coordinates
+    )
     super({start, end});
     this.length = crankLength;
     this.qFactor = qFactor;
-  }
-}
-
-class CrankDown extends Segment {
-  private readonly __brand = "CrankDown";
-
-  constructor({
-    bottomBracket, 
-    crank
-  }: {bottomBracket: BottomBracket, crank: Crank}){
-    const start = bottomBracket.coordinates;
-    const end = rotate(crank.end, toRadians(-90), bottomBracket.coordinates);
-
-    super({start, end});
   }
 }
 
@@ -122,9 +112,8 @@ class TopTubeHorizontal extends Segment {
     headTube, 
     effectiveSeatTubeAngle
   }: {bottomBracket: BottomBracket, headTube: HeadTube, effectiveSeatTubeAngle: number}){
-    const epsilon = -effectiveSeatTubeAngle;
     const start = {
-      x: (headTube.start.y - bottomBracket.coordinates.y) / Math.tan(epsilon) + bottomBracket.coordinates.x,
+      x: (headTube.start.y - bottomBracket.coordinates.y) / Math.tan(-effectiveSeatTubeAngle) + bottomBracket.coordinates.x,
       y: headTube.start.y
     }
     const end = headTube.start;
@@ -465,7 +454,6 @@ export class BikeGeometry {
   private _seatTube: SeatTube;
   private _seatStay: Segment;
   private _crank: Crank;
-  private _crankDown: CrankDown;
   private _spacers: Spacers;
   private _stem: Stem;
   private _seatPost: SeatPost; 
@@ -505,7 +493,8 @@ export class BikeGeometry {
       handleBarHeight = 0,
       riderArmLength = 0,
       riderSpineLength = 0,
-      effectiveSeatTubeAngle = 0
+      effectiveSeatTubeAngle = 0,
+      spinAngle = 0
     }
   ){
     const bottomBracket = new BottomBracket(bottomBracketCoordinates);
@@ -523,8 +512,7 @@ export class BikeGeometry {
     this._topTube = new Segment({start: headTube.start, end: seatTube.start});
     this._seatStay = new Segment({start: seatTube.start, end: chainStay.start});
 
-    const crank = new Crank({bottomBracket, crankLength, qFactor});
-    const crankDown = new CrankDown({bottomBracket, crank});
+    const crank = new Crank({bottomBracket, crankLength, qFactor, spinAngle});
     const spacers = new Spacers({headTube, spacersLength});
     const stem = new Stem({spacers, headTube, stemLength, stemAngle: toRadians(stemAngle)});
     const handleBar = new HandleBar({stem, handleBarReach, handleBarHeight, handleBarWidth});
@@ -537,7 +525,6 @@ export class BikeGeometry {
     this._chainStay = chainStay;
     this._crank = crank;
     this._topTubeHorizontal = topTubeHorizontal;
-    this._crankDown = crankDown;
     this._seatTube = seatTube;
     this._spacers = spacers;
     this._seatPost = seatPost;
@@ -581,10 +568,6 @@ export class BikeGeometry {
 
   get crank(): Crank {
     return this._crank;
-  }
-
-  get crankDown(): CrankDown {
-    return this._crankDown;
   }
 
   get spacers(): Spacers {
