@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import "./App.css"
 import { Counter } from "./features/counter/Counter"
 import { Quotes } from "./features/quotes/Quotes"
@@ -5,6 +7,23 @@ import { Bike } from "./features/bike/Bike"
 import logo from "./logo.svg"
 
 const App = () => {
+
+  const [spinAngle, setSpinAngle] = useState(0);
+
+  useEffect(() => {
+    const incrementAngle = () => {
+      if (spinAngle < 360) {
+        setSpinAngle(spinAngle + 1)
+      } else {
+        setSpinAngle(0)
+      }
+    }
+    const interval = setInterval(() => incrementAngle(), 10);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [spinAngle]);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -62,7 +81,7 @@ const App = () => {
           </a>
         </span>
       </header>
-      <Bike />
+      <Bike spinAngle={spinAngle} />
     </div>
   )
 }
