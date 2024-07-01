@@ -18,7 +18,7 @@ const App = () => {
         setSpinAngle(0)
       }
     }
-    const interval = setInterval(() => incrementAngle(), 10);
+    const interval = setInterval(() => incrementAngle(), 1);
     return () => {
       clearInterval(interval);
     };

@@ -58,9 +58,9 @@ export const Bike = ({spinAngle}: {spinAngle: number}) => {
       </defs>
 
       <g transform="translate(750 750), scale(0.5), scale(-1 1), rotate(180)">
-        <circle fill="url(#rainbow)" fillOpacity="0.5" cx={bike.fork.end.x} cy={bike.fork.end.y} r={frontWheel.radiusWithTire} />
+        <circle transform={`rotate(${-spinAngle}, ${bike.fork.end.x}, ${bike.fork.end.y})`} fill="url(#rainbow)" fillOpacity="0.5" cx={bike.fork.end.x} cy={bike.fork.end.y} r={frontWheel.radiusWithTire} />
         <circle fill="white" cx={bike.fork.end.x} cy={bike.fork.end.y} r={frontWheel.radius} />
-        <circle fill="url(#rainbow)" fillOpacity="0.5" cx={bike.chainStay.start.x} cy={bike.chainStay.start.y} r={rearWheel.radiusWithTire} />
+        <circle transform={`rotate(${-spinAngle}, ${bike.chainStay.start.x}, ${bike.chainStay.start.y})`} fill="url(#rainbow)" fillOpacity="0.5" cx={bike.chainStay.start.x} cy={bike.chainStay.start.y} r={rearWheel.radiusWithTire} />
         <circle fill="white" cx={bike.chainStay.start.x} cy={bike.chainStay.start.y} r={rearWheel.radius} />
         <path d={bike.headTube.draw()} stroke="blue" strokeWidth="5" fill="none"  />
         <path d={bike.fork.draw()} stroke="blue" strokeWidth="5" fill="none" />
