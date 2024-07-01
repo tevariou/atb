@@ -16,11 +16,8 @@ export const Bike = () => {
   const [spacers, setSpacers] = useState("");
   const [stem, setStem] = useState("");
   const [seatPost, setSeatPost] = useState("");
-  const [riderUpperLeg, setRiderUpperLeg] = useState("");
-  const [riderLowerLeg, setRiderLowerLeg] = useState("");
-  const [riderFeet, setRiderFeet] = useState("");
-  const [riderSpine, setRiderSpine] = useState("");
-  const [riderArm, setRiderArm] = useState("");
+  const [riderLowerBody, setRiderLowerBody] = useState("");
+  const [riderUpperBody, setRiderUpperBody] = useState("");
 
   const bike = new BikeGeometry(
     {
@@ -44,12 +41,12 @@ export const Bike = () => {
       riderUpperLegLength: 390,
       riderFootLength: 300,
       qFactor: 178.5,
-      handlebarWidth: 460,
+      handleBarWidth: 460,
       riderArmLength: 690,
       riderSpineLength: 700,
       effectiveSeatTubeAngle: 72.5,
-      handlebarReach: 76,
-      handlebarHeight: 0,
+      handleBarReach: 76,
+      handleBarHeight: 0,
     }
   );
 
@@ -57,23 +54,20 @@ export const Bike = () => {
   const rearWheel = new Wheel(584, 75);
 
   useEffect(() => {
-    setHeadTube(bike.drawHeadTube());
-    setFork(bike.drawFork());
-    setDownTube(bike.drawDownTube());
-    setSeatTube(bike.drawSeatTube());
-    setChainStay(bike.drawChainStay());
-    setSeatStay(bike.drawSeatStay());
-    setTopTube(bike.drawTopTube());
-    setCrank(bike.drawCrank());
-    setSpacers(bike.drawSpacers());
-    setStem(bike.drawStem());
-    setSeatPost(bike.drawSeatPost());
-    setRiderUpperLeg(bike.drawRiderUpperLeg());
-    setRiderLowerLeg(bike.drawRiderLowerLeg());
-    setCrankDown(bike.drawCrankDown());
-    setRiderFeet(bike.drawRiderFeet());
-    setRiderSpine(bike.drawRiderSpine());
-    setRiderArm(bike.drawRiderArm());
+    setHeadTube(bike.headTube.draw());
+    setFork(bike.fork.draw());
+    setDownTube(bike.downTube.draw());
+    setSeatTube(bike.seatTube.draw());
+    setChainStay(bike.chainStay.draw());
+    setSeatStay(bike.seatStay.draw());
+    setTopTube(bike.topTube.draw());
+    setCrank(bike.crank.draw());
+    setSpacers(bike.spacers.draw());
+    setStem(bike.stem.draw());
+    setSeatPost(bike.seatPost.draw());
+    setRiderLowerBody(bike.lowerBody.draw());
+    setRiderUpperBody(bike.upperBody.draw());
+    setCrankDown(bike.crankDown.draw());
   }, []);
 
   return (
@@ -95,10 +89,10 @@ export const Bike = () => {
       </defs>
 
       <g transform="translate(750 750), scale(0.5), scale(-1 1), rotate(180)">
-        <circle fill="url(#rainbow)" fillOpacity="0.5" cx={bike.frontAxleCoordinates.x} cy={bike.frontAxleCoordinates.y} r={frontWheel.radiusWithTire} />
-        <circle fill="white" cx={bike.frontAxleCoordinates.x} cy={bike.frontAxleCoordinates.y} r={frontWheel.radius} />
-        <circle fill="url(#rainbow)" fillOpacity="0.5" cx={bike.rearAxleCoordinates.x} cy={bike.rearAxleCoordinates.y} r={rearWheel.radiusWithTire} />
-        <circle fill="white" cx={bike.rearAxleCoordinates.x} cy={bike.rearAxleCoordinates.y} r={rearWheel.radius} />
+        <circle fill="url(#rainbow)" fillOpacity="0.5" cx={bike.fork.end.x} cy={bike.fork.end.y} r={frontWheel.radiusWithTire} />
+        <circle fill="white" cx={bike.fork.end.x} cy={bike.fork.end.y} r={frontWheel.radius} />
+        <circle fill="url(#rainbow)" fillOpacity="0.5" cx={bike.chainStay.start.x} cy={bike.chainStay.start.y} r={rearWheel.radiusWithTire} />
+        <circle fill="white" cx={bike.chainStay.start.x} cy={bike.chainStay.start.y} r={rearWheel.radius} />
         <path d={headTube} stroke="blue" strokeWidth="5" fill="none"  />
         <path d={fork} stroke="blue" strokeWidth="5" fill="none" />
         <path d={downTube} stroke="blue" strokeWidth="5" fill="none" />
@@ -111,11 +105,8 @@ export const Bike = () => {
         <path d={spacers} stroke="red" strokeWidth="5" fill="none" />
         <path d={stem} stroke="red" strokeWidth="5" fill="none" />
         <path d={seatPost} stroke="red" strokeWidth="5" fill="none" />
-        <path d={riderUpperLeg} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
-        <path d={riderLowerLeg} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
-        <path d={riderFeet} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
-        <path d={riderSpine} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
-        <path d={riderArm} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
+        <path d={riderLowerBody} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
+        <path d={riderUpperBody} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
       </g>
     </svg>
   )
