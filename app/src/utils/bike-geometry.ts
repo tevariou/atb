@@ -288,10 +288,44 @@ class Fork extends Segment {
   }
 }
 
-class LowerBody extends Segment {
+class RoundedSegment extends Segment {
+
+    protected readonly radius: number;
+
+    constructor({start, end, radius}: {start:Coordinates, end:Coordinates, radius:number}){
+      super({start, end});
+      this.radius = radius;
+    }
+
+    draw(): string {
+        const aboveStart = {
+          x: this.start.x + this.radius,
+          y: this.start.y + this.radius / 2, // above in horizontal
+        }
+        const aboveEnd = {
+          x: this.end.x + this.radius / 2, // above in vertical
+          y: this.end.y + this.radius
+        }
+        const angle = Math.atan2(aboveEnd.y - aboveStart.y, aboveEnd.x - aboveStart.x);
+        const offsetX = this.radius * Math.sin(angle);
+        const offsetY = this.radius * Math.cos(angle);
+
+        return `
+            M${aboveStart.x - offsetX},${aboveStart.y + offsetY}
+            A${this.radius},${this.radius} 0 0,1 ${aboveStart.x + offsetX},${aboveStart.y - offsetY}
+            L${aboveEnd.x + offsetX},${aboveEnd.y - offsetY}
+            A${this.radius},${this.radius} 0 0,1 ${aboveEnd.x - offsetX},${aboveEnd.y + offsetY}
+            Z
+        `;
+    }
+}
+
+class LowerBody {
   private readonly __brand = "LowerBody";
-  private readonly knee: Coordinates;
-  private readonly heel: Coordinates;
+  private readonly upperLeg: RoundedSegment;
+  private readonly lowerLeg: RoundedSegment;
+  private readonly feet: RoundedSegment;
+  private readonly _knee: Coordinates;
 
   constructor({
     bottomBracket, 
@@ -336,29 +370,26 @@ class LowerBody extends Segment {
         y:  Math.abs(-lowerLeg * Math.sin(theta - gamma)) + heel.y
       };
     }
-
     const end = {
       x: heel.x + riderFootLength,
       y: heel.y
     }
-    super({start: seatPost.start, end});
-    this.knee = knee;
-    this.heel = heel;
+    this._knee = knee;
+    this.upperLeg = new RoundedSegment({start: seatPost.start, end: knee, radius:45});
+    this.lowerLeg= new RoundedSegment({start: knee, end: heel, radius: 35});
+    this.feet = new RoundedSegment({start: heel, end: end, radius:2})
   }
 
   draw(): string {
-    return d3.line()([
-      [this.start.x, this.start.y],
-      [this.knee.x, this.knee.y],
-      [this.heel.x, this.heel.y],
-      [this.end.x, this.end.y],
-    ]) ?? "";
+    return this.upperLeg.draw() + " " + this.lowerLeg.draw() + " " + this.feet.draw()
   }
 }
 
-class UpperBody extends Segment {
+class UpperBody {
   private readonly __brand = "UpperBody";
   private readonly shoulder: Coordinates;
+  private readonly spine: RoundedSegment;
+  private readonly arm: RoundedSegment;
 
   constructor({
     seatPost, 
@@ -385,20 +416,18 @@ class UpperBody extends Segment {
       y = m * x + k;
     }
 
-    super({start: seatPost.start, end: handleBar.coordinates});
-
     this.shoulder = {
       x: x,
       y: y
     };
+
+    this.spine = new RoundedSegment({start: seatPost.start, end: this.shoulder, radius:45});
+    this.arm= new RoundedSegment({start: this.shoulder, end: handleBar.coordinates, radius: 35});
+
   }
 
   draw(): string {
-    return d3.line()([
-      [this.start.x, this.start.y],
-      [this.shoulder.x, this.shoulder.y],
-      [this.end.x, this.end.y],
-    ]) ?? "";
+    return this.spine.draw() + " " + this.arm.draw()
   }
 }
 

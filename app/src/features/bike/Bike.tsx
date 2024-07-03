@@ -73,9 +73,10 @@ export const Bike = ({spinAngle}: {spinAngle: number}) => {
         <path d={bike.spacers.draw()} stroke="red" strokeWidth="5" fill="none" />
         <path d={bike.stem.draw()} stroke="red" strokeWidth="5" fill="none" />
         <path d={bike.seatPost.draw()} stroke="red" strokeWidth="5" fill="none" />
-        <path d={bike.lowerBody.draw()} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
-        <path d={bike.upperBody.draw()} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
+        <path d={bike.lowerBody.draw()}  fill="#f70776" fillOpacity="0.2"/>
+        <path d={bike.upperBody.draw()} fill="#f70776" fillOpacity="0.2" />
       </g>
     </svg>
+
   )
 }
