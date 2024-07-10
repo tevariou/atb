@@ -299,12 +299,12 @@ class RoundedSegment extends Segment {
 
     draw(): string {
         const aboveStart = {
-          x: this.start.x + this.radius,
+          x: this.start.x + this.radius ,
           y: this.start.y + this.radius / 2, // above in horizontal
         }
         const aboveEnd = {
           x: this.end.x + this.radius / 2, // above in vertical
-          y: this.end.y + this.radius
+          y: this.end.y + this.radius 
         }
         const angle = Math.atan2(aboveEnd.y - aboveStart.y, aboveEnd.x - aboveStart.x);
         const offsetX = this.radius * Math.sin(angle);
@@ -320,9 +320,32 @@ class RoundedSegment extends Segment {
     }
 }
 
+class SvgDrawing {
+  private readonly _path: string;
+  private readonly _start: Coordinates;
+  private readonly _end: Coordinates;
+
+  constructor({start, end, path}:{start: Coordinates, end: Coordinates, path: string}){
+    this._path = path;
+    this._start = start;
+    this._end = end ;
+  }
+
+  transform(newStart: Coordinates, newEnd: Coordinates): string{
+    let result = `translate(${newStart.x}, ${newStart.y}) `
+    result += `rotate(${ Math.atan((this._end.x - this._start.x) / (this._end.y - this._start.y))}) `
+    result += `scale(${distance(newStart, newEnd) / distance(this._start, this._end)}) `
+    result += `rotate(${Math.atan((newEnd.x - newStart.x) / (newEnd.y - newStart.y))}) `
+    result += `translate(-${this._start.x}, -${this._start.y})`
+    return result
+  }
+
+}
+
 class LowerBody {
   private readonly __brand = "LowerBody";
-  private readonly upperLeg: RoundedSegment;
+  private readonly upperLeg: Segment;
+  private readonly upperLegDrawing: SvgDrawing;
   private readonly lowerLeg: RoundedSegment;
   private readonly feet: RoundedSegment;
   private readonly _knee: Coordinates;
@@ -350,7 +373,6 @@ class LowerBody {
       x: crank.end.x - riderFootLength * 2 / 3,
       y: crank.end.y
     }
-
     
     let knee: Coordinates;
 
@@ -375,13 +397,20 @@ class LowerBody {
       y: heel.y
     }
     this._knee = knee;
-    this.upperLeg = new RoundedSegment({start: seatPost.start, end: knee, radius:45});
+    this.upperLeg = new Segment({start: seatPost.start, end: knee});
+    this.upperLegDrawing = new SvgDrawing({start: {x: 0, y: 201}, end: {x: 1538, y: 201}, path: "M0 0h1538v201H0z"})
     this.lowerLeg= new RoundedSegment({start: knee, end: heel, radius: 35});
-    this.feet = new RoundedSegment({start: heel, end: end, radius:2})
+    this.feet = new RoundedSegment({start: heel, end: end, radius:2});
+
+
   }
 
   draw(): string {
     return this.upperLeg.draw() + " " + this.lowerLeg.draw() + " " + this.feet.draw()
+  }
+
+  upperLegTransform(): string{
+    return this.upperLegDrawing.transform(this.upperLeg.start, this.upperLeg.end);
   }
 }
 
