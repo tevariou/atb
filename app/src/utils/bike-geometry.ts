@@ -333,11 +333,14 @@ class SvgDrawing {
 
   transform(newStart: Coordinates, newEnd: Coordinates): string{
     let result = `translate(${newStart.x}, ${newStart.y}) `
-    result += `rotate(${ Math.atan((this._end.x - this._start.x) / (this._end.y - this._start.y))}) `
+    result += `rotate(${(- Math.atan2((this._end.y - this._start.y), (this._end.x - this._start.x))) * 180 / Math.PI}) `
     result += `scale(${distance(newStart, newEnd) / distance(this._start, this._end)}) `
-    result += `rotate(${Math.atan((newEnd.x - newStart.x) / (newEnd.y - newStart.y))}) `
-    result += `translate(-${this._start.x}, -${this._start.y})`
+    result += `rotate(${+(( Math.atan2((newEnd.y - newStart.y), (newEnd.x - newStart.x))) * 180 / Math.PI)}) `
+    result += `translate(${-this._start.x}, ${-this._start.y})` 
     return result
+  }
+  get path(){
+    return this._path;
   }
 
 }
@@ -398,7 +401,7 @@ class LowerBody {
     }
     this._knee = knee;
     this.upperLeg = new Segment({start: seatPost.start, end: knee});
-    this.upperLegDrawing = new SvgDrawing({start: {x: 0, y: 201}, end: {x: 1538, y: 201}, path: "M0 0h1538v201H0z"})
+    this.upperLegDrawing = new SvgDrawing({start: {x: 2348, y: 625}, end: {x: 583, y: 1593}, path: "M2238 3s-1004.92 128.457-978 286c-418.017 222.988-906 720-906 720L52 1321c-71.972 97.79-51.848 152.47-24 250 29.192 66.99 544.001 30 558 20 14-10 141-114 155-128 104.067-27.45 149-47.45 253-78 316.22-92.89 416.15-164.51 601.32-297.21l6.68-4.79c185.06-126.276 293.11-203.129 416-242 481.03-149.165 409.39-386.648 220-838Z"})
     this.lowerLeg= new RoundedSegment({start: knee, end: heel, radius: 35});
     this.feet = new RoundedSegment({start: heel, end: end, radius:2});
 
@@ -409,8 +412,12 @@ class LowerBody {
     return this.upperLeg.draw() + " " + this.lowerLeg.draw() + " " + this.feet.draw()
   }
 
-  upperLegTransform(): string{
+  upperLegTransform(): string {
     return this.upperLegDrawing.transform(this.upperLeg.start, this.upperLeg.end);
+  }
+
+  getUpperLegPath(){
+    return this.upperLegDrawing.path;
   }
 }
 

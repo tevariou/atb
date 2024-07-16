@@ -77,10 +77,8 @@ export const Bike = ({ spinAngle }: { spinAngle: number }) => {
         <path d={bike.seatPost.draw()} stroke="red" strokeWidth="5" fill="none" />
         <path d={bike.lowerBody.draw()} fill="#f70776" fillOpacity="0.2" />
         <g transform={bike.lowerBody.upperLegTransform()}>
-            <path fill="#D9D9D9" d="M0 0h1538v201H0z"/>          
+            <path fill="#D9D9D9" d={bike.lowerBody.getUpperLegPath()}/>
         </g>
-
-
         <path d={bike.upperBody.draw()} fill="#f70776" fillOpacity="0.2" />
           
       </g>

@@ -14,7 +14,7 @@ const App = () => {
   useEffect(() => {
     const incrementAngle = () => {
       if (spinAngle < 360) {
-        setSpinAngle(spinAngle + 0.2)
+        setSpinAngle(spinAngle + 0.5)
       } else {
         setSpinAngle(0)
       }
