@@ -30,7 +30,7 @@ export const Bike = ({ spinAngle }: { spinAngle: number }) => {
       riderArmLength: 690,
       riderSpineLength: 700,
       effectiveSeatTubeAngle: 72.5,
-      handleBarReach: 76,
+      handleBarReach: 506,
       handleBarHeight: 0,
       spinAngle: spinAngle,
     }
@@ -75,11 +75,24 @@ export const Bike = ({ spinAngle }: { spinAngle: number }) => {
         <path d={bike.spacers.draw()} stroke="red" strokeWidth="5" fill="none" />
         <path d={bike.stem.draw()} stroke="red" strokeWidth="5" fill="none" />
         <path d={bike.seatPost.draw()} stroke="red" strokeWidth="5" fill="none" />
-        <path d={bike.lowerBody.draw()} fill="#f70776" fillOpacity="0.2" />
+        <g transform={bike.upperBody.headTransform()}>
+          <path fill="#D9D9D9" d={bike.upperBody.getHeadDrawing()}/>
+        </g>
+        <g transform={bike.upperBody.armDrawingTransform()}>
+          <path fill="#D9D9D9" d={bike.upperBody.getArmDrawingPath()}/>
+        </g>
+        <g transform={bike.upperBody.spineDrawingTransform()}>
+          <path fill="#D9D9D9" d={bike.upperBody.getSpineDrawingPath()}/>
+        </g>
+        <g transform={bike.lowerBody.lowerLegTransform()}>
+          <path fill="#D9D9D9" d={bike.lowerBody.getLowerLegPath()}/>
+        </g>
+        <g transform={bike.lowerBody.feetTransform()}>
+            <path fill="#D9D9D9" d={bike.lowerBody.getfeetPath()}/>
+        </g>
         <g transform={bike.lowerBody.upperLegTransform()}>
             <path fill="#D9D9D9" d={bike.lowerBody.getUpperLegPath()}/>
         </g>
-        <path d={bike.upperBody.draw()} fill="#f70776" fillOpacity="0.2" />
           
       </g>
     </svg>
