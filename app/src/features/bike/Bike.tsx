@@ -30,7 +30,7 @@ export const Bike = ({ spinAngle }: { spinAngle: number }) => {
       riderArmLength: 690,
       riderSpineLength: 700,
       effectiveSeatTubeAngle: 72.5,
-      handleBarReach: 506,
+      handleBarReach: 106,
       handleBarHeight: 0,
       spinAngle: spinAngle,
     }
@@ -64,37 +64,44 @@ export const Bike = ({ spinAngle }: { spinAngle: number }) => {
         <circle fill="white" cx={bike.fork.end.x} cy={bike.fork.end.y} r={frontWheel.radius} />
         <circle transform={`rotate(${-spinAngle}, ${bike.chainStay.start.x}, ${bike.chainStay.start.y})`} fill="url(#rainbow)" fillOpacity="0.5" cx={bike.chainStay.start.x} cy={bike.chainStay.start.y} r={rearWheel.radiusWithTire} />
         <circle fill="white" cx={bike.chainStay.start.x} cy={bike.chainStay.start.y} r={rearWheel.radius} />
-        <path d={bike.headTube.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.fork.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.downTube.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.seatTube.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.chainStay.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.seatStay.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.topTube.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.crank.draw()} stroke="red" strokeWidth="5" fill="none" />
-        <path d={bike.spacers.draw()} stroke="red" strokeWidth="5" fill="none" />
-        <path d={bike.stem.draw()} stroke="red" strokeWidth="5" fill="none" />
-        <path d={bike.seatPost.draw()} stroke="red" strokeWidth="5" fill="none" />
-        <g transform={bike.upperBody.headTransform()}>
-          <path fill="#D9D9D9" d={bike.upperBody.getHeadDrawing()}/>
-        </g>
-        <g transform={bike.upperBody.armDrawingTransform()}>
-          <path fill="#D9D9D9" d={bike.upperBody.getArmDrawingPath()}/>
-        </g>
+        <path d={bike.headTube.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.fork.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.downTube.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.seatTube.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.chainStay.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.seatStay.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.topTube.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.crank.draw()} stroke="red" strokeWidth="15" fill="none" />
+        <path d={bike.spacers.draw()} stroke="red" strokeWidth="15" fill="none" />
+        <path d={bike.stem.draw()} stroke="red" strokeWidth="15" fill="none" />
+        <path d={bike.seatPost.draw()} stroke="red" strokeWidth="15" fill="none" />
+
+
         <g transform={bike.upperBody.spineDrawingTransform()}>
-          <path fill="#D9D9D9" d={bike.upperBody.getSpineDrawingPath()}/>
+          <path fill="#4B0082"  d={bike.upperBody.getSpineDrawingPath()}/>
         </g>
         <g transform={bike.lowerBody.lowerLegTransform()}>
-          <path fill="#D9D9D9" d={bike.lowerBody.getLowerLegPath()}/>
+          <path fill="#4B0082"  d={bike.lowerBody.getLowerLegPath()}/>
         </g>
         <g transform={bike.lowerBody.feetTransform()}>
-            <path fill="#D9D9D9" d={bike.lowerBody.getfeetPath()}/>
+            <path fill="url(#rainbow)"  d={bike.lowerBody.getfeetPath()}/>
         </g>
         <g transform={bike.lowerBody.upperLegTransform()}>
-            <path fill="#D9D9D9" d={bike.lowerBody.getUpperLegPath()}/>
+            <path fill="#4B0082"  d={bike.lowerBody.getUpperLegPath()}/>
         </g>
-          
+        <g transform={bike.upperBody.headTransform()}>
+          <path  fill="#4B0082" d={bike.upperBody.getHeadDrawing()}/>
+        </g>
+        <g transform={bike.upperBody.armDrawingTransform()}>
+          <path fill="#4B0082" d={bike.upperBody.getArmDrawingPath()}/>
+        </g>
+
       </g>
     </svg>
   )
 }
+
+// todo
+// shape, see bikecad
+// feet, rotate 
+// head size

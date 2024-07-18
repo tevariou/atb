@@ -14,12 +14,12 @@ const App = () => {
   useEffect(() => {
     const incrementAngle = () => {
       if (spinAngle < 360) {
-        setSpinAngle(spinAngle + 5)
+        setSpinAngle(spinAngle + 1)
       } else {
         setSpinAngle(0)
       }
     }
-    const interval = setInterval(() => incrementAngle(), 1);
+    const interval = setInterval(() => incrementAngle(), 5);
     return () => {
       clearInterval(interval);
     };
