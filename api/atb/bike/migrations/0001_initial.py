@@ -18,401 +18,1211 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Brand',
+            name="Brand",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, unique=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100, unique=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Cassette',
+            name="Cassette",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('gears', django.contrib.postgres.fields.ArrayField(base_field=models.PositiveSmallIntegerField(), size=None)),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "gears",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.PositiveSmallIntegerField(), size=None
+                    ),
+                ),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Chainring',
+            name="Chainring",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('gears', django.contrib.postgres.fields.ArrayField(base_field=models.PositiveSmallIntegerField(), size=None)),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "gears",
+                    django.contrib.postgres.fields.ArrayField(
+                        base_field=models.PositiveSmallIntegerField(), size=None
+                    ),
+                ),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Crank',
+            name="Crank",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('length', models.PositiveSmallIntegerField()),
-                ('q_factor', models.PositiveSmallIntegerField()),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("length", models.PositiveSmallIntegerField()),
+                ("q_factor", models.PositiveSmallIntegerField()),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='ExternalHeadsetLowerCup',
+            name="ExternalHeadsetLowerCup",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('stack_height', models.PositiveSmallIntegerField()),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("stack_height", models.PositiveSmallIntegerField()),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='ExternalHeadsetUpperCup',
+            name="ExternalHeadsetUpperCup",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('stack_height', models.PositiveSmallIntegerField()),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("stack_height", models.PositiveSmallIntegerField()),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Fork',
+            name="Fork",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('offset', models.PositiveSmallIntegerField()),
-                ('crown_to_axle', models.PositiveSmallIntegerField()),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("offset", models.PositiveSmallIntegerField()),
+                ("crown_to_axle", models.PositiveSmallIntegerField()),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Frame',
+            name="Frame",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('reach', models.PositiveSmallIntegerField()),
-                ('stack', models.PositiveSmallIntegerField()),
-                ('chainstay', models.PositiveSmallIntegerField()),
-                ('head_tube', models.PositiveSmallIntegerField()),
-                ('head_tube_angle', atb.bike.models.AngleField(decimal_places=2, max_digits=4, validators=[django.core.validators.MinValueValidator(0.01), django.core.validators.MaxValueValidator(89.99)])),
-                ('actual_seat_tube_angle', atb.bike.models.AngleField(decimal_places=2, max_digits=4, validators=[django.core.validators.MinValueValidator(0.01), django.core.validators.MaxValueValidator(89.99)])),
-                ('effective_seat_tube_angle', atb.bike.models.AngleField(decimal_places=2, max_digits=4, validators=[django.core.validators.MinValueValidator(0.01), django.core.validators.MaxValueValidator(89.99)])),
-                ('seat_tube', models.PositiveSmallIntegerField()),
-                ('bb_drop', models.PositiveSmallIntegerField()),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("reach", models.PositiveSmallIntegerField()),
+                ("stack", models.PositiveSmallIntegerField()),
+                ("chainstay", models.PositiveSmallIntegerField()),
+                ("head_tube", models.PositiveSmallIntegerField()),
+                (
+                    "head_tube_angle",
+                    atb.bike.models.AngleField(
+                        decimal_places=2,
+                        max_digits=4,
+                        validators=[
+                            django.core.validators.MinValueValidator(0.01),
+                            django.core.validators.MaxValueValidator(89.99),
+                        ],
+                    ),
+                ),
+                (
+                    "actual_seat_tube_angle",
+                    atb.bike.models.AngleField(
+                        decimal_places=2,
+                        max_digits=4,
+                        validators=[
+                            django.core.validators.MinValueValidator(0.01),
+                            django.core.validators.MaxValueValidator(89.99),
+                        ],
+                    ),
+                ),
+                (
+                    "effective_seat_tube_angle",
+                    atb.bike.models.AngleField(
+                        decimal_places=2,
+                        max_digits=4,
+                        validators=[
+                            django.core.validators.MinValueValidator(0.01),
+                            django.core.validators.MaxValueValidator(89.99),
+                        ],
+                    ),
+                ),
+                ("seat_tube", models.PositiveSmallIntegerField()),
+                ("bb_drop", models.PositiveSmallIntegerField()),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Handlebar',
+            name="Handlebar",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('width', models.PositiveSmallIntegerField()),
-                ('rise', models.PositiveSmallIntegerField()),
-                ('reach', models.PositiveSmallIntegerField()),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("width", models.PositiveSmallIntegerField()),
+                ("rise", models.PositiveSmallIntegerField()),
+                ("reach", models.PositiveSmallIntegerField()),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Pedal',
+            name="Pedal",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('stack_height', models.PositiveSmallIntegerField()),
-                ('crank_to_pedal_center', models.PositiveSmallIntegerField()),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("stack_height", models.PositiveSmallIntegerField()),
+                ("crank_to_pedal_center", models.PositiveSmallIntegerField()),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Rider',
+            name="Rider",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('inseam', models.PositiveSmallIntegerField()),
-                ('upper_leg', models.PositiveSmallIntegerField()),
-                ('foot', models.PositiveSmallIntegerField()),
-                ('arm', models.PositiveSmallIntegerField()),
-                ('spine', models.PositiveSmallIntegerField()),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("inseam", models.PositiveSmallIntegerField()),
+                ("upper_leg", models.PositiveSmallIntegerField()),
+                ("foot", models.PositiveSmallIntegerField()),
+                ("arm", models.PositiveSmallIntegerField()),
+                ("spine", models.PositiveSmallIntegerField()),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Saddle',
+            name="Saddle",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('stack_height', models.PositiveSmallIntegerField()),
-                ('offset', models.PositiveSmallIntegerField()),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("stack_height", models.PositiveSmallIntegerField()),
+                ("offset", models.PositiveSmallIntegerField()),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='SeatPost',
+            name="SeatPost",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('length', models.PositiveSmallIntegerField()),
-                ('offset', models.PositiveSmallIntegerField()),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("length", models.PositiveSmallIntegerField()),
+                ("offset", models.PositiveSmallIntegerField()),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Stem',
+            name="Stem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('length', models.PositiveSmallIntegerField()),
-                ('angle', atb.bike.models.AngleField(decimal_places=2, max_digits=4, validators=[django.core.validators.MinValueValidator(0.01), django.core.validators.MaxValueValidator(89.99)])),
-                ('stack_height', models.PositiveSmallIntegerField()),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("length", models.PositiveSmallIntegerField()),
+                (
+                    "angle",
+                    atb.bike.models.AngleField(
+                        decimal_places=2,
+                        max_digits=4,
+                        validators=[
+                            django.core.validators.MinValueValidator(0.01),
+                            django.core.validators.MaxValueValidator(89.99),
+                        ],
+                    ),
+                ),
+                ("stack_height", models.PositiveSmallIntegerField()),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Tire',
+            name="Tire",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('diameter', models.PositiveSmallIntegerField()),
-                ('width', models.PositiveSmallIntegerField()),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("diameter", models.PositiveSmallIntegerField()),
+                ("width", models.PositiveSmallIntegerField()),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Wheel',
+            name="Wheel",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('diameter', models.PositiveSmallIntegerField()),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("diameter", models.PositiveSmallIntegerField()),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Bike',
+            name="Bike",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model', models.CharField(blank=True, max_length=100)),
-                ('gtin', models.PositiveBigIntegerField(null=True, unique=True, validators=[django.core.validators.MaxValueValidator(99999999999999)])),
-                ('mpn', models.CharField(max_length=100, null=True)),
-                ('is_public', models.BooleanField(default=False)),
-                ('status', models.TextField(choices=[('waiting_approval', 'Waiting approval'), ('approved', 'Approved'), ('rejected', 'Rejected')], default='waiting_approval')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('front_center', models.PositiveSmallIntegerField(blank=True, default=0)),
-                ('wheelbase', models.PositiveSmallIntegerField(blank=True, default=0)),
-                ('spacers', models.PositiveSmallIntegerField(blank=True, default=0)),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
-                ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.brand')),
-                ('cassette', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.cassette')),
-                ('chainring', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.chainring')),
-                ('external_headset_lower_cup', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.externalheadsetlowercup')),
-                ('external_headset_upper_cup', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.externalheadsetuppercup')),
-                ('fork', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.fork')),
-                ('frame', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.frame')),
-                ('Handlebar', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.handlebar')),
-                ('stem', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='bike.stem')),
-                ('front_tire', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='front_tire', to='bike.tire')),
-                ('rear_tire', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='rear_tire', to='bike.tire')),
-                ('front_wheel', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='front_wheel', to='bike.wheel')),
-                ('rear_wheel', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='rear_wheel', to='bike.wheel')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model", models.CharField(blank=True, max_length=100)),
+                (
+                    "gtin",
+                    models.PositiveBigIntegerField(
+                        null=True,
+                        unique=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(99999999999999)
+                        ],
+                    ),
+                ),
+                ("mpn", models.CharField(max_length=100, null=True)),
+                ("is_public", models.BooleanField(default=False)),
+                (
+                    "status",
+                    models.TextField(
+                        choices=[
+                            ("waiting_approval", "Waiting approval"),
+                            ("approved", "Approved"),
+                            ("rejected", "Rejected"),
+                        ],
+                        default="waiting_approval",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "front_center",
+                    models.PositiveSmallIntegerField(blank=True, default=0),
+                ),
+                ("wheelbase", models.PositiveSmallIntegerField(blank=True, default=0)),
+                ("spacers", models.PositiveSmallIntegerField(blank=True, default=0)),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.brand",
+                    ),
+                ),
+                (
+                    "cassette",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.cassette",
+                    ),
+                ),
+                (
+                    "chainring",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.chainring",
+                    ),
+                ),
+                (
+                    "external_headset_lower_cup",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.externalheadsetlowercup",
+                    ),
+                ),
+                (
+                    "external_headset_upper_cup",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.externalheadsetuppercup",
+                    ),
+                ),
+                (
+                    "fork",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.fork",
+                    ),
+                ),
+                (
+                    "frame",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.frame",
+                    ),
+                ),
+                (
+                    "Handlebar",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.handlebar",
+                    ),
+                ),
+                (
+                    "stem",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="bike.stem",
+                    ),
+                ),
+                (
+                    "front_tire",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="front_tire",
+                        to="bike.tire",
+                    ),
+                ),
+                (
+                    "rear_tire",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="rear_tire",
+                        to="bike.tire",
+                    ),
+                ),
+                (
+                    "front_wheel",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="front_wheel",
+                        to="bike.wheel",
+                    ),
+                ),
+                (
+                    "rear_wheel",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="rear_wheel",
+                        to="bike.wheel",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.AddConstraint(
-            model_name='cassette',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_cassette_unique_brand_mpn'),
+            model_name="cassette",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_cassette_unique_brand_mpn"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='chainring',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_chainring_unique_brand_mpn'),
+            model_name="chainring",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_chainring_unique_brand_mpn"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='crank',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_crank_unique_brand_mpn'),
+            model_name="crank",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_crank_unique_brand_mpn"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='externalheadsetlowercup',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_externalheadsetlowercup_unique_brand_mpn'),
+            model_name="externalheadsetlowercup",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"),
+                name="bike_externalheadsetlowercup_unique_brand_mpn",
+            ),
         ),
         migrations.AddConstraint(
-            model_name='externalheadsetuppercup',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_externalheadsetuppercup_unique_brand_mpn'),
+            model_name="externalheadsetuppercup",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"),
+                name="bike_externalheadsetuppercup_unique_brand_mpn",
+            ),
         ),
         migrations.AddConstraint(
-            model_name='fork',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_fork_unique_brand_mpn'),
+            model_name="fork",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_fork_unique_brand_mpn"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='frame',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_frame_unique_brand_mpn'),
+            model_name="frame",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_frame_unique_brand_mpn"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='handlebar',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_handlebar_unique_brand_mpn'),
+            model_name="handlebar",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_handlebar_unique_brand_mpn"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='pedal',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_pedal_unique_brand_mpn'),
+            model_name="pedal",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_pedal_unique_brand_mpn"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='saddle',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_saddle_unique_brand_mpn'),
+            model_name="saddle",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_saddle_unique_brand_mpn"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='seatpost',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_seatpost_unique_brand_mpn'),
+            model_name="seatpost",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_seatpost_unique_brand_mpn"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='stem',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_stem_unique_brand_mpn'),
+            model_name="stem",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_stem_unique_brand_mpn"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='tire',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_tire_unique_brand_mpn'),
+            model_name="tire",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_tire_unique_brand_mpn"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='wheel',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_wheel_unique_brand_mpn'),
+            model_name="wheel",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_wheel_unique_brand_mpn"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='bike',
-            constraint=models.UniqueConstraint(fields=('brand', 'mpn'), name='bike_bike_unique_brand_mpn'),
+            model_name="bike",
+            constraint=models.UniqueConstraint(
+                fields=("brand", "mpn"), name="bike_bike_unique_brand_mpn"
+            ),
         ),
     ]

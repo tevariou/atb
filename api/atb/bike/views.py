@@ -1,10 +1,14 @@
+from atb.bike import models, serializers
 from rest_framework import viewsets
-from atb.bike import serializers, models
 
 
 class BikeModelViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
-        return self.queryset.filter(owner=self.request.user) | self.queryset.filter(is_public=True).filter(status=models.Bike.StatusChoices.APPROVED)
+        if self.queryset:
+            return self.queryset.filter(owner=self.request.user) | self.queryset.filter(
+                is_public=True
+            ).filter(status=models.Bike.StatusChoices.APPROVED)
+        return super().get_queryset()
 
 
 class BikeViewSet(BikeModelViewSet):

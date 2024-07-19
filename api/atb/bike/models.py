@@ -1,8 +1,9 @@
 from decimal import Decimal
-from django.db import models
-from django.core import validators
-from django.contrib.postgres.fields import ArrayField
+
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
+from django.core import validators
+from django.db import models
 
 
 class AngleField(models.DecimalField):
@@ -14,13 +15,16 @@ class AngleField(models.DecimalField):
         decimal_places=None,
         **kwargs,
     ) -> None:
-        kwargs["validators"] = [validators.MinValueValidator(Decimal(0.01)), validators.MaxValueValidator(Decimal(89.99))]
+        kwargs["validators"] = [
+            validators.MinValueValidator(Decimal(0.01)),
+            validators.MaxValueValidator(Decimal(89.99)),
+        ]
         super().__init__(
             verbose_name,
             name,
             max_digits=4 if max_digits is None else max_digits,
             decimal_places=2 if decimal_places is None else decimal_places,
-            **kwargs
+            **kwargs,
         )
 
 
@@ -33,12 +37,14 @@ class Brand(models.Model):
 class Component(models.Model):
     class StatusChoices(models.TextChoices):
         WAITING_APPROVAL = ("waiting_approval", "Waiting approval")
-        APPROVED = ("approved", "Approved") 
+        APPROVED = ("approved", "Approved")
         REJECTED = ("rejected", "Rejected")
 
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
     model = models.CharField(max_length=100, blank=True)
-    gtin = models.PositiveBigIntegerField(null=True, unique=True, validators=[validators.MaxValueValidator(10**14-1)])
+    gtin = models.PositiveBigIntegerField(
+        null=True, unique=True, validators=[validators.MaxValueValidator(10**14 - 1)]
+    )
     mpn = models.CharField(max_length=100, null=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     is_public = models.BooleanField(default=False)
@@ -51,7 +57,9 @@ class Component(models.Model):
     class Meta:
         abstract = True
         constraints = [
-            models.UniqueConstraint(fields=["brand", "mpn"], name="%(app_label)s_%(class)s_unique_brand_mpn"),
+            models.UniqueConstraint(
+                fields=["brand", "mpn"], name="%(app_label)s_%(class)s_unique_brand_mpn"
+            ),
         ]
 
 
@@ -142,15 +150,27 @@ class Bike(Component):
     frame = models.ForeignKey(Frame, on_delete=models.SET_NULL, null=True)
     fork = models.ForeignKey(Fork, on_delete=models.SET_NULL, null=True)
     Handlebar = models.ForeignKey(Handlebar, on_delete=models.SET_NULL, null=True)
-    external_headset_upper_cup = models.ForeignKey(ExternalHeadsetUpperCup, on_delete=models.SET_NULL, null=True)
-    external_headset_lower_cup = models.ForeignKey(ExternalHeadsetLowerCup, on_delete=models.SET_NULL, null=True)
+    external_headset_upper_cup = models.ForeignKey(
+        ExternalHeadsetUpperCup, on_delete=models.SET_NULL, null=True
+    )
+    external_headset_lower_cup = models.ForeignKey(
+        ExternalHeadsetLowerCup, on_delete=models.SET_NULL, null=True
+    )
     stem = models.ForeignKey(Stem, on_delete=models.SET_NULL, null=True)
     chainring = models.ForeignKey(Chainring, on_delete=models.SET_NULL, null=True)
     cassette = models.ForeignKey(Cassette, on_delete=models.SET_NULL, null=True)
-    front_tire = models.ForeignKey(Tire, on_delete=models.SET_NULL, null=True, related_name="front_tire")
-    front_wheel = models.ForeignKey(Wheel, on_delete=models.SET_NULL, null=True, related_name="front_wheel")
-    rear_tire = models.ForeignKey(Tire, on_delete=models.SET_NULL, null=True, related_name="rear_tire")
-    rear_wheel = models.ForeignKey(Wheel, on_delete=models.SET_NULL, null=True, related_name="rear_wheel")
+    front_tire = models.ForeignKey(
+        Tire, on_delete=models.SET_NULL, null=True, related_name="front_tire"
+    )
+    front_wheel = models.ForeignKey(
+        Wheel, on_delete=models.SET_NULL, null=True, related_name="front_wheel"
+    )
+    rear_tire = models.ForeignKey(
+        Tire, on_delete=models.SET_NULL, null=True, related_name="rear_tire"
+    )
+    rear_wheel = models.ForeignKey(
+        Wheel, on_delete=models.SET_NULL, null=True, related_name="rear_wheel"
+    )
 
     front_center = models.PositiveSmallIntegerField(blank=True, default=0)
     wheelbase = models.PositiveSmallIntegerField(blank=True, default=0)

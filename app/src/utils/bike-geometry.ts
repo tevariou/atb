@@ -23,7 +23,7 @@ class Segment {
       [this.end.x, this.end.y]
     ]) ?? "";
   }
-  
+
   get start(): Coordinates{
     return this._start;
   }
@@ -38,12 +38,12 @@ class HeadTube extends Segment {
   angle: number;
 
   constructor({
-    bottomBracket, 
-    headTubeLength, 
-    headTubeAngle, 
-    reachLength, 
+    bottomBracket,
+    headTubeLength,
+    headTubeAngle,
+    reachLength,
     stackLength
-  }: {bottomBracket: BottomBracket, headTubeLength: number, headTubeAngle: number, reachLength: number, stackLength: number}){    
+  }: {bottomBracket: BottomBracket, headTubeLength: number, headTubeAngle: number, reachLength: number, stackLength: number}){
     const start = {
       x: reachLength + bottomBracket.coordinates.x,
       y: stackLength + bottomBracket.coordinates.y
@@ -63,8 +63,8 @@ class ChainStay extends Segment {
   bbDropLength: number;
 
   constructor({
-    bottomBracket, 
-    bbDropLength, 
+    bottomBracket,
+    bbDropLength,
     chainStayLength
   }: {bottomBracket: BottomBracket, bbDropLength: number, chainStayLength: number}){
     const start = {
@@ -84,15 +84,15 @@ class Crank extends Segment {
   readonly qFactor: number;
 
   constructor({
-    bottomBracket, 
-    crankLength, 
+    bottomBracket,
+    crankLength,
     qFactor,
     spinAngle = 0,
   }: {bottomBracket: BottomBracket, crankLength: number, qFactor: number, spinAngle: number}){
     const start = bottomBracket.coordinates;
     const end = rotate(
       {
-        x: crankLength + bottomBracket.coordinates.x, 
+        x: crankLength + bottomBracket.coordinates.x,
         y: bottomBracket.coordinates.y
       },
       toRadians(-spinAngle),
@@ -109,7 +109,7 @@ class TopTubeHorizontal extends Segment {
 
   constructor({
     bottomBracket,
-    headTube, 
+    headTube,
     effectiveSeatTubeAngle
   }: {bottomBracket: BottomBracket, headTube: HeadTube, effectiveSeatTubeAngle: number}){
     const start = {
@@ -129,9 +129,9 @@ class SeatTube extends Segment {
   private breakPoint: Coordinates;
 
   constructor({
-    bottomBracket, 
-    topTubeHorizontal, 
-    seatTubeLength, 
+    bottomBracket,
+    topTubeHorizontal,
+    seatTubeLength,
     actualSeatTubeAngle
   }: {bottomBracket: BottomBracket, topTubeHorizontal: TopTubeHorizontal, seatTubeLength: number, actualSeatTubeAngle: number}){
     const alpha = -actualSeatTubeAngle;
@@ -177,7 +177,7 @@ class Spacers extends Segment {
   private readonly __brand = "Spacers";
 
   constructor({
-    headTube, 
+    headTube,
     spacersLength
   }: {headTube: HeadTube, spacersLength: number}){
     const start = {
@@ -194,10 +194,10 @@ class SeatPost extends Segment {
   private readonly __brand = "SeatPost";
 
   constructor({
-    bottomBracket, 
-    seatTube, 
-    crank, 
-    seatPostOffset, 
+    bottomBracket,
+    seatTube,
+    crank,
+    seatPostOffset,
     riderInseamLength
   }: {bottomBracket: BottomBracket, seatTube: SeatTube, crank: Crank, riderInseamLength: number, seatPostOffset: number}){
     const getXWithOffset = (seatPostLength: number) => -Math.cos(seatTube.actualAngle) * seatPostLength + seatTube.start.x - seatPostOffset;
@@ -226,9 +226,9 @@ class Stem extends Segment {
   private readonly __brand = "Stem";
 
   constructor({
-    spacers, 
-    headTube, 
-    stemLength, 
+    spacers,
+    headTube,
+    stemLength,
     stemAngle
   }: {spacers: Spacers, headTube: HeadTube, stemLength: number, stemAngle: number}){
     const x = -Math.cos(headTube.angle) * stemLength;
@@ -248,12 +248,12 @@ class Fork extends Segment {
   private readonly __brand = "Fork";
 
   constructor({
-    bottomBracket, 
-    headTube, 
-    chainStay, 
-    forkOffsetLength, 
-    crownToAxleLength, 
-    frontCenterLength, 
+    bottomBracket,
+    headTube,
+    chainStay,
+    forkOffsetLength,
+    crownToAxleLength,
+    frontCenterLength,
     wheelBase
   }: {bottomBracket: BottomBracket, headTube: HeadTube, chainStay: ChainStay, forkOffsetLength: number, crownToAxleLength: number, frontCenterLength: number, wheelBase: number}){
     let end: Coordinates;
@@ -273,9 +273,9 @@ class Fork extends Segment {
         x: headTube.end.x + forkOffsetLength,
         y: headTube.end.y - crownToAxleLength
       }
-  
+
       const frontAxleWithOffsetCoordinates = rotate(unRotatedFrontAxleWithOffsetCoordinates, toRadians(90) - headTube.angle, headTube.end)
-  
+
       end = {
         x: frontAxleWithOffsetCoordinates.x,
         y: frontAxleWithOffsetCoordinates.y
@@ -294,9 +294,9 @@ class LowerBody extends Segment {
   private readonly heel: Coordinates;
 
   constructor({
-    bottomBracket, 
-    seatPost, 
-    crank, 
+    bottomBracket,
+    seatPost,
+    crank,
     riderInseamLength,
     riderUpperLegLength,
     riderFootLength
@@ -317,7 +317,7 @@ class LowerBody extends Segment {
       y: crank.end.y
     }
 
-    
+
     let knee: Coordinates;
 
     if (fromSaddleToPedal > riderInseamLength) {
@@ -361,9 +361,9 @@ class UpperBody extends Segment {
   private readonly shoulder: Coordinates;
 
   constructor({
-    seatPost, 
+    seatPost,
     handleBar,
-    riderArmLength, 
+    riderArmLength,
     riderSpineLength
   }: {seatPost: SeatPost, handleBar: HandleBar, riderArmLength: number, riderSpineLength: number}){
     const h = handleBar.coordinates;
@@ -422,9 +422,9 @@ class HandleBar extends Point {
   readonly width: number;
 
   constructor({
-    stem, 
-    handleBarReach, 
-    handleBarHeight, 
+    stem,
+    handleBarReach,
+    handleBarHeight,
     handleBarWidth
   }: {stem: Stem, handleBarReach: number, handleBarHeight: number, handleBarWidth: number}) {
     const coordinates = {
@@ -456,7 +456,7 @@ export class BikeGeometry {
   private _crank: Crank;
   private _spacers: Spacers;
   private _stem: Stem;
-  private _seatPost: SeatPost; 
+  private _seatPost: SeatPost;
   private _chainStay: ChainStay;
   private _fork: Fork;
   private _topTube: Segment;
@@ -545,7 +545,7 @@ export class BikeGeometry {
   get topTube(): Segment {
     return this._topTube;
   }
-  
+
   get seatTube(): SeatTube{
     return this._seatTube;
   }
@@ -573,7 +573,7 @@ export class BikeGeometry {
   get spacers(): Spacers {
     return this._spacers;
   }
-  
+
   get stem(): Stem {
     return this._stem;
   }

@@ -1,0 +1,6 @@
+[flake8]
+per-file-ignores =
+    api/**/migrations/*: E501
+max-line-length = 119
+max-doc-length = 112
+exclude = .venv/

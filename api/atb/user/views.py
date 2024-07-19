@@ -1,9 +1,11 @@
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
-from drf_spectacular.utils import extend_schema
-from rest_framework import viewsets, mixins, permissions, status
-from rest_framework.response import Response
 from atb.user import serializers
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from drf_spectacular.utils import extend_schema
+from rest_framework import mixins, permissions
+from rest_framework import serializers as rest_serializers
+from rest_framework import status, viewsets
+from rest_framework.response import Response
 
 
 class RegistrationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -11,7 +13,7 @@ class RegistrationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = serializers.UserSerializer
     permission_classes = [permissions.AllowAny]
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer: rest_serializers.BaseSerializer):
         User.objects.create_user(**serializer.validated_data)
 
 

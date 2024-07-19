@@ -1,0 +1,6 @@
+-r requirements.base.txt
+
+psycopg2-binary==2.9.9
+pre-commit~=3.7.1
+mypy~=1.10.1
+djangorestframework-stubs~=3.15.0
