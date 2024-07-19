@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from django.core import validators
 from django.contrib.postgres.fields import ArrayField
@@ -13,7 +14,7 @@ class AngleField(models.DecimalField):
         decimal_places=None,
         **kwargs,
     ) -> None:
-        kwargs["validators"] = [validators.MinValueValidator(0.01), validators.MaxValueValidator(89.99)]
+        kwargs["validators"] = [validators.MinValueValidator(Decimal(0.01)), validators.MaxValueValidator(Decimal(89.99))]
         super().__init__(
             verbose_name,
             name,
@@ -59,7 +60,7 @@ class Saddle(Component):
     offset = models.PositiveSmallIntegerField()
 
 
-class SeatPost(Component):
+class Seatpost(Component):
     length = models.PositiveSmallIntegerField()
     offset = models.PositiveSmallIntegerField()
 

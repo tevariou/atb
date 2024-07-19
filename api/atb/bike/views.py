@@ -2,81 +2,86 @@ from rest_framework import viewsets
 from atb.bike import serializers, models
 
 
-class BikeViewSet(viewsets.ModelViewSet):
+class BikeModelViewSet(viewsets.ModelViewSet):
+    def get_queryset(self):
+        return self.queryset.filter(owner=self.request.user) | self.queryset.filter(is_public=True).filter(status=models.Bike.StatusChoices.APPROVED)
+
+
+class BikeViewSet(BikeModelViewSet):
     queryset = models.Bike.objects.all()
     serializer_class = serializers.BikeSerializer
 
 
-class BrandViewSet(viewsets.ModelViewSet):
+class BrandViewSet(BikeModelViewSet):
     queryset = models.Brand.objects.all()
     serializer_class = serializers.BrandSerializer
 
 
-class FrameViewSet(viewsets.ModelViewSet):
+class FrameViewSet(BikeModelViewSet):
     queryset = models.Frame.objects.all()
     serializer_class = serializers.FrameSerializer
 
 
-class ForkViewSet(viewsets.ModelViewSet):
+class ForkViewSet(BikeModelViewSet):
     queryset = models.Fork.objects.all()
     serializer_class = serializers.ForkSerializer
 
 
-class SaddleViewSet(viewsets.ModelViewSet):
+class SeatpostViewSet(BikeModelViewSet):
+    queryset = models.Seatpost.objects.all()
+    serializer_class = serializers.SeatpostSerializer
+
+
+class SaddleViewSet(BikeModelViewSet):
     queryset = models.Saddle.objects.all()
     serializer_class = serializers.SaddleSerializer
 
 
-class SeatPostViewSet(viewsets.ModelViewSet):
-    queryset = models.SeatPost.objects.all()
-    serializer_class = serializers.SeatPostSerializer
-
-
-class CrankViewSet(viewsets.ModelViewSet):
+class CrankViewSet(BikeModelViewSet):
     queryset = models.Crank.objects.all()
     serializer_class = serializers.CrankSerializer
 
 
-class PedalViewSet(viewsets.ModelViewSet):
+class PedalViewSet(BikeModelViewSet):
     queryset = models.Pedal.objects.all()
     serializer_class = serializers.PedalSerializer
 
 
-class TireViewSet(viewsets.ModelViewSet):
+class TireViewSet(BikeModelViewSet):
     queryset = models.Tire.objects.all()
     serializer_class = serializers.TireSerializer
 
 
-class WheelViewSet(viewsets.ModelViewSet):
+class WheelViewSet(BikeModelViewSet):
     queryset = models.Wheel.objects.all()
     serializer_class = serializers.WheelSerializer
 
 
-class ChainringViewSet(viewsets.ModelViewSet):
+class ChainringViewSet(BikeModelViewSet):
     queryset = models.Chainring.objects.all()
     serializer_class = serializers.ChainringSerializer
 
 
-class CassetteViewSet(viewsets.ModelViewSet):
+class CassetteViewSet(BikeModelViewSet):
     queryset = models.Cassette.objects.all()
     serializer_class = serializers.CassetteSerializer
 
 
-class StemViewSet(viewsets.ModelViewSet):
+class StemViewSet(BikeModelViewSet):
     queryset = models.Stem.objects.all()
     serializer_class = serializers.StemSerializer
 
 
-class ExternalHeadsetUpperCupViewSet(viewsets.ModelViewSet):
+class ExternalHeadsetUpperCupViewSet(BikeModelViewSet):
     queryset = models.ExternalHeadsetUpperCup.objects.all()
     serializer_class = serializers.ExternalHeadsetUpperCupSerializer
 
 
-class ExternalHeadsetLowerCupViewSet(viewsets.ModelViewSet):
+class ExternalHeadsetLowerCupViewSet(BikeModelViewSet):
     queryset = models.ExternalHeadsetLowerCup.objects.all()
     serializer_class = serializers.ExternalHeadsetLowerCupSerializer
 
 
-class HandlebarViewSet(viewsets.ModelViewSet):
+class HandlebarViewSet(BikeModelViewSet):
     queryset = models.Handlebar.objects.all()
     serializer_class = serializers.HandlebarSerializer

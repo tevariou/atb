@@ -3,6 +3,2366 @@ info:
   title: ''
   version: 0.0.0
 paths:
+  /bike/bikes/:
+    get:
+      operationId: bike_bikes_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bike'
+          description: ''
+    post:
+      operationId: bike_bikes_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BikeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BikeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BikeRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bike'
+          description: ''
+  /bike/bikes/{id}/:
+    get:
+      operationId: bike_bikes_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bike.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bike'
+          description: ''
+    put:
+      operationId: bike_bikes_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bike.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BikeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BikeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BikeRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bike'
+          description: ''
+    patch:
+      operationId: bike_bikes_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bike.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBikeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBikeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBikeRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bike'
+          description: ''
+    delete:
+      operationId: bike_bikes_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bike.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/brands/:
+    get:
+      operationId: bike_brands_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Brand'
+          description: ''
+    post:
+      operationId: bike_brands_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BrandRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BrandRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+          description: ''
+  /bike/brands/{id}/:
+    get:
+      operationId: bike_brands_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this brand.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+          description: ''
+    put:
+      operationId: bike_brands_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this brand.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BrandRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BrandRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+          description: ''
+    patch:
+      operationId: bike_brands_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this brand.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBrandRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBrandRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBrandRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+          description: ''
+    delete:
+      operationId: bike_brands_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this brand.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/cassettes/:
+    get:
+      operationId: bike_cassettes_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cassette'
+          description: ''
+    post:
+      operationId: bike_cassettes_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CassetteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CassetteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CassetteRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cassette'
+          description: ''
+  /bike/cassettes/{id}/:
+    get:
+      operationId: bike_cassettes_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this cassette.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cassette'
+          description: ''
+    put:
+      operationId: bike_cassettes_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this cassette.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CassetteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CassetteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CassetteRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cassette'
+          description: ''
+    patch:
+      operationId: bike_cassettes_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this cassette.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCassetteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCassetteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCassetteRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cassette'
+          description: ''
+    delete:
+      operationId: bike_cassettes_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this cassette.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/chainrings/:
+    get:
+      operationId: bike_chainrings_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chainring'
+          description: ''
+    post:
+      operationId: bike_chainrings_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChainringRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChainringRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChainringRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chainring'
+          description: ''
+  /bike/chainrings/{id}/:
+    get:
+      operationId: bike_chainrings_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this chainring.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chainring'
+          description: ''
+    put:
+      operationId: bike_chainrings_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this chainring.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChainringRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChainringRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChainringRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chainring'
+          description: ''
+    patch:
+      operationId: bike_chainrings_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this chainring.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedChainringRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedChainringRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedChainringRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chainring'
+          description: ''
+    delete:
+      operationId: bike_chainrings_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this chainring.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/cranks/:
+    get:
+      operationId: bike_cranks_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Crank'
+          description: ''
+    post:
+      operationId: bike_cranks_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrankRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CrankRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CrankRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Crank'
+          description: ''
+  /bike/cranks/{id}/:
+    get:
+      operationId: bike_cranks_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this crank.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Crank'
+          description: ''
+    put:
+      operationId: bike_cranks_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this crank.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrankRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CrankRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CrankRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Crank'
+          description: ''
+    patch:
+      operationId: bike_cranks_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this crank.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCrankRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCrankRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCrankRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Crank'
+          description: ''
+    delete:
+      operationId: bike_cranks_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this crank.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/external-headset-lower-cups/:
+    get:
+      operationId: bike_external_headset_lower_cups_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalHeadsetLowerCup'
+          description: ''
+    post:
+      operationId: bike_external_headset_lower_cups_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalHeadsetLowerCupRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ExternalHeadsetLowerCupRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ExternalHeadsetLowerCupRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalHeadsetLowerCup'
+          description: ''
+  /bike/external-headset-lower-cups/{id}/:
+    get:
+      operationId: bike_external_headset_lower_cups_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this external headset lower
+          cup.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalHeadsetLowerCup'
+          description: ''
+    put:
+      operationId: bike_external_headset_lower_cups_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this external headset lower
+          cup.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalHeadsetLowerCupRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ExternalHeadsetLowerCupRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ExternalHeadsetLowerCupRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalHeadsetLowerCup'
+          description: ''
+    patch:
+      operationId: bike_external_headset_lower_cups_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this external headset lower
+          cup.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedExternalHeadsetLowerCupRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedExternalHeadsetLowerCupRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedExternalHeadsetLowerCupRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalHeadsetLowerCup'
+          description: ''
+    delete:
+      operationId: bike_external_headset_lower_cups_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this external headset lower
+          cup.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/external-headset-upper-cups/:
+    get:
+      operationId: bike_external_headset_upper_cups_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalHeadsetUpperCup'
+          description: ''
+    post:
+      operationId: bike_external_headset_upper_cups_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalHeadsetUpperCupRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ExternalHeadsetUpperCupRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ExternalHeadsetUpperCupRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalHeadsetUpperCup'
+          description: ''
+  /bike/external-headset-upper-cups/{id}/:
+    get:
+      operationId: bike_external_headset_upper_cups_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this external headset upper
+          cup.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalHeadsetUpperCup'
+          description: ''
+    put:
+      operationId: bike_external_headset_upper_cups_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this external headset upper
+          cup.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalHeadsetUpperCupRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ExternalHeadsetUpperCupRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ExternalHeadsetUpperCupRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalHeadsetUpperCup'
+          description: ''
+    patch:
+      operationId: bike_external_headset_upper_cups_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this external headset upper
+          cup.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedExternalHeadsetUpperCupRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedExternalHeadsetUpperCupRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedExternalHeadsetUpperCupRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalHeadsetUpperCup'
+          description: ''
+    delete:
+      operationId: bike_external_headset_upper_cups_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this external headset upper
+          cup.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/forks/:
+    get:
+      operationId: bike_forks_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fork'
+          description: ''
+    post:
+      operationId: bike_forks_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForkRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ForkRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ForkRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fork'
+          description: ''
+  /bike/forks/{id}/:
+    get:
+      operationId: bike_forks_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this fork.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fork'
+          description: ''
+    put:
+      operationId: bike_forks_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this fork.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForkRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ForkRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ForkRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fork'
+          description: ''
+    patch:
+      operationId: bike_forks_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this fork.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedForkRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedForkRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedForkRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fork'
+          description: ''
+    delete:
+      operationId: bike_forks_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this fork.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/frames/:
+    get:
+      operationId: bike_frames_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Frame'
+          description: ''
+    post:
+      operationId: bike_frames_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FrameRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FrameRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FrameRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Frame'
+          description: ''
+  /bike/frames/{id}/:
+    get:
+      operationId: bike_frames_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this frame.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Frame'
+          description: ''
+    put:
+      operationId: bike_frames_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this frame.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FrameRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FrameRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FrameRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Frame'
+          description: ''
+    patch:
+      operationId: bike_frames_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this frame.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFrameRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFrameRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFrameRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Frame'
+          description: ''
+    delete:
+      operationId: bike_frames_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this frame.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/handlebars/:
+    get:
+      operationId: bike_handlebars_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Handlebar'
+          description: ''
+    post:
+      operationId: bike_handlebars_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HandlebarRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/HandlebarRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/HandlebarRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Handlebar'
+          description: ''
+  /bike/handlebars/{id}/:
+    get:
+      operationId: bike_handlebars_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this handlebar.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Handlebar'
+          description: ''
+    put:
+      operationId: bike_handlebars_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this handlebar.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HandlebarRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/HandlebarRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/HandlebarRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Handlebar'
+          description: ''
+    patch:
+      operationId: bike_handlebars_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this handlebar.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedHandlebarRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedHandlebarRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedHandlebarRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Handlebar'
+          description: ''
+    delete:
+      operationId: bike_handlebars_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this handlebar.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/pedals/:
+    get:
+      operationId: bike_pedals_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pedal'
+          description: ''
+    post:
+      operationId: bike_pedals_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PedalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PedalRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedal'
+          description: ''
+  /bike/pedals/{id}/:
+    get:
+      operationId: bike_pedals_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pedal.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedal'
+          description: ''
+    put:
+      operationId: bike_pedals_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pedal.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PedalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PedalRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedal'
+          description: ''
+    patch:
+      operationId: bike_pedals_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pedal.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPedalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPedalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPedalRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedal'
+          description: ''
+    delete:
+      operationId: bike_pedals_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pedal.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/saddles/:
+    get:
+      operationId: bike_saddles_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Saddle'
+          description: ''
+    post:
+      operationId: bike_saddles_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaddleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SaddleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SaddleRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Saddle'
+          description: ''
+  /bike/saddles/{id}/:
+    get:
+      operationId: bike_saddles_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this saddle.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Saddle'
+          description: ''
+    put:
+      operationId: bike_saddles_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this saddle.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaddleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SaddleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SaddleRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Saddle'
+          description: ''
+    patch:
+      operationId: bike_saddles_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this saddle.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSaddleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSaddleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSaddleRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Saddle'
+          description: ''
+    delete:
+      operationId: bike_saddles_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this saddle.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/seatposts/:
+    get:
+      operationId: bike_seatposts_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Seatpost'
+          description: ''
+    post:
+      operationId: bike_seatposts_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeatpostRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SeatpostRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SeatpostRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seatpost'
+          description: ''
+  /bike/seatposts/{id}/:
+    get:
+      operationId: bike_seatposts_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this seatpost.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seatpost'
+          description: ''
+    put:
+      operationId: bike_seatposts_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this seatpost.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeatpostRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SeatpostRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SeatpostRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seatpost'
+          description: ''
+    patch:
+      operationId: bike_seatposts_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this seatpost.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSeatpostRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSeatpostRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSeatpostRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seatpost'
+          description: ''
+    delete:
+      operationId: bike_seatposts_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this seatpost.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/stems/:
+    get:
+      operationId: bike_stems_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stem'
+          description: ''
+    post:
+      operationId: bike_stems_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StemRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stem'
+          description: ''
+  /bike/stems/{id}/:
+    get:
+      operationId: bike_stems_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this stem.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stem'
+          description: ''
+    put:
+      operationId: bike_stems_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this stem.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StemRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stem'
+          description: ''
+    patch:
+      operationId: bike_stems_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this stem.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStemRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stem'
+          description: ''
+    delete:
+      operationId: bike_stems_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this stem.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/tires/:
+    get:
+      operationId: bike_tires_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tire'
+          description: ''
+    post:
+      operationId: bike_tires_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TireRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TireRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TireRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tire'
+          description: ''
+  /bike/tires/{id}/:
+    get:
+      operationId: bike_tires_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this tire.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tire'
+          description: ''
+    put:
+      operationId: bike_tires_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this tire.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TireRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TireRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TireRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tire'
+          description: ''
+    patch:
+      operationId: bike_tires_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this tire.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTireRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTireRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTireRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tire'
+          description: ''
+    delete:
+      operationId: bike_tires_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this tire.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /bike/wheels/:
+    get:
+      operationId: bike_wheels_list
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wheel'
+          description: ''
+    post:
+      operationId: bike_wheels_create
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WheelRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WheelRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WheelRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wheel'
+          description: ''
+  /bike/wheels/{id}/:
+    get:
+      operationId: bike_wheels_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this wheel.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wheel'
+          description: ''
+    put:
+      operationId: bike_wheels_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this wheel.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WheelRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WheelRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WheelRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wheel'
+          description: ''
+    patch:
+      operationId: bike_wheels_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this wheel.
+        required: true
+      tags:
+      - bike
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedWheelRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedWheelRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedWheelRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wheel'
+          description: ''
+    delete:
+      operationId: bike_wheels_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this wheel.
+        required: true
+      tags:
+      - bike
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
   /login/:
     post:
       operationId: login_create
@@ -89,6 +2449,2075 @@ paths:
           description: ''
 components:
   schemas:
+    Bike:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        front_center:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        wheelbase:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        spacers:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+        frame:
+          type: integer
+          nullable: true
+        fork:
+          type: integer
+          nullable: true
+        Handlebar:
+          type: integer
+          nullable: true
+        external_headset_upper_cup:
+          type: integer
+          nullable: true
+        external_headset_lower_cup:
+          type: integer
+          nullable: true
+        stem:
+          type: integer
+          nullable: true
+        chainring:
+          type: integer
+          nullable: true
+        cassette:
+          type: integer
+          nullable: true
+        front_tire:
+          type: integer
+          nullable: true
+        front_wheel:
+          type: integer
+          nullable: true
+        rear_tire:
+          type: integer
+          nullable: true
+        rear_wheel:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - created_at
+      - id
+      - mpn
+      - updated_at
+    BikeRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        front_center:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        wheelbase:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        spacers:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+        frame:
+          type: integer
+          nullable: true
+        fork:
+          type: integer
+          nullable: true
+        Handlebar:
+          type: integer
+          nullable: true
+        external_headset_upper_cup:
+          type: integer
+          nullable: true
+        external_headset_lower_cup:
+          type: integer
+          nullable: true
+        stem:
+          type: integer
+          nullable: true
+        chainring:
+          type: integer
+          nullable: true
+        cassette:
+          type: integer
+          nullable: true
+        front_tire:
+          type: integer
+          nullable: true
+        front_wheel:
+          type: integer
+          nullable: true
+        rear_tire:
+          type: integer
+          nullable: true
+        rear_wheel:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - mpn
+    Brand:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - name
+      - updated_at
+    BrandRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+      required:
+      - name
+    Cassette:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        gears:
+          type: array
+          items:
+            type: integer
+            maximum: 32767
+            minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - created_at
+      - gears
+      - id
+      - mpn
+      - updated_at
+    CassetteRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        gears:
+          type: array
+          items:
+            type: integer
+            maximum: 32767
+            minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - gears
+      - mpn
+    Chainring:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        gears:
+          type: array
+          items:
+            type: integer
+            maximum: 32767
+            minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - created_at
+      - gears
+      - id
+      - mpn
+      - updated_at
+    ChainringRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        gears:
+          type: array
+          items:
+            type: integer
+            maximum: 32767
+            minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - gears
+      - mpn
+    Crank:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        length:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        q_factor:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - created_at
+      - id
+      - length
+      - mpn
+      - q_factor
+      - updated_at
+    CrankRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        length:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        q_factor:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - length
+      - mpn
+      - q_factor
+    ExternalHeadsetLowerCup:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - created_at
+      - id
+      - mpn
+      - stack_height
+      - updated_at
+    ExternalHeadsetLowerCupRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - mpn
+      - stack_height
+    ExternalHeadsetUpperCup:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - created_at
+      - id
+      - mpn
+      - stack_height
+      - updated_at
+    ExternalHeadsetUpperCupRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - mpn
+      - stack_height
+    Fork:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        offset:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        crown_to_axle:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - created_at
+      - crown_to_axle
+      - id
+      - mpn
+      - offset
+      - updated_at
+    ForkRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        offset:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        crown_to_axle:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - crown_to_axle
+      - mpn
+      - offset
+    Frame:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        reach:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        stack:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        chainstay:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        head_tube:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        head_tube_angle:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        actual_seat_tube_angle:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        effective_seat_tube_angle:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        seat_tube:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        bb_drop:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - actual_seat_tube_angle
+      - bb_drop
+      - brand
+      - chainstay
+      - created_at
+      - effective_seat_tube_angle
+      - head_tube
+      - head_tube_angle
+      - id
+      - mpn
+      - reach
+      - seat_tube
+      - stack
+      - updated_at
+    FrameRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        reach:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        stack:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        chainstay:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        head_tube:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        head_tube_angle:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        actual_seat_tube_angle:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        effective_seat_tube_angle:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        seat_tube:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        bb_drop:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - actual_seat_tube_angle
+      - bb_drop
+      - brand
+      - chainstay
+      - effective_seat_tube_angle
+      - head_tube
+      - head_tube_angle
+      - mpn
+      - reach
+      - seat_tube
+      - stack
+    Handlebar:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        width:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        rise:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        reach:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - created_at
+      - id
+      - mpn
+      - reach
+      - rise
+      - updated_at
+      - width
+    HandlebarRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        width:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        rise:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        reach:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - mpn
+      - reach
+      - rise
+      - width
+    PatchedBikeRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        front_center:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        wheelbase:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        spacers:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+        frame:
+          type: integer
+          nullable: true
+        fork:
+          type: integer
+          nullable: true
+        Handlebar:
+          type: integer
+          nullable: true
+        external_headset_upper_cup:
+          type: integer
+          nullable: true
+        external_headset_lower_cup:
+          type: integer
+          nullable: true
+        stem:
+          type: integer
+          nullable: true
+        chainring:
+          type: integer
+          nullable: true
+        cassette:
+          type: integer
+          nullable: true
+        front_tire:
+          type: integer
+          nullable: true
+        front_wheel:
+          type: integer
+          nullable: true
+        rear_tire:
+          type: integer
+          nullable: true
+        rear_wheel:
+          type: integer
+          nullable: true
+    PatchedBrandRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+    PatchedCassetteRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        gears:
+          type: array
+          items:
+            type: integer
+            maximum: 32767
+            minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedChainringRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        gears:
+          type: array
+          items:
+            type: integer
+            maximum: 32767
+            minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedCrankRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        length:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        q_factor:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedExternalHeadsetLowerCupRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedExternalHeadsetUpperCupRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedForkRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        offset:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        crown_to_axle:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedFrameRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        reach:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        stack:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        chainstay:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        head_tube:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        head_tube_angle:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        actual_seat_tube_angle:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        effective_seat_tube_angle:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        seat_tube:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        bb_drop:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedHandlebarRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        width:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        rise:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        reach:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedPedalRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        crank_to_pedal_center:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedSaddleRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        offset:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedSeatpostRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        length:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        offset:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedStemRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        length:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        angle:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedTireRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        diameter:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        width:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    PatchedWheelRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        diameter:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+    Pedal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        crank_to_pedal_center:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - crank_to_pedal_center
+      - created_at
+      - id
+      - mpn
+      - stack_height
+      - updated_at
+    PedalRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        crank_to_pedal_center:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - crank_to_pedal_center
+      - mpn
+      - stack_height
+    Saddle:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        offset:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - created_at
+      - id
+      - mpn
+      - offset
+      - stack_height
+      - updated_at
+    SaddleRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        offset:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - mpn
+      - offset
+      - stack_height
+    Seatpost:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        length:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        offset:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - created_at
+      - id
+      - length
+      - mpn
+      - offset
+      - updated_at
+    SeatpostRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        length:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        offset:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - length
+      - mpn
+      - offset
+    StatusEnum:
+      enum:
+      - waiting_approval
+      - approved
+      - rejected
+      type: string
+      description: |-
+        * `waiting_approval` - Waiting approval
+        * `approved` - Approved
+        * `rejected` - Rejected
+    Stem:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        length:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        angle:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - angle
+      - brand
+      - created_at
+      - id
+      - length
+      - mpn
+      - stack_height
+      - updated_at
+    StemRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        length:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        angle:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        stack_height:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - angle
+      - brand
+      - length
+      - mpn
+      - stack_height
+    Tire:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        diameter:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        width:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - created_at
+      - diameter
+      - id
+      - mpn
+      - updated_at
+      - width
+    TireRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        diameter:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        width:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - diameter
+      - mpn
+      - width
     User:
       type: object
       properties:
@@ -121,6 +4550,89 @@ components:
       required:
       - password
       - username
+    Wheel:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        diameter:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - created_at
+      - diameter
+      - id
+      - mpn
+      - updated_at
+    WheelRequest:
+      type: object
+      properties:
+        model:
+          type: string
+          maxLength: 100
+        gtin:
+          type: integer
+          maximum: 99999999999999
+          minimum: 0
+          format: int64
+          nullable: true
+        mpn:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 100
+        is_public:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        diameter:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        brand:
+          type: integer
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - brand
+      - diameter
+      - mpn
   securitySchemes:
     basicAuth:
       type: http

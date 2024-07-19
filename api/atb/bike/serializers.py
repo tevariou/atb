@@ -27,15 +27,15 @@ class ForkSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class SaddlesSerializer(serializers.ModelSerializer):
+class SaddleSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Saddle
         fields = "__all__"
 
 
-class SeatPostSerializer(serializers.ModelSerializer):
+class SeatpostSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.SeatPost
+        model = models.Seatpost
         fields = "__all__"
 
 
