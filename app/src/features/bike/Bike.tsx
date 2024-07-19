@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { BikeGeometry } from "../../utils/bike-geometry";
 import { Wheel } from "../../utils/wheel";
 
-export const Bike = ({spinAngle}: {spinAngle: number}) => {
+export const Bike = ({ spinAngle }: { spinAngle: number }) => {
   const bike = useMemo(() => new BikeGeometry(
     {
       reachLength: 389,
@@ -30,7 +30,7 @@ export const Bike = ({spinAngle}: {spinAngle: number}) => {
       riderArmLength: 690,
       riderSpineLength: 700,
       effectiveSeatTubeAngle: 72.5,
-      handleBarReach: 76,
+      handleBarReach: 106,
       handleBarHeight: 0,
       spinAngle: spinAngle,
     }
@@ -43,39 +43,65 @@ export const Bike = ({spinAngle}: {spinAngle: number}) => {
     <svg width="1500" height="1500">
       <defs>
         <linearGradient id="rainbow" >
-          <stop offset="0%" stopColor="rgba(255, 0, 0, 1)"/>
-          <stop offset="10%" stopColor="rgba(255, 154, 0, 1)"/>
-          <stop offset="20%" stopColor="rgba(208, 222, 33, 1)"/>
-          <stop offset="30%" stopColor="rgba(79, 220, 74, 1)"/>
-          <stop offset="40%" stopColor="rgba(63, 218, 216, 1)"/>
-          <stop offset="50%" stopColor="rgba(47, 201, 226, 1)"/>
-          <stop offset="60%" stopColor="rgba(28, 127, 238, 1)"/>
-          <stop offset="70%" stopColor="rgba(95, 21, 242, 1)"/>
-          <stop offset="80%" stopColor="rgba(186, 12, 248, 1)"/>
-          <stop offset="90%" stopColor="rgba(251, 7, 217, 1)"/>
-          <stop offset="100%" stopColor="rgba(255, 0, 0, 1)"/>
+          <stop offset="0%" stopColor="rgba(255, 0, 0, 1)" />
+          <stop offset="10%" stopColor="rgba(255, 154, 0, 1)" />
+          <stop offset="20%" stopColor="rgba(208, 222, 33, 1)" />
+          <stop offset="30%" stopColor="rgba(79, 220, 74, 1)" />
+          <stop offset="40%" stopColor="rgba(63, 218, 216, 1)" />
+          <stop offset="50%" stopColor="rgba(47, 201, 226, 1)" />
+          <stop offset="60%" stopColor="rgba(28, 127, 238, 1)" />
+          <stop offset="70%" stopColor="rgba(95, 21, 242, 1)" />
+          <stop offset="80%" stopColor="rgba(186, 12, 248, 1)" />
+          <stop offset="90%" stopColor="rgba(251, 7, 217, 1)" />
+          <stop offset="100%" stopColor="rgba(255, 0, 0, 1)" />
         </linearGradient>
       </defs>
+
+
 
       <g transform="translate(750 750), scale(0.5), scale(-1 1), rotate(180)">
         <circle transform={`rotate(${-spinAngle}, ${bike.fork.end.x}, ${bike.fork.end.y})`} fill="url(#rainbow)" fillOpacity="0.5" cx={bike.fork.end.x} cy={bike.fork.end.y} r={frontWheel.radiusWithTire} />
         <circle fill="white" cx={bike.fork.end.x} cy={bike.fork.end.y} r={frontWheel.radius} />
         <circle transform={`rotate(${-spinAngle}, ${bike.chainStay.start.x}, ${bike.chainStay.start.y})`} fill="url(#rainbow)" fillOpacity="0.5" cx={bike.chainStay.start.x} cy={bike.chainStay.start.y} r={rearWheel.radiusWithTire} />
         <circle fill="white" cx={bike.chainStay.start.x} cy={bike.chainStay.start.y} r={rearWheel.radius} />
-        <path d={bike.headTube.draw()} stroke="blue" strokeWidth="5" fill="none"  />
-        <path d={bike.fork.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.downTube.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.seatTube.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.chainStay.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.seatStay.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.topTube.draw()} stroke="blue" strokeWidth="5" fill="none" />
-        <path d={bike.crank.draw()} stroke="red" strokeWidth="5" fill="none" />
-        <path d={bike.spacers.draw()} stroke="red" strokeWidth="5" fill="none" />
-        <path d={bike.stem.draw()} stroke="red" strokeWidth="5" fill="none" />
-        <path d={bike.seatPost.draw()} stroke="red" strokeWidth="5" fill="none" />
-        <path d={bike.lowerBody.draw()} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
-        <path d={bike.upperBody.draw()} stroke="green" strokeWidth="5" fill="none" strokeOpacity=".25" />
+        <path d={bike.headTube.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.fork.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.downTube.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.seatTube.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.chainStay.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.seatStay.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.topTube.draw()} stroke="blue" strokeWidth="15" fill="none" />
+        <path d={bike.crank.draw()} stroke="red" strokeWidth="15" fill="none" />
+        <path d={bike.spacers.draw()} stroke="red" strokeWidth="15" fill="none" />
+        <path d={bike.stem.draw()} stroke="red" strokeWidth="15" fill="none" />
+        <path d={bike.seatPost.draw()} stroke="red" strokeWidth="15" fill="none" />
+
+
+        <g transform={bike.upperBody.spineDrawingTransform()}>
+          <path fill="#4B0082"  d={bike.upperBody.getSpineDrawingPath()}/>
+        </g>
+        <g transform={bike.lowerBody.lowerLegTransform()}>
+          <path fill="#4B0082"  d={bike.lowerBody.getLowerLegPath()}/>
+        </g>
+        <g transform={bike.lowerBody.feetTransform()}>
+            <path fill="url(#rainbow)"  d={bike.lowerBody.getfeetPath()}/>
+        </g>
+        <g transform={bike.lowerBody.upperLegTransform()}>
+            <path fill="#4B0082"  d={bike.lowerBody.getUpperLegPath()}/>
+        </g>
+        <g transform={bike.upperBody.headTransform()}>
+          <path  fill="#4B0082" d={bike.upperBody.getHeadDrawing()}/>
+        </g>
+        <g transform={bike.upperBody.armDrawingTransform()}>
+          <path fill="#4B0082" d={bike.upperBody.getArmDrawingPath()}/>
+        </g>
+
       </g>
     </svg>
   )
 }
+
+// todo
+// shape, see bikecad
+// feet, rotate 
+// head size

@@ -5,6 +5,7 @@ import { Counter } from "./features/counter/Counter"
 import { Quotes } from "./features/quotes/Quotes"
 import { Bike } from "./features/bike/Bike"
 import logo from "./logo.svg"
+import { Map, CompassControl } from 'react-mapycz';
 
 const App = () => {
 
@@ -18,7 +19,7 @@ const App = () => {
         setSpinAngle(0)
       }
     }
-    const interval = setInterval(() => incrementAngle(), 1);
+    const interval = setInterval(() => incrementAngle(), 5);
     return () => {
       clearInterval(interval);
     };
@@ -82,6 +83,9 @@ const App = () => {
         </span>
       </header>
       <Bike spinAngle={spinAngle} />
+      <Map>
+        <CompassControl />
+      </Map>
     </div>
   )
 }
