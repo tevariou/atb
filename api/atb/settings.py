@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # third party apps
     "rest_framework",
+    "drf_spectacular",
     # atb apps
     "atb.bike",
     "atb.user",
@@ -148,4 +150,9 @@ REST_FRAMEWORK = {
             "rest_framework.renderers.JSONRenderer",
         ]
     ),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "COMPONENT_SPLIT_REQUEST": True,
 }

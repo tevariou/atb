@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from drf_spectacular.utils import extend_schema
 from rest_framework import viewsets, mixins, permissions, status
 from rest_framework.response import Response
 from atb.user import serializers
@@ -30,6 +31,11 @@ class LoginViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
 class LogoutViewSet(viewsets.ViewSet):
     @staticmethod
+    @extend_schema(
+        methods=["post"],
+        request=None,
+        responses={"201": None},
+    )
     def create(request):
         logout(request)
         return Response(status=status.HTTP_201_CREATED)
