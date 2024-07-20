@@ -4,11 +4,10 @@ from rest_framework import viewsets
 
 class BikeModelViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
-        if self.queryset:
-            return self.queryset.filter(owner=self.request.user) | self.queryset.filter(
+        if queryset := super().get_queryset():
+            return queryset.filter(owner=self.request.user) | queryset.filter(
                 is_public=True
             ).filter(status=models.Bike.StatusChoices.APPROVED)
-        return super().get_queryset()
 
 
 class BikeViewSet(BikeModelViewSet):
