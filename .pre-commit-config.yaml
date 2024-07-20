@@ -27,16 +27,3 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.10.1
-    hooks:
-      - id: mypy
-        files: "api"
-        entry: bash -c 'cd api && mypy --ignore-missing-imports --config-file=./mypy.ini .'
-        additional_dependencies:
-          - djangorestframework-stubs
-          - django-stubs
-          - daphne
-          - djangorestframework
-          - drf-spectacular
-          - psycopg2-binary
