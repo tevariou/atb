@@ -1,5 +1,6 @@
-from atb.bike import models, serializers
 from rest_framework import viewsets
+
+from atb.bike import models, serializers
 
 
 class BikeModelViewSet(viewsets.ModelViewSet):

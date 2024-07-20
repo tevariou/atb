@@ -1,4 +1,3 @@
-from atb.user import serializers
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from drf_spectacular.utils import extend_schema
@@ -6,6 +5,8 @@ from rest_framework import mixins, permissions
 from rest_framework import serializers as rest_serializers
 from rest_framework import status, viewsets
 from rest_framework.response import Response
+
+from atb.user import serializers
 
 
 class RegistrationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):

@@ -1,6 +1,7 @@
-from atb.bike import views
 from django.urls import include, path
 from rest_framework import routers
+
+from atb.bike import views
 
 router = routers.SimpleRouter()
 

@@ -1,5 +1,6 @@
-from atb.bike import models
 from rest_framework import serializers
+
+from atb.bike import models
 
 
 class BikeSerializer(serializers.ModelSerializer):

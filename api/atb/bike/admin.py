@@ -1,5 +1,6 @@
-from atb.bike.models import Bike
 from django.contrib import admin
+
+from atb.bike.models import Bike
 
 
 @admin.register(Bike)
