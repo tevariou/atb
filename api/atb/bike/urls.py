@@ -19,12 +19,12 @@ router.register(r"chainrings", views.ChainringViewSet, basename="chainrings")
 router.register(r"cassettes", views.CassetteViewSet, basename="cassettes")
 router.register(r"stems", views.StemViewSet, basename="stems")
 router.register(
-    "external-headset-upper-cups",
+    r"external-headset-upper-cups",
     views.ExternalHeadsetUpperCupViewSet,
     basename="external-headset-upper-cups",
 )
 router.register(
-    "external-headset-lower-cups",
+    r"external-headset-lower-cups",
     views.ExternalHeadsetLowerCupViewSet,
     basename="external-headset-lower-cups",
 )
