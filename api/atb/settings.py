@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-qaffb&i7cosn6jx)(^b#+fqg)swt+gxlvpu^1n*taxv7yem=^@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS: list[str] = []
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # third party apps
     "rest_framework",
     "drf_spectacular",
+    "guardian",
     # atb apps
     "atb.bike",
     "atb.user",
@@ -156,3 +157,8 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     "COMPONENT_SPLIT_REQUEST": True,
 }
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "guardian.backends.ObjectPermissionBackend",
+)

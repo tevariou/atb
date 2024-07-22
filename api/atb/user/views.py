@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group, User
 from drf_spectacular.utils import extend_schema
 from rest_framework import mixins, permissions
 from rest_framework import serializers as rest_serializers
@@ -15,7 +15,8 @@ class RegistrationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     permission_classes = [permissions.AllowAny]
 
     def perform_create(self, serializer: rest_serializers.BaseSerializer):
-        User.objects.create_user(**serializer.validated_data)
+        user = User.objects.create_user(**serializer.validated_data)
+        user.groups.add(Group.objects.get_or_create(name="users"))
 
 
 class LoginViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):

@@ -36,20 +36,22 @@ class Brand(models.Model):
 
 class Component(models.Model):
     class StatusChoices(models.TextChoices):
-        WAITING_APPROVAL = ("waiting_approval", "Waiting approval")
-        APPROVED = ("approved", "Approved")
+        PRIVATE = ("private", "Private")
+        PUBLIC = ("public", "Public")
+        AWAITING_APPROVAL = ("awaiting_approval", "Awaiting approval")
+        PUBLISHED = ("published", "Published")
         REJECTED = ("rejected", "Rejected")
 
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
     model = models.CharField(max_length=100, blank=True)
+    size = models.CharField(max_length=100, blank=True)
     gtin = models.PositiveBigIntegerField(
         null=True, unique=True, validators=[validators.MaxValueValidator(10**14 - 1)]
     )
     mpn = models.CharField(max_length=100, null=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    is_public = models.BooleanField(default=False)
     status = models.TextField(
-        choices=StatusChoices.choices, default=StatusChoices.WAITING_APPROVAL
+        choices=StatusChoices.choices, default=StatusChoices.PRIVATE
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -58,9 +60,11 @@ class Component(models.Model):
         abstract = True
         constraints = [
             models.UniqueConstraint(
-                fields=["brand", "mpn"], name="%(app_label)s_%(class)s_unique_brand_mpn"
+                fields=["brand", "mpn", "size"],
+                name="%(app_label)s_%(class)s_unique_brand_mpn_size",
             ),
         ]
+        ordering = ["-updated_at"]
 
 
 class Saddle(Component):
@@ -144,6 +148,7 @@ class Rider(models.Model):
 class Fork(Component):
     offset = models.PositiveSmallIntegerField()
     crown_to_axle = models.PositiveSmallIntegerField()
+    steerer_tube = models.PositiveSmallIntegerField()
 
 
 class Bike(Component):
