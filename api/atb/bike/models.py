@@ -16,8 +16,8 @@ class AngleField(models.DecimalField):
         **kwargs,
     ) -> None:
         kwargs["validators"] = [
-            validators.MinValueValidator(Decimal(0.01)),
-            validators.MaxValueValidator(Decimal(89.99)),
+            validators.MinValueValidator(Decimal(0)),
+            validators.MaxValueValidator(Decimal(90)),
         ]
         super().__init__(
             verbose_name,
@@ -67,64 +67,55 @@ class Component(models.Model):
         ordering = ["-updated_at"]
 
 
-class Saddle(Component):
-    stack_height = models.PositiveSmallIntegerField()
-    offset = models.PositiveSmallIntegerField()
-
-
-class Seatpost(Component):
-    length = models.PositiveSmallIntegerField()
-    offset = models.PositiveSmallIntegerField()
-
-
-class Crank(Component):
-    length = models.PositiveSmallIntegerField()
-    q_factor = models.PositiveSmallIntegerField()
+class Rider(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    inseam = models.PositiveSmallIntegerField()
+    upper_leg = models.PositiveSmallIntegerField()
+    foot = models.PositiveSmallIntegerField()
+    arm = models.PositiveSmallIntegerField()
+    spine = models.PositiveSmallIntegerField()
 
 
 class Pedal(Component):
     stack_height = models.PositiveSmallIntegerField()
-    crank_to_pedal_center = models.PositiveSmallIntegerField()
-
-
-class Tire(Component):
-    diameter = models.PositiveSmallIntegerField()
-    width = models.PositiveSmallIntegerField()
-
-
-class Wheel(Component):
-    diameter = models.PositiveSmallIntegerField()
-
-
-class Chainring(Component):
-    gears = ArrayField(models.PositiveSmallIntegerField())
-
-
-class Cassette(Component):
-    gears = ArrayField(models.PositiveSmallIntegerField())
-
-
-class Stem(Component):
-    length = models.PositiveSmallIntegerField()
-    angle = AngleField()
-    stack_height = models.PositiveSmallIntegerField()
-
-
-class ExternalHeadsetUpperCup(Component):
-    stack_height = models.PositiveSmallIntegerField()
-
-
-class ExternalHeadsetLowerCup(Component):
-    stack_height = models.PositiveSmallIntegerField()
+    pedal_center = models.PositiveSmallIntegerField()
 
 
 class Handlebar(Component):
     width = models.PositiveSmallIntegerField()
     rise = models.PositiveSmallIntegerField()
     reach = models.PositiveSmallIntegerField()
+    backsweep = AngleField()
+    upsweep = AngleField()
+    drop_flare = AngleField()
+    drop_flare_out = AngleField()
+    drop_width = models.PositiveSmallIntegerField()
 
 
-class Frame(Component):
+class Cassette(Component):
+    gears = ArrayField(models.PositiveSmallIntegerField())
+
+
+class Bike(Component):
+    handlebar = models.ForeignKey(Handlebar, on_delete=models.SET_NULL, null=True)
+    cassette = models.ForeignKey(Cassette, on_delete=models.SET_NULL, null=True)
+    pedal = models.ForeignKey(Pedal, on_delete=models.SET_NULL, null=True)
+
+    front_center = models.PositiveSmallIntegerField(blank=True, default=0)
+    wheelbase = models.PositiveSmallIntegerField(blank=True, default=0)
+    spacers = models.PositiveSmallIntegerField(blank=True, default=0)
+
+
+class ExternalHeadset(models.Model):
+    bike = models.OneToOneField(
+        Bike, on_delete=models.CASCADE, related_name="external_headset"
+    )
+    upper_cup_stack_height = models.PositiveSmallIntegerField()
+    lower_cup_stack_height = models.PositiveSmallIntegerField()
+
+
+class Frame(models.Model):
+    bike = models.OneToOneField(Bike, on_delete=models.CASCADE, related_name="frame")
     reach = models.PositiveSmallIntegerField()
     stack = models.PositiveSmallIntegerField()
     chainstay = models.PositiveSmallIntegerField()
@@ -136,47 +127,54 @@ class Frame(Component):
     bb_drop = models.PositiveSmallIntegerField()
 
 
-class Rider(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    inseam = models.PositiveSmallIntegerField()
-    upper_leg = models.PositiveSmallIntegerField()
-    foot = models.PositiveSmallIntegerField()
-    arm = models.PositiveSmallIntegerField()
-    spine = models.PositiveSmallIntegerField()
-
-
-class Fork(Component):
+class Fork(models.Model):
+    bike = models.OneToOneField(Bike, on_delete=models.CASCADE, related_name="fork")
     offset = models.PositiveSmallIntegerField()
     crown_to_axle = models.PositiveSmallIntegerField()
     steerer_tube = models.PositiveSmallIntegerField()
+    travel = models.PositiveSmallIntegerField()
 
 
-class Bike(Component):
-    frame = models.ForeignKey(Frame, on_delete=models.SET_NULL, null=True)
-    fork = models.ForeignKey(Fork, on_delete=models.SET_NULL, null=True)
-    Handlebar = models.ForeignKey(Handlebar, on_delete=models.SET_NULL, null=True)
-    external_headset_upper_cup = models.ForeignKey(
-        ExternalHeadsetUpperCup, on_delete=models.SET_NULL, null=True
-    )
-    external_headset_lower_cup = models.ForeignKey(
-        ExternalHeadsetLowerCup, on_delete=models.SET_NULL, null=True
-    )
-    stem = models.ForeignKey(Stem, on_delete=models.SET_NULL, null=True)
-    chainring = models.ForeignKey(Chainring, on_delete=models.SET_NULL, null=True)
-    cassette = models.ForeignKey(Cassette, on_delete=models.SET_NULL, null=True)
-    front_tire = models.ForeignKey(
-        Tire, on_delete=models.SET_NULL, null=True, related_name="front_tire"
-    )
-    front_wheel = models.ForeignKey(
-        Wheel, on_delete=models.SET_NULL, null=True, related_name="front_wheel"
-    )
-    rear_tire = models.ForeignKey(
-        Tire, on_delete=models.SET_NULL, null=True, related_name="rear_tire"
-    )
-    rear_wheel = models.ForeignKey(
-        Wheel, on_delete=models.SET_NULL, null=True, related_name="rear_wheel"
-    )
+class Saddle(models.Model):
+    bike = models.OneToOneField(Bike, on_delete=models.CASCADE, related_name="saddle")
+    offset = models.PositiveSmallIntegerField()
 
-    front_center = models.PositiveSmallIntegerField(blank=True, default=0)
-    wheelbase = models.PositiveSmallIntegerField(blank=True, default=0)
-    spacers = models.PositiveSmallIntegerField(blank=True, default=0)
+
+class Seatpost(models.Model):
+    bike = models.OneToOneField(Bike, on_delete=models.CASCADE, related_name="seatpost")
+    length = models.PositiveSmallIntegerField()
+    offset = models.PositiveSmallIntegerField()
+
+
+class Crank(models.Model):
+    bike = models.OneToOneField(Bike, on_delete=models.CASCADE, related_name="crank")
+    length = models.PositiveSmallIntegerField()
+    q_factor = models.PositiveSmallIntegerField()
+
+
+class TireSet(models.Model):
+    bike = models.OneToOneField(Bike, on_delete=models.CASCADE, related_name="tireset")
+    front_diameter = models.PositiveSmallIntegerField()
+    front_width = models.PositiveSmallIntegerField()
+    rear_diameter = models.PositiveSmallIntegerField()
+    rear_width = models.PositiveSmallIntegerField()
+
+
+class WheelSet(models.Model):
+    bike = models.OneToOneField(Bike, on_delete=models.CASCADE, related_name="wheelset")
+    front_diameter = models.PositiveSmallIntegerField()
+    rear_diameter = models.PositiveSmallIntegerField()
+
+
+class Chainring(models.Model):
+    bike = models.OneToOneField(
+        Bike, on_delete=models.CASCADE, related_name="chainring"
+    )
+    gears = ArrayField(models.PositiveSmallIntegerField())
+
+
+class Stem(models.Model):
+    bike = models.OneToOneField(Bike, on_delete=models.CASCADE, related_name="stem")
+    length = models.PositiveSmallIntegerField()
+    angle = AngleField()
+    steerer_height = models.PositiveSmallIntegerField()

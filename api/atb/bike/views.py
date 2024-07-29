@@ -43,14 +43,14 @@ class PedalViewSet(common_views.DjangoGuardianModelViewSet):
     serializer_class = serializers.PedalSerializer
 
 
-class TireViewSet(common_views.DjangoGuardianModelViewSet):
-    queryset = models.Tire.objects.all()
-    serializer_class = serializers.TireSerializer
+class TireSetViewSet(common_views.DjangoGuardianModelViewSet):
+    queryset = models.TireSet.objects.all()
+    serializer_class = serializers.TireSetSerializer
 
 
-class WheelViewSet(common_views.DjangoGuardianModelViewSet):
-    queryset = models.Wheel.objects.all()
-    serializer_class = serializers.WheelSerializer
+class WheelSetViewSet(common_views.DjangoGuardianModelViewSet):
+    queryset = models.WheelSet.objects.all()
+    serializer_class = serializers.WheelSetSerializer
 
 
 class ChainringViewSet(common_views.DjangoGuardianModelViewSet):
@@ -68,14 +68,9 @@ class StemViewSet(common_views.DjangoGuardianModelViewSet):
     serializer_class = serializers.StemSerializer
 
 
-class ExternalHeadsetUpperCupViewSet(common_views.DjangoGuardianModelViewSet):
-    queryset = models.ExternalHeadsetUpperCup.objects.all()
-    serializer_class = serializers.ExternalHeadsetUpperCupSerializer
-
-
-class ExternalHeadsetLowerCupViewSet(common_views.DjangoGuardianModelViewSet):
-    queryset = models.ExternalHeadsetLowerCup.objects.all()
-    serializer_class = serializers.ExternalHeadsetLowerCupSerializer
+class ExternalHeadsetViewSet(common_views.DjangoGuardianModelViewSet):
+    queryset = models.ExternalHeadset.objects.all()
+    serializer_class = serializers.ExternalHeadsetSerializer
 
 
 class HandlebarViewSet(common_views.DjangoGuardianModelViewSet):

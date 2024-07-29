@@ -168,19 +168,19 @@ class PedalSerializer(
         fields = "__all__"
 
 
-class TireSerializer(
+class TireSetSerializer(
     ComponentObjectPermissionsAssignmentMixin, serializers.ModelSerializer
 ):
     class Meta:
-        model = models.Tire
+        model = models.TireSet
         fields = "__all__"
 
 
-class WheelSerializer(
+class WheelSetSerializer(
     ComponentObjectPermissionsAssignmentMixin, serializers.ModelSerializer
 ):
     class Meta:
-        model = models.Wheel
+        model = models.WheelSet
         fields = "__all__"
 
 
@@ -208,19 +208,11 @@ class StemSerializer(
         fields = "__all__"
 
 
-class ExternalHeadsetUpperCupSerializer(
+class ExternalHeadsetSerializer(
     ComponentObjectPermissionsAssignmentMixin, serializers.ModelSerializer
 ):
     class Meta:
-        model = models.ExternalHeadsetUpperCup
-        fields = "__all__"
-
-
-class ExternalHeadsetLowerCupSerializer(
-    ComponentObjectPermissionsAssignmentMixin, serializers.ModelSerializer
-):
-    class Meta:
-        model = models.ExternalHeadsetLowerCup
+        model = models.ExternalHeadset
         fields = "__all__"
 
 

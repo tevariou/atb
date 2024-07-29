@@ -738,9 +738,9 @@ paths:
       responses:
         '204':
           description: No response body
-  /bike/external-headset-lower-cups/:
+  /bike/external-headsets/:
     get:
-      operationId: bike_external_headset_lower_cups_list
+      operationId: bike_external_headsets_list
       tags:
       - bike
       security:
@@ -753,23 +753,23 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ExternalHeadsetLowerCup'
+                  $ref: '#/components/schemas/ExternalHeadset'
           description: ''
     post:
-      operationId: bike_external_headset_lower_cups_create
+      operationId: bike_external_headsets_create
       tags:
       - bike
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ExternalHeadsetLowerCupRequest'
+              $ref: '#/components/schemas/ExternalHeadsetRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/ExternalHeadsetLowerCupRequest'
+              $ref: '#/components/schemas/ExternalHeadsetRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/ExternalHeadsetLowerCupRequest'
+              $ref: '#/components/schemas/ExternalHeadsetRequest'
         required: true
       security:
       - cookieAuth: []
@@ -779,18 +779,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExternalHeadsetLowerCup'
+                $ref: '#/components/schemas/ExternalHeadset'
           description: ''
-  /bike/external-headset-lower-cups/{id}/:
+  /bike/external-headsets/{id}/:
     get:
-      operationId: bike_external_headset_lower_cups_retrieve
+      operationId: bike_external_headsets_retrieve
       parameters:
       - in: path
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this external headset lower
-          cup.
+        description: A unique integer value identifying this external headset.
         required: true
       tags:
       - bike
@@ -802,17 +801,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExternalHeadsetLowerCup'
+                $ref: '#/components/schemas/ExternalHeadset'
           description: ''
     put:
-      operationId: bike_external_headset_lower_cups_update
+      operationId: bike_external_headsets_update
       parameters:
       - in: path
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this external headset lower
-          cup.
+        description: A unique integer value identifying this external headset.
         required: true
       tags:
       - bike
@@ -820,13 +818,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ExternalHeadsetLowerCupRequest'
+              $ref: '#/components/schemas/ExternalHeadsetRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/ExternalHeadsetLowerCupRequest'
+              $ref: '#/components/schemas/ExternalHeadsetRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/ExternalHeadsetLowerCupRequest'
+              $ref: '#/components/schemas/ExternalHeadsetRequest'
         required: true
       security:
       - cookieAuth: []
@@ -836,17 +834,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExternalHeadsetLowerCup'
+                $ref: '#/components/schemas/ExternalHeadset'
           description: ''
     patch:
-      operationId: bike_external_headset_lower_cups_partial_update
+      operationId: bike_external_headsets_partial_update
       parameters:
       - in: path
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this external headset lower
-          cup.
+        description: A unique integer value identifying this external headset.
         required: true
       tags:
       - bike
@@ -854,13 +851,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedExternalHeadsetLowerCupRequest'
+              $ref: '#/components/schemas/PatchedExternalHeadsetRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedExternalHeadsetLowerCupRequest'
+              $ref: '#/components/schemas/PatchedExternalHeadsetRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedExternalHeadsetLowerCupRequest'
+              $ref: '#/components/schemas/PatchedExternalHeadsetRequest'
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -869,168 +866,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExternalHeadsetLowerCup'
+                $ref: '#/components/schemas/ExternalHeadset'
           description: ''
     delete:
-      operationId: bike_external_headset_lower_cups_destroy
+      operationId: bike_external_headsets_destroy
       parameters:
       - in: path
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this external headset lower
-          cup.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '204':
-          description: No response body
-  /bike/external-headset-upper-cups/:
-    get:
-      operationId: bike_external_headset_upper_cups_list
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ExternalHeadsetUpperCup'
-          description: ''
-    post:
-      operationId: bike_external_headset_upper_cups_create
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ExternalHeadsetUpperCupRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ExternalHeadsetUpperCupRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ExternalHeadsetUpperCupRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExternalHeadsetUpperCup'
-          description: ''
-  /bike/external-headset-upper-cups/{id}/:
-    get:
-      operationId: bike_external_headset_upper_cups_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this external headset upper
-          cup.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExternalHeadsetUpperCup'
-          description: ''
-    put:
-      operationId: bike_external_headset_upper_cups_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this external headset upper
-          cup.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ExternalHeadsetUpperCupRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ExternalHeadsetUpperCupRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ExternalHeadsetUpperCupRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExternalHeadsetUpperCup'
-          description: ''
-    patch:
-      operationId: bike_external_headset_upper_cups_partial_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this external headset upper
-          cup.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedExternalHeadsetUpperCupRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedExternalHeadsetUpperCupRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedExternalHeadsetUpperCupRequest'
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExternalHeadsetUpperCup'
-          description: ''
-    delete:
-      operationId: bike_external_headset_upper_cups_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this external headset upper
-          cup.
+        description: A unique integer value identifying this external headset.
         required: true
       tags:
       - bike
@@ -2084,7 +1929,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Tire'
+                  $ref: '#/components/schemas/TireSet'
           description: ''
     post:
       operationId: bike_tires_create
@@ -2094,13 +1939,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TireRequest'
+              $ref: '#/components/schemas/TireSetRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/TireRequest'
+              $ref: '#/components/schemas/TireSetRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/TireRequest'
+              $ref: '#/components/schemas/TireSetRequest'
         required: true
       security:
       - cookieAuth: []
@@ -2110,7 +1955,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tire'
+                $ref: '#/components/schemas/TireSet'
           description: ''
   /bike/tires/{id}/:
     get:
@@ -2120,7 +1965,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this tire.
+        description: A unique integer value identifying this tire set.
         required: true
       tags:
       - bike
@@ -2132,7 +1977,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tire'
+                $ref: '#/components/schemas/TireSet'
           description: ''
     put:
       operationId: bike_tires_update
@@ -2141,7 +1986,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this tire.
+        description: A unique integer value identifying this tire set.
         required: true
       tags:
       - bike
@@ -2149,13 +1994,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TireRequest'
+              $ref: '#/components/schemas/TireSetRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/TireRequest'
+              $ref: '#/components/schemas/TireSetRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/TireRequest'
+              $ref: '#/components/schemas/TireSetRequest'
         required: true
       security:
       - cookieAuth: []
@@ -2165,7 +2010,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tire'
+                $ref: '#/components/schemas/TireSet'
           description: ''
     patch:
       operationId: bike_tires_partial_update
@@ -2174,7 +2019,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this tire.
+        description: A unique integer value identifying this tire set.
         required: true
       tags:
       - bike
@@ -2182,13 +2027,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedTireRequest'
+              $ref: '#/components/schemas/PatchedTireSetRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedTireRequest'
+              $ref: '#/components/schemas/PatchedTireSetRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedTireRequest'
+              $ref: '#/components/schemas/PatchedTireSetRequest'
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -2197,7 +2042,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tire'
+                $ref: '#/components/schemas/TireSet'
           description: ''
     delete:
       operationId: bike_tires_destroy
@@ -2206,7 +2051,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this tire.
+        description: A unique integer value identifying this tire set.
         required: true
       tags:
       - bike
@@ -2231,7 +2076,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Wheel'
+                  $ref: '#/components/schemas/WheelSet'
           description: ''
     post:
       operationId: bike_wheels_create
@@ -2241,13 +2086,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WheelRequest'
+              $ref: '#/components/schemas/WheelSetRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/WheelRequest'
+              $ref: '#/components/schemas/WheelSetRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/WheelRequest'
+              $ref: '#/components/schemas/WheelSetRequest'
         required: true
       security:
       - cookieAuth: []
@@ -2257,7 +2102,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Wheel'
+                $ref: '#/components/schemas/WheelSet'
           description: ''
   /bike/wheels/{id}/:
     get:
@@ -2267,7 +2112,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this wheel.
+        description: A unique integer value identifying this wheel set.
         required: true
       tags:
       - bike
@@ -2279,7 +2124,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Wheel'
+                $ref: '#/components/schemas/WheelSet'
           description: ''
     put:
       operationId: bike_wheels_update
@@ -2288,7 +2133,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this wheel.
+        description: A unique integer value identifying this wheel set.
         required: true
       tags:
       - bike
@@ -2296,13 +2141,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WheelRequest'
+              $ref: '#/components/schemas/WheelSetRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/WheelRequest'
+              $ref: '#/components/schemas/WheelSetRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/WheelRequest'
+              $ref: '#/components/schemas/WheelSetRequest'
         required: true
       security:
       - cookieAuth: []
@@ -2312,7 +2157,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Wheel'
+                $ref: '#/components/schemas/WheelSet'
           description: ''
     patch:
       operationId: bike_wheels_partial_update
@@ -2321,7 +2166,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this wheel.
+        description: A unique integer value identifying this wheel set.
         required: true
       tags:
       - bike
@@ -2329,13 +2174,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedWheelRequest'
+              $ref: '#/components/schemas/PatchedWheelSetRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedWheelRequest'
+              $ref: '#/components/schemas/PatchedWheelSetRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedWheelRequest'
+              $ref: '#/components/schemas/PatchedWheelSetRequest'
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -2344,7 +2189,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Wheel'
+                $ref: '#/components/schemas/WheelSet'
           description: ''
     delete:
       operationId: bike_wheels_destroy
@@ -2353,7 +2198,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this wheel.
+        description: A unique integer value identifying this wheel set.
         required: true
       tags:
       - bike
@@ -2451,11 +2296,17 @@ components:
   schemas:
     Bike:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
           readOnly: true
         model:
+          type: string
+          maxLength: 100
+        size:
           type: string
           maxLength: 100
         gtin:
@@ -2468,8 +2319,6 @@ components:
           type: string
           nullable: true
           maxLength: 100
-        is_public:
-          type: boolean
         status:
           $ref: '#/components/schemas/StatusEnum'
         created_at:
@@ -2498,40 +2347,13 @@ components:
         owner:
           type: integer
           nullable: true
-        frame:
-          type: integer
-          nullable: true
-        fork:
-          type: integer
-          nullable: true
-        Handlebar:
-          type: integer
-          nullable: true
-        external_headset_upper_cup:
-          type: integer
-          nullable: true
-        external_headset_lower_cup:
-          type: integer
-          nullable: true
-        stem:
-          type: integer
-          nullable: true
-        chainring:
+        handlebar:
           type: integer
           nullable: true
         cassette:
           type: integer
           nullable: true
-        front_tire:
-          type: integer
-          nullable: true
-        front_wheel:
-          type: integer
-          nullable: true
-        rear_tire:
-          type: integer
-          nullable: true
-        rear_wheel:
+        pedal:
           type: integer
           nullable: true
       required:
@@ -2539,11 +2361,18 @@ components:
       - created_at
       - id
       - mpn
+      - size
       - updated_at
     BikeRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         model:
+          type: string
+          maxLength: 100
+        size:
           type: string
           maxLength: 100
         gtin:
@@ -2557,8 +2386,6 @@ components:
           nullable: true
           minLength: 1
           maxLength: 100
-        is_public:
-          type: boolean
         status:
           $ref: '#/components/schemas/StatusEnum'
         front_center:
@@ -2579,47 +2406,24 @@ components:
         owner:
           type: integer
           nullable: true
-        frame:
-          type: integer
-          nullable: true
-        fork:
-          type: integer
-          nullable: true
-        Handlebar:
-          type: integer
-          nullable: true
-        external_headset_upper_cup:
-          type: integer
-          nullable: true
-        external_headset_lower_cup:
-          type: integer
-          nullable: true
-        stem:
-          type: integer
-          nullable: true
-        chainring:
+        handlebar:
           type: integer
           nullable: true
         cassette:
           type: integer
           nullable: true
-        front_tire:
-          type: integer
-          nullable: true
-        front_wheel:
-          type: integer
-          nullable: true
-        rear_tire:
-          type: integer
-          nullable: true
-        rear_wheel:
+        pedal:
           type: integer
           nullable: true
       required:
       - brand
       - mpn
+      - size
     Brand:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
@@ -2642,6 +2446,9 @@ components:
       - updated_at
     BrandRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         name:
           type: string
@@ -2651,11 +2458,17 @@ components:
       - name
     Cassette:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
           readOnly: true
         model:
+          type: string
+          maxLength: 100
+        size:
           type: string
           maxLength: 100
         gtin:
@@ -2668,8 +2481,6 @@ components:
           type: string
           nullable: true
           maxLength: 100
-        is_public:
-          type: boolean
         status:
           $ref: '#/components/schemas/StatusEnum'
         created_at:
@@ -2698,11 +2509,18 @@ components:
       - gears
       - id
       - mpn
+      - size
       - updated_at
     CassetteRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         model:
+          type: string
+          maxLength: 100
+        size:
           type: string
           maxLength: 100
         gtin:
@@ -2716,8 +2534,6 @@ components:
           nullable: true
           minLength: 1
           maxLength: 100
-        is_public:
-          type: boolean
         status:
           $ref: '#/components/schemas/StatusEnum'
         gears:
@@ -2736,36 +2552,15 @@ components:
       - brand
       - gears
       - mpn
+      - size
     Chainring:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
-          readOnly: true
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
           readOnly: true
         gears:
           type: array
@@ -2773,86 +2568,37 @@ components:
             type: integer
             maximum: 32767
             minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
-      - brand
-      - created_at
+      - bike
       - gears
       - id
-      - mpn
-      - updated_at
     ChainringRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         gears:
           type: array
           items:
             type: integer
             maximum: 32767
             minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
-      - brand
+      - bike
       - gears
-      - mpn
     Crank:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
-          readOnly: true
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
           readOnly: true
         length:
           type: integer
@@ -2862,41 +2608,19 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
-      - brand
-      - created_at
+      - bike
       - id
       - length
-      - mpn
       - q_factor
-      - updated_at
     CrankRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         length:
           type: integer
           maximum: 32767
@@ -2905,213 +2629,64 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
-      - brand
+      - bike
       - length
-      - mpn
       - q_factor
-    ExternalHeadsetLowerCup:
+    ExternalHeadset:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
           readOnly: true
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-        stack_height:
+        upper_cup_stack_height:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        lower_cup_stack_height:
           type: integer
-          nullable: true
-        owner:
+          maximum: 32767
+          minimum: 0
+        bike:
           type: integer
-          nullable: true
       required:
-      - brand
-      - created_at
+      - bike
       - id
-      - mpn
-      - stack_height
-      - updated_at
-    ExternalHeadsetLowerCupRequest:
+      - lower_cup_stack_height
+      - upper_cup_stack_height
+    ExternalHeadsetRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        stack_height:
+        upper_cup_stack_height:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
-          type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
-      required:
-      - brand
-      - mpn
-      - stack_height
-    ExternalHeadsetUpperCup:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-        stack_height:
+        lower_cup_stack_height:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
-      - brand
-      - created_at
-      - id
-      - mpn
-      - stack_height
-      - updated_at
-    ExternalHeadsetUpperCupRequest:
-      type: object
-      properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        stack_height:
-          type: integer
-          maximum: 32767
-          minimum: 0
-        brand:
-          type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
-      required:
-      - brand
-      - mpn
-      - stack_height
+      - bike
+      - lower_cup_stack_height
+      - upper_cup_stack_height
     Fork:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
-          readOnly: true
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
           readOnly: true
         offset:
           type: integer
@@ -3121,41 +2696,29 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        steerer_tube:
           type: integer
-          nullable: true
-        owner:
+          maximum: 32767
+          minimum: 0
+        travel:
           type: integer
-          nullable: true
+          maximum: 32767
+          minimum: 0
+        bike:
+          type: integer
       required:
-      - brand
-      - created_at
+      - bike
       - crown_to_axle
       - id
-      - mpn
       - offset
-      - updated_at
+      - steerer_tube
+      - travel
     ForkRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         offset:
           type: integer
           maximum: 32767
@@ -3164,47 +2727,30 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        steerer_tube:
           type: integer
-          nullable: true
-        owner:
+          maximum: 32767
+          minimum: 0
+        travel:
           type: integer
-          nullable: true
+          maximum: 32767
+          minimum: 0
+        bike:
+          type: integer
       required:
-      - brand
+      - bike
       - crown_to_axle
-      - mpn
       - offset
+      - steerer_tube
+      - travel
     Frame:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
-          readOnly: true
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
           readOnly: true
         reach:
           type: integer
@@ -3242,48 +2788,26 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
       - actual_seat_tube_angle
       - bb_drop
-      - brand
+      - bike
       - chainstay
-      - created_at
       - effective_seat_tube_angle
       - head_tube
       - head_tube_angle
       - id
-      - mpn
       - reach
       - seat_tube
       - stack
-      - updated_at
     FrameRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         reach:
           type: integer
           maximum: 32767
@@ -3320,31 +2844,32 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
       - actual_seat_tube_angle
       - bb_drop
-      - brand
+      - bike
       - chainstay
       - effective_seat_tube_angle
       - head_tube
       - head_tube_angle
-      - mpn
       - reach
       - seat_tube
       - stack
     Handlebar:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
           readOnly: true
         model:
+          type: string
+          maxLength: 100
+        size:
           type: string
           maxLength: 100
         gtin:
@@ -3357,8 +2882,6 @@ components:
           type: string
           nullable: true
           maxLength: 100
-        is_public:
-          type: boolean
         status:
           $ref: '#/components/schemas/StatusEnum'
         created_at:
@@ -3381,6 +2904,26 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
+        backsweep:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        upsweep:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        drop_flare:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        drop_flare_out:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        drop_width:
+          type: integer
+          maximum: 32767
+          minimum: 0
         brand:
           type: integer
           nullable: true
@@ -3388,18 +2931,30 @@ components:
           type: integer
           nullable: true
       required:
+      - backsweep
       - brand
       - created_at
+      - drop_flare
+      - drop_flare_out
+      - drop_width
       - id
       - mpn
       - reach
       - rise
+      - size
       - updated_at
+      - upsweep
       - width
     HandlebarRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         model:
+          type: string
+          maxLength: 100
+        size:
           type: string
           maxLength: 100
         gtin:
@@ -3413,8 +2968,6 @@ components:
           nullable: true
           minLength: 1
           maxLength: 100
-        is_public:
-          type: boolean
         status:
           $ref: '#/components/schemas/StatusEnum'
         width:
@@ -3429,6 +2982,26 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
+        backsweep:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        upsweep:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        drop_flare:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        drop_flare_out:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        drop_width:
+          type: integer
+          maximum: 32767
+          minimum: 0
         brand:
           type: integer
           nullable: true
@@ -3436,15 +3009,27 @@ components:
           type: integer
           nullable: true
       required:
+      - backsweep
       - brand
+      - drop_flare
+      - drop_flare_out
+      - drop_width
       - mpn
       - reach
       - rise
+      - size
+      - upsweep
       - width
     PatchedBikeRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         model:
+          type: string
+          maxLength: 100
+        size:
           type: string
           maxLength: 100
         gtin:
@@ -3458,8 +3043,6 @@ components:
           nullable: true
           minLength: 1
           maxLength: 100
-        is_public:
-          type: boolean
         status:
           $ref: '#/components/schemas/StatusEnum'
         front_center:
@@ -3480,44 +3063,20 @@ components:
         owner:
           type: integer
           nullable: true
-        frame:
-          type: integer
-          nullable: true
-        fork:
-          type: integer
-          nullable: true
-        Handlebar:
-          type: integer
-          nullable: true
-        external_headset_upper_cup:
-          type: integer
-          nullable: true
-        external_headset_lower_cup:
-          type: integer
-          nullable: true
-        stem:
-          type: integer
-          nullable: true
-        chainring:
+        handlebar:
           type: integer
           nullable: true
         cassette:
           type: integer
           nullable: true
-        front_tire:
-          type: integer
-          nullable: true
-        front_wheel:
-          type: integer
-          nullable: true
-        rear_tire:
-          type: integer
-          nullable: true
-        rear_wheel:
+        pedal:
           type: integer
           nullable: true
     PatchedBrandRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         name:
           type: string
@@ -3525,8 +3084,14 @@ components:
           maxLength: 100
     PatchedCassetteRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         model:
+          type: string
+          maxLength: 100
+        size:
           type: string
           maxLength: 100
         gtin:
@@ -3540,8 +3105,6 @@ components:
           nullable: true
           minLength: 1
           maxLength: 100
-        is_public:
-          type: boolean
         status:
           $ref: '#/components/schemas/StatusEnum'
         gears:
@@ -3558,58 +3121,24 @@ components:
           nullable: true
     PatchedChainringRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         gears:
           type: array
           items:
             type: integer
             maximum: 32767
             minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
     PatchedCrankRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         length:
           type: integer
           maximum: 32767
@@ -3618,95 +3147,30 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
-    PatchedExternalHeadsetLowerCupRequest:
+    PatchedExternalHeadsetRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        stack_height:
+        upper_cup_stack_height:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
-          type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
-    PatchedExternalHeadsetUpperCupRequest:
-      type: object
-      properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        stack_height:
+        lower_cup_stack_height:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
     PatchedForkRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         offset:
           type: integer
           maximum: 32767
@@ -3715,33 +3179,22 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        steerer_tube:
           type: integer
-          nullable: true
-        owner:
+          maximum: 32767
+          minimum: 0
+        travel:
           type: integer
-          nullable: true
+          maximum: 32767
+          minimum: 0
+        bike:
+          type: integer
     PatchedFrameRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         reach:
           type: integer
           maximum: 32767
@@ -3778,16 +3231,18 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
     PatchedHandlebarRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         model:
+          type: string
+          maxLength: 100
+        size:
           type: string
           maxLength: 100
         gtin:
@@ -3801,8 +3256,6 @@ components:
           nullable: true
           minLength: 1
           maxLength: 100
-        is_public:
-          type: boolean
         status:
           $ref: '#/components/schemas/StatusEnum'
         width:
@@ -3817,6 +3270,26 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
+        backsweep:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        upsweep:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        drop_flare:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        drop_flare_out:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
+        drop_width:
+          type: integer
+          maximum: 32767
+          minimum: 0
         brand:
           type: integer
           nullable: true
@@ -3825,8 +3298,14 @@ components:
           nullable: true
     PatchedPedalRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         model:
+          type: string
+          maxLength: 100
+        size:
           type: string
           maxLength: 100
         gtin:
@@ -3840,15 +3319,13 @@ components:
           nullable: true
           minLength: 1
           maxLength: 100
-        is_public:
-          type: boolean
         status:
           $ref: '#/components/schemas/StatusEnum'
         stack_height:
           type: integer
           maximum: 32767
           minimum: 0
-        crank_to_pedal_center:
+        pedal_center:
           type: integer
           maximum: 32767
           minimum: 0
@@ -3860,60 +3337,22 @@ components:
           nullable: true
     PatchedSaddleRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        stack_height:
-          type: integer
-          maximum: 32767
-          minimum: 0
         offset:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
     PatchedSeatpostRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         length:
           type: integer
           maximum: 32767
@@ -3922,33 +3361,14 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
     PatchedStemRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         length:
           type: integer
           maximum: 32767
@@ -3957,84 +3377,57 @@ components:
           type: string
           format: decimal
           pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
-        stack_height:
+        steerer_height:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
-    PatchedTireRequest:
+    PatchedTireSetRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        diameter:
+        front_diameter:
           type: integer
           maximum: 32767
           minimum: 0
-        width:
+        front_width:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        rear_diameter:
           type: integer
-          nullable: true
-        owner:
+          maximum: 32767
+          minimum: 0
+        rear_width:
           type: integer
-          nullable: true
-    PatchedWheelRequest:
+          maximum: 32767
+          minimum: 0
+        bike:
+          type: integer
+    PatchedWheelSetRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        diameter:
+        front_diameter:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        rear_diameter:
           type: integer
-          nullable: true
-        owner:
+          maximum: 32767
+          minimum: 0
+        bike:
           type: integer
-          nullable: true
     Pedal:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
@@ -4042,6 +3435,9 @@ components:
         model:
           type: string
           maxLength: 100
+        size:
+          type: string
+          maxLength: 100
         gtin:
           type: integer
           maximum: 99999999999999
@@ -4052,8 +3448,6 @@ components:
           type: string
           nullable: true
           maxLength: 100
-        is_public:
-          type: boolean
         status:
           $ref: '#/components/schemas/StatusEnum'
         created_at:
@@ -4068,7 +3462,7 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        crank_to_pedal_center:
+        pedal_center:
           type: integer
           maximum: 32767
           minimum: 0
@@ -4080,16 +3474,23 @@ components:
           nullable: true
       required:
       - brand
-      - crank_to_pedal_center
       - created_at
       - id
       - mpn
+      - pedal_center
+      - size
       - stack_height
       - updated_at
     PedalRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         model:
+          type: string
+          maxLength: 100
+        size:
           type: string
           maxLength: 100
         gtin:
@@ -4103,15 +3504,13 @@ components:
           nullable: true
           minLength: 1
           maxLength: 100
-        is_public:
-          type: boolean
         status:
           $ref: '#/components/schemas/StatusEnum'
         stack_height:
           type: integer
           maximum: 32767
           minimum: 0
-        crank_to_pedal_center:
+        pedal_center:
           type: integer
           maximum: 32767
           minimum: 0
@@ -4123,133 +3522,53 @@ components:
           nullable: true
       required:
       - brand
-      - crank_to_pedal_center
       - mpn
+      - pedal_center
+      - size
       - stack_height
     Saddle:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
           readOnly: true
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-        stack_height:
-          type: integer
-          maximum: 32767
-          minimum: 0
         offset:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
-      - brand
-      - created_at
+      - bike
       - id
-      - mpn
       - offset
-      - stack_height
-      - updated_at
     SaddleRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        stack_height:
-          type: integer
-          maximum: 32767
-          minimum: 0
         offset:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
-      - brand
-      - mpn
+      - bike
       - offset
-      - stack_height
     Seatpost:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
           readOnly: true
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
         length:
           type: integer
           maximum: 32767
@@ -4258,41 +3577,19 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
-      - brand
-      - created_at
+      - bike
       - id
       - length
-      - mpn
       - offset
-      - updated_at
     SeatpostRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         length:
           type: integer
           maximum: 32767
@@ -4301,57 +3598,34 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
-      - brand
+      - bike
       - length
-      - mpn
       - offset
     StatusEnum:
       enum:
-      - waiting_approval
-      - approved
+      - private
+      - public
+      - awaiting_approval
+      - published
       - rejected
       type: string
       description: |-
-        * `waiting_approval` - Waiting approval
-        * `approved` - Approved
+        * `private` - Private
+        * `public` - Public
+        * `awaiting_approval` - Awaiting approval
+        * `published` - Published
         * `rejected` - Rejected
     Stem:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
-          readOnly: true
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
           readOnly: true
         length:
           type: integer
@@ -4361,46 +3635,24 @@ components:
           type: string
           format: decimal
           pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
-        stack_height:
+        steerer_height:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
       - angle
-      - brand
-      - created_at
+      - bike
       - id
       - length
-      - mpn
-      - stack_height
-      - updated_at
+      - steerer_height
     StemRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         length:
           type: integer
           maximum: 32767
@@ -4409,115 +3661,81 @@ components:
           type: string
           format: decimal
           pattern: ^-?\d{0,2}(?:\.\d{0,2})?$
-        stack_height:
+        steerer_height:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
       - angle
-      - brand
+      - bike
       - length
-      - mpn
-      - stack_height
-    Tire:
+      - steerer_height
+    TireSet:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
           readOnly: true
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-        diameter:
+        front_diameter:
           type: integer
           maximum: 32767
           minimum: 0
-        width:
+        front_width:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        rear_diameter:
           type: integer
-          nullable: true
-        owner:
+          maximum: 32767
+          minimum: 0
+        rear_width:
           type: integer
-          nullable: true
+          maximum: 32767
+          minimum: 0
+        bike:
+          type: integer
       required:
-      - brand
-      - created_at
-      - diameter
+      - bike
+      - front_diameter
+      - front_width
       - id
-      - mpn
-      - updated_at
-      - width
-    TireRequest:
+      - rear_diameter
+      - rear_width
+    TireSetRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        diameter:
+        front_diameter:
           type: integer
           maximum: 32767
           minimum: 0
-        width:
+        front_width:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        rear_diameter:
           type: integer
-          nullable: true
-        owner:
+          maximum: 32767
+          minimum: 0
+        rear_width:
           type: integer
-          nullable: true
+          maximum: 32767
+          minimum: 0
+        bike:
+          type: integer
       required:
-      - brand
-      - diameter
-      - mpn
-      - width
+      - bike
+      - front_diameter
+      - front_width
+      - rear_diameter
+      - rear_width
     User:
       type: object
       properties:
@@ -4550,89 +3768,50 @@ components:
       required:
       - password
       - username
-    Wheel:
+    WheelSet:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
         id:
           type: integer
           readOnly: true
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-        diameter:
+        front_diameter:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        rear_diameter:
           type: integer
-          nullable: true
-        owner:
+          maximum: 32767
+          minimum: 0
+        bike:
           type: integer
-          nullable: true
       required:
-      - brand
-      - created_at
-      - diameter
+      - bike
+      - front_diameter
       - id
-      - mpn
-      - updated_at
-    WheelRequest:
+      - rear_diameter
+    WheelSetRequest:
       type: object
+      description: |-
+        A serializer mixin that provides an easy way to assign permissions
+        to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        is_public:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        diameter:
+        front_diameter:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        rear_diameter:
           type: integer
-          nullable: true
-        owner:
+          maximum: 32767
+          minimum: 0
+        bike:
           type: integer
-          nullable: true
       required:
-      - brand
-      - diameter
-      - mpn
+      - bike
+      - front_diameter
+      - rear_diameter
   securitySchemes:
     basicAuth:
       type: http
