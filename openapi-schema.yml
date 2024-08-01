@@ -3,11 +3,11 @@ info:
   title: ''
   version: 0.0.0
 paths:
-  /bike/bikes/:
+  /bikes/:
     get:
-      operationId: bike_bikes_list
+      operationId: bikes_list
       tags:
-      - bike
+      - bikes
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -21,9 +21,9 @@ paths:
                   $ref: '#/components/schemas/Bike'
           description: ''
     post:
-      operationId: bike_bikes_create
+      operationId: bikes_create
       tags:
-      - bike
+      - bikes
       requestBody:
         content:
           application/json:
@@ -46,9 +46,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Bike'
           description: ''
-  /bike/bikes/{id}/:
+  /bikes/{id}/:
     get:
-      operationId: bike_bikes_retrieve
+      operationId: bikes_retrieve
       parameters:
       - in: path
         name: id
@@ -57,7 +57,7 @@ paths:
         description: A unique integer value identifying this bike.
         required: true
       tags:
-      - bike
+      - bikes
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -69,7 +69,7 @@ paths:
                 $ref: '#/components/schemas/Bike'
           description: ''
     put:
-      operationId: bike_bikes_update
+      operationId: bikes_update
       parameters:
       - in: path
         name: id
@@ -78,7 +78,7 @@ paths:
         description: A unique integer value identifying this bike.
         required: true
       tags:
-      - bike
+      - bikes
       requestBody:
         content:
           application/json:
@@ -102,7 +102,7 @@ paths:
                 $ref: '#/components/schemas/Bike'
           description: ''
     patch:
-      operationId: bike_bikes_partial_update
+      operationId: bikes_partial_update
       parameters:
       - in: path
         name: id
@@ -111,7 +111,7 @@ paths:
         description: A unique integer value identifying this bike.
         required: true
       tags:
-      - bike
+      - bikes
       requestBody:
         content:
           application/json:
@@ -134,7 +134,7 @@ paths:
                 $ref: '#/components/schemas/Bike'
           description: ''
     delete:
-      operationId: bike_bikes_destroy
+      operationId: bikes_destroy
       parameters:
       - in: path
         name: id
@@ -143,18 +143,18 @@ paths:
         description: A unique integer value identifying this bike.
         required: true
       tags:
-      - bike
+      - bikes
       security:
       - cookieAuth: []
       - basicAuth: []
       responses:
         '204':
           description: No response body
-  /bike/brands/:
+  /brands/:
     get:
-      operationId: bike_brands_list
+      operationId: brands_list
       tags:
-      - bike
+      - brands
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -168,9 +168,9 @@ paths:
                   $ref: '#/components/schemas/Brand'
           description: ''
     post:
-      operationId: bike_brands_create
+      operationId: brands_create
       tags:
-      - bike
+      - brands
       requestBody:
         content:
           application/json:
@@ -193,9 +193,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Brand'
           description: ''
-  /bike/brands/{id}/:
+  /brands/{id}/:
     get:
-      operationId: bike_brands_retrieve
+      operationId: brands_retrieve
       parameters:
       - in: path
         name: id
@@ -204,7 +204,7 @@ paths:
         description: A unique integer value identifying this brand.
         required: true
       tags:
-      - bike
+      - brands
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -216,7 +216,7 @@ paths:
                 $ref: '#/components/schemas/Brand'
           description: ''
     put:
-      operationId: bike_brands_update
+      operationId: brands_update
       parameters:
       - in: path
         name: id
@@ -225,7 +225,7 @@ paths:
         description: A unique integer value identifying this brand.
         required: true
       tags:
-      - bike
+      - brands
       requestBody:
         content:
           application/json:
@@ -249,7 +249,7 @@ paths:
                 $ref: '#/components/schemas/Brand'
           description: ''
     patch:
-      operationId: bike_brands_partial_update
+      operationId: brands_partial_update
       parameters:
       - in: path
         name: id
@@ -258,7 +258,7 @@ paths:
         description: A unique integer value identifying this brand.
         required: true
       tags:
-      - bike
+      - brands
       requestBody:
         content:
           application/json:
@@ -281,7 +281,7 @@ paths:
                 $ref: '#/components/schemas/Brand'
           description: ''
     delete:
-      operationId: bike_brands_destroy
+      operationId: brands_destroy
       parameters:
       - in: path
         name: id
@@ -290,18 +290,18 @@ paths:
         description: A unique integer value identifying this brand.
         required: true
       tags:
-      - bike
+      - brands
       security:
       - cookieAuth: []
       - basicAuth: []
       responses:
         '204':
           description: No response body
-  /bike/cassettes/:
+  /cassettes/:
     get:
-      operationId: bike_cassettes_list
+      operationId: cassettes_list
       tags:
-      - bike
+      - cassettes
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -315,9 +315,9 @@ paths:
                   $ref: '#/components/schemas/Cassette'
           description: ''
     post:
-      operationId: bike_cassettes_create
+      operationId: cassettes_create
       tags:
-      - bike
+      - cassettes
       requestBody:
         content:
           application/json:
@@ -340,9 +340,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Cassette'
           description: ''
-  /bike/cassettes/{id}/:
+  /cassettes/{id}/:
     get:
-      operationId: bike_cassettes_retrieve
+      operationId: cassettes_retrieve
       parameters:
       - in: path
         name: id
@@ -351,7 +351,7 @@ paths:
         description: A unique integer value identifying this cassette.
         required: true
       tags:
-      - bike
+      - cassettes
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -363,7 +363,7 @@ paths:
                 $ref: '#/components/schemas/Cassette'
           description: ''
     put:
-      operationId: bike_cassettes_update
+      operationId: cassettes_update
       parameters:
       - in: path
         name: id
@@ -372,7 +372,7 @@ paths:
         description: A unique integer value identifying this cassette.
         required: true
       tags:
-      - bike
+      - cassettes
       requestBody:
         content:
           application/json:
@@ -396,7 +396,7 @@ paths:
                 $ref: '#/components/schemas/Cassette'
           description: ''
     patch:
-      operationId: bike_cassettes_partial_update
+      operationId: cassettes_partial_update
       parameters:
       - in: path
         name: id
@@ -405,7 +405,7 @@ paths:
         description: A unique integer value identifying this cassette.
         required: true
       tags:
-      - bike
+      - cassettes
       requestBody:
         content:
           application/json:
@@ -428,7 +428,7 @@ paths:
                 $ref: '#/components/schemas/Cassette'
           description: ''
     delete:
-      operationId: bike_cassettes_destroy
+      operationId: cassettes_destroy
       parameters:
       - in: path
         name: id
@@ -437,18 +437,18 @@ paths:
         description: A unique integer value identifying this cassette.
         required: true
       tags:
-      - bike
+      - cassettes
       security:
       - cookieAuth: []
       - basicAuth: []
       responses:
         '204':
           description: No response body
-  /bike/chainrings/:
+  /chainrings/:
     get:
-      operationId: bike_chainrings_list
+      operationId: chainrings_list
       tags:
-      - bike
+      - chainrings
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -462,9 +462,9 @@ paths:
                   $ref: '#/components/schemas/Chainring'
           description: ''
     post:
-      operationId: bike_chainrings_create
+      operationId: chainrings_create
       tags:
-      - bike
+      - chainrings
       requestBody:
         content:
           application/json:
@@ -487,9 +487,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Chainring'
           description: ''
-  /bike/chainrings/{id}/:
+  /chainrings/{id}/:
     get:
-      operationId: bike_chainrings_retrieve
+      operationId: chainrings_retrieve
       parameters:
       - in: path
         name: id
@@ -498,7 +498,7 @@ paths:
         description: A unique integer value identifying this chainring.
         required: true
       tags:
-      - bike
+      - chainrings
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -510,7 +510,7 @@ paths:
                 $ref: '#/components/schemas/Chainring'
           description: ''
     put:
-      operationId: bike_chainrings_update
+      operationId: chainrings_update
       parameters:
       - in: path
         name: id
@@ -519,7 +519,7 @@ paths:
         description: A unique integer value identifying this chainring.
         required: true
       tags:
-      - bike
+      - chainrings
       requestBody:
         content:
           application/json:
@@ -543,7 +543,7 @@ paths:
                 $ref: '#/components/schemas/Chainring'
           description: ''
     patch:
-      operationId: bike_chainrings_partial_update
+      operationId: chainrings_partial_update
       parameters:
       - in: path
         name: id
@@ -552,7 +552,7 @@ paths:
         description: A unique integer value identifying this chainring.
         required: true
       tags:
-      - bike
+      - chainrings
       requestBody:
         content:
           application/json:
@@ -575,7 +575,7 @@ paths:
                 $ref: '#/components/schemas/Chainring'
           description: ''
     delete:
-      operationId: bike_chainrings_destroy
+      operationId: chainrings_destroy
       parameters:
       - in: path
         name: id
@@ -584,18 +584,18 @@ paths:
         description: A unique integer value identifying this chainring.
         required: true
       tags:
-      - bike
+      - chainrings
       security:
       - cookieAuth: []
       - basicAuth: []
       responses:
         '204':
           description: No response body
-  /bike/cranks/:
+  /cranks/:
     get:
-      operationId: bike_cranks_list
+      operationId: cranks_list
       tags:
-      - bike
+      - cranks
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -609,9 +609,9 @@ paths:
                   $ref: '#/components/schemas/Crank'
           description: ''
     post:
-      operationId: bike_cranks_create
+      operationId: cranks_create
       tags:
-      - bike
+      - cranks
       requestBody:
         content:
           application/json:
@@ -634,9 +634,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Crank'
           description: ''
-  /bike/cranks/{id}/:
+  /cranks/{id}/:
     get:
-      operationId: bike_cranks_retrieve
+      operationId: cranks_retrieve
       parameters:
       - in: path
         name: id
@@ -645,7 +645,7 @@ paths:
         description: A unique integer value identifying this crank.
         required: true
       tags:
-      - bike
+      - cranks
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -657,7 +657,7 @@ paths:
                 $ref: '#/components/schemas/Crank'
           description: ''
     put:
-      operationId: bike_cranks_update
+      operationId: cranks_update
       parameters:
       - in: path
         name: id
@@ -666,7 +666,7 @@ paths:
         description: A unique integer value identifying this crank.
         required: true
       tags:
-      - bike
+      - cranks
       requestBody:
         content:
           application/json:
@@ -690,7 +690,7 @@ paths:
                 $ref: '#/components/schemas/Crank'
           description: ''
     patch:
-      operationId: bike_cranks_partial_update
+      operationId: cranks_partial_update
       parameters:
       - in: path
         name: id
@@ -699,7 +699,7 @@ paths:
         description: A unique integer value identifying this crank.
         required: true
       tags:
-      - bike
+      - cranks
       requestBody:
         content:
           application/json:
@@ -722,7 +722,7 @@ paths:
                 $ref: '#/components/schemas/Crank'
           description: ''
     delete:
-      operationId: bike_cranks_destroy
+      operationId: cranks_destroy
       parameters:
       - in: path
         name: id
@@ -731,18 +731,18 @@ paths:
         description: A unique integer value identifying this crank.
         required: true
       tags:
-      - bike
+      - cranks
       security:
       - cookieAuth: []
       - basicAuth: []
       responses:
         '204':
           description: No response body
-  /bike/external-headsets/:
+  /external-headsets/:
     get:
-      operationId: bike_external_headsets_list
+      operationId: external_headsets_list
       tags:
-      - bike
+      - external-headsets
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -756,9 +756,9 @@ paths:
                   $ref: '#/components/schemas/ExternalHeadset'
           description: ''
     post:
-      operationId: bike_external_headsets_create
+      operationId: external_headsets_create
       tags:
-      - bike
+      - external-headsets
       requestBody:
         content:
           application/json:
@@ -781,9 +781,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExternalHeadset'
           description: ''
-  /bike/external-headsets/{id}/:
+  /external-headsets/{id}/:
     get:
-      operationId: bike_external_headsets_retrieve
+      operationId: external_headsets_retrieve
       parameters:
       - in: path
         name: id
@@ -792,7 +792,7 @@ paths:
         description: A unique integer value identifying this external headset.
         required: true
       tags:
-      - bike
+      - external-headsets
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -804,7 +804,7 @@ paths:
                 $ref: '#/components/schemas/ExternalHeadset'
           description: ''
     put:
-      operationId: bike_external_headsets_update
+      operationId: external_headsets_update
       parameters:
       - in: path
         name: id
@@ -813,7 +813,7 @@ paths:
         description: A unique integer value identifying this external headset.
         required: true
       tags:
-      - bike
+      - external-headsets
       requestBody:
         content:
           application/json:
@@ -837,7 +837,7 @@ paths:
                 $ref: '#/components/schemas/ExternalHeadset'
           description: ''
     patch:
-      operationId: bike_external_headsets_partial_update
+      operationId: external_headsets_partial_update
       parameters:
       - in: path
         name: id
@@ -846,7 +846,7 @@ paths:
         description: A unique integer value identifying this external headset.
         required: true
       tags:
-      - bike
+      - external-headsets
       requestBody:
         content:
           application/json:
@@ -869,7 +869,7 @@ paths:
                 $ref: '#/components/schemas/ExternalHeadset'
           description: ''
     delete:
-      operationId: bike_external_headsets_destroy
+      operationId: external_headsets_destroy
       parameters:
       - in: path
         name: id
@@ -878,18 +878,18 @@ paths:
         description: A unique integer value identifying this external headset.
         required: true
       tags:
-      - bike
+      - external-headsets
       security:
       - cookieAuth: []
       - basicAuth: []
       responses:
         '204':
           description: No response body
-  /bike/forks/:
+  /forks/:
     get:
-      operationId: bike_forks_list
+      operationId: forks_list
       tags:
-      - bike
+      - forks
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -903,9 +903,9 @@ paths:
                   $ref: '#/components/schemas/Fork'
           description: ''
     post:
-      operationId: bike_forks_create
+      operationId: forks_create
       tags:
-      - bike
+      - forks
       requestBody:
         content:
           application/json:
@@ -928,9 +928,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Fork'
           description: ''
-  /bike/forks/{id}/:
+  /forks/{id}/:
     get:
-      operationId: bike_forks_retrieve
+      operationId: forks_retrieve
       parameters:
       - in: path
         name: id
@@ -939,7 +939,7 @@ paths:
         description: A unique integer value identifying this fork.
         required: true
       tags:
-      - bike
+      - forks
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -951,7 +951,7 @@ paths:
                 $ref: '#/components/schemas/Fork'
           description: ''
     put:
-      operationId: bike_forks_update
+      operationId: forks_update
       parameters:
       - in: path
         name: id
@@ -960,7 +960,7 @@ paths:
         description: A unique integer value identifying this fork.
         required: true
       tags:
-      - bike
+      - forks
       requestBody:
         content:
           application/json:
@@ -984,7 +984,7 @@ paths:
                 $ref: '#/components/schemas/Fork'
           description: ''
     patch:
-      operationId: bike_forks_partial_update
+      operationId: forks_partial_update
       parameters:
       - in: path
         name: id
@@ -993,7 +993,7 @@ paths:
         description: A unique integer value identifying this fork.
         required: true
       tags:
-      - bike
+      - forks
       requestBody:
         content:
           application/json:
@@ -1016,7 +1016,7 @@ paths:
                 $ref: '#/components/schemas/Fork'
           description: ''
     delete:
-      operationId: bike_forks_destroy
+      operationId: forks_destroy
       parameters:
       - in: path
         name: id
@@ -1025,18 +1025,18 @@ paths:
         description: A unique integer value identifying this fork.
         required: true
       tags:
-      - bike
+      - forks
       security:
       - cookieAuth: []
       - basicAuth: []
       responses:
         '204':
           description: No response body
-  /bike/frames/:
+  /frames/:
     get:
-      operationId: bike_frames_list
+      operationId: frames_list
       tags:
-      - bike
+      - frames
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -1050,9 +1050,9 @@ paths:
                   $ref: '#/components/schemas/Frame'
           description: ''
     post:
-      operationId: bike_frames_create
+      operationId: frames_create
       tags:
-      - bike
+      - frames
       requestBody:
         content:
           application/json:
@@ -1075,9 +1075,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Frame'
           description: ''
-  /bike/frames/{id}/:
+  /frames/{id}/:
     get:
-      operationId: bike_frames_retrieve
+      operationId: frames_retrieve
       parameters:
       - in: path
         name: id
@@ -1086,7 +1086,7 @@ paths:
         description: A unique integer value identifying this frame.
         required: true
       tags:
-      - bike
+      - frames
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -1098,7 +1098,7 @@ paths:
                 $ref: '#/components/schemas/Frame'
           description: ''
     put:
-      operationId: bike_frames_update
+      operationId: frames_update
       parameters:
       - in: path
         name: id
@@ -1107,7 +1107,7 @@ paths:
         description: A unique integer value identifying this frame.
         required: true
       tags:
-      - bike
+      - frames
       requestBody:
         content:
           application/json:
@@ -1131,7 +1131,7 @@ paths:
                 $ref: '#/components/schemas/Frame'
           description: ''
     patch:
-      operationId: bike_frames_partial_update
+      operationId: frames_partial_update
       parameters:
       - in: path
         name: id
@@ -1140,7 +1140,7 @@ paths:
         description: A unique integer value identifying this frame.
         required: true
       tags:
-      - bike
+      - frames
       requestBody:
         content:
           application/json:
@@ -1163,7 +1163,7 @@ paths:
                 $ref: '#/components/schemas/Frame'
           description: ''
     delete:
-      operationId: bike_frames_destroy
+      operationId: frames_destroy
       parameters:
       - in: path
         name: id
@@ -1172,18 +1172,18 @@ paths:
         description: A unique integer value identifying this frame.
         required: true
       tags:
-      - bike
+      - frames
       security:
       - cookieAuth: []
       - basicAuth: []
       responses:
         '204':
           description: No response body
-  /bike/handlebars/:
+  /handlebars/:
     get:
-      operationId: bike_handlebars_list
+      operationId: handlebars_list
       tags:
-      - bike
+      - handlebars
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -1197,9 +1197,9 @@ paths:
                   $ref: '#/components/schemas/Handlebar'
           description: ''
     post:
-      operationId: bike_handlebars_create
+      operationId: handlebars_create
       tags:
-      - bike
+      - handlebars
       requestBody:
         content:
           application/json:
@@ -1222,9 +1222,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Handlebar'
           description: ''
-  /bike/handlebars/{id}/:
+  /handlebars/{id}/:
     get:
-      operationId: bike_handlebars_retrieve
+      operationId: handlebars_retrieve
       parameters:
       - in: path
         name: id
@@ -1233,7 +1233,7 @@ paths:
         description: A unique integer value identifying this handlebar.
         required: true
       tags:
-      - bike
+      - handlebars
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -1245,7 +1245,7 @@ paths:
                 $ref: '#/components/schemas/Handlebar'
           description: ''
     put:
-      operationId: bike_handlebars_update
+      operationId: handlebars_update
       parameters:
       - in: path
         name: id
@@ -1254,7 +1254,7 @@ paths:
         description: A unique integer value identifying this handlebar.
         required: true
       tags:
-      - bike
+      - handlebars
       requestBody:
         content:
           application/json:
@@ -1278,7 +1278,7 @@ paths:
                 $ref: '#/components/schemas/Handlebar'
           description: ''
     patch:
-      operationId: bike_handlebars_partial_update
+      operationId: handlebars_partial_update
       parameters:
       - in: path
         name: id
@@ -1287,7 +1287,7 @@ paths:
         description: A unique integer value identifying this handlebar.
         required: true
       tags:
-      - bike
+      - handlebars
       requestBody:
         content:
           application/json:
@@ -1310,7 +1310,7 @@ paths:
                 $ref: '#/components/schemas/Handlebar'
           description: ''
     delete:
-      operationId: bike_handlebars_destroy
+      operationId: handlebars_destroy
       parameters:
       - in: path
         name: id
@@ -1319,889 +1319,7 @@ paths:
         description: A unique integer value identifying this handlebar.
         required: true
       tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '204':
-          description: No response body
-  /bike/pedals/:
-    get:
-      operationId: bike_pedals_list
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pedal'
-          description: ''
-    post:
-      operationId: bike_pedals_create
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PedalRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PedalRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PedalRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pedal'
-          description: ''
-  /bike/pedals/{id}/:
-    get:
-      operationId: bike_pedals_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this pedal.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pedal'
-          description: ''
-    put:
-      operationId: bike_pedals_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this pedal.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PedalRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PedalRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PedalRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pedal'
-          description: ''
-    patch:
-      operationId: bike_pedals_partial_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this pedal.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedPedalRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedPedalRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedPedalRequest'
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pedal'
-          description: ''
-    delete:
-      operationId: bike_pedals_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this pedal.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '204':
-          description: No response body
-  /bike/saddles/:
-    get:
-      operationId: bike_saddles_list
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Saddle'
-          description: ''
-    post:
-      operationId: bike_saddles_create
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SaddleRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SaddleRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/SaddleRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Saddle'
-          description: ''
-  /bike/saddles/{id}/:
-    get:
-      operationId: bike_saddles_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this saddle.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Saddle'
-          description: ''
-    put:
-      operationId: bike_saddles_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this saddle.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SaddleRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SaddleRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/SaddleRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Saddle'
-          description: ''
-    patch:
-      operationId: bike_saddles_partial_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this saddle.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedSaddleRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedSaddleRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedSaddleRequest'
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Saddle'
-          description: ''
-    delete:
-      operationId: bike_saddles_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this saddle.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '204':
-          description: No response body
-  /bike/seatposts/:
-    get:
-      operationId: bike_seatposts_list
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Seatpost'
-          description: ''
-    post:
-      operationId: bike_seatposts_create
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SeatpostRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SeatpostRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/SeatpostRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Seatpost'
-          description: ''
-  /bike/seatposts/{id}/:
-    get:
-      operationId: bike_seatposts_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this seatpost.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Seatpost'
-          description: ''
-    put:
-      operationId: bike_seatposts_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this seatpost.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SeatpostRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SeatpostRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/SeatpostRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Seatpost'
-          description: ''
-    patch:
-      operationId: bike_seatposts_partial_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this seatpost.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedSeatpostRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedSeatpostRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedSeatpostRequest'
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Seatpost'
-          description: ''
-    delete:
-      operationId: bike_seatposts_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this seatpost.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '204':
-          description: No response body
-  /bike/stems/:
-    get:
-      operationId: bike_stems_list
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Stem'
-          description: ''
-    post:
-      operationId: bike_stems_create
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StemRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/StemRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/StemRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Stem'
-          description: ''
-  /bike/stems/{id}/:
-    get:
-      operationId: bike_stems_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this stem.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Stem'
-          description: ''
-    put:
-      operationId: bike_stems_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this stem.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StemRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/StemRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/StemRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Stem'
-          description: ''
-    patch:
-      operationId: bike_stems_partial_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this stem.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedStemRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedStemRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedStemRequest'
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Stem'
-          description: ''
-    delete:
-      operationId: bike_stems_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this stem.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '204':
-          description: No response body
-  /bike/tires/:
-    get:
-      operationId: bike_tires_list
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TireSet'
-          description: ''
-    post:
-      operationId: bike_tires_create
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TireSetRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/TireSetRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/TireSetRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TireSet'
-          description: ''
-  /bike/tires/{id}/:
-    get:
-      operationId: bike_tires_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this tire set.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TireSet'
-          description: ''
-    put:
-      operationId: bike_tires_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this tire set.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TireSetRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/TireSetRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/TireSetRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TireSet'
-          description: ''
-    patch:
-      operationId: bike_tires_partial_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this tire set.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedTireSetRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedTireSetRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedTireSetRequest'
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TireSet'
-          description: ''
-    delete:
-      operationId: bike_tires_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this tire set.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '204':
-          description: No response body
-  /bike/wheels/:
-    get:
-      operationId: bike_wheels_list
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/WheelSet'
-          description: ''
-    post:
-      operationId: bike_wheels_create
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WheelSetRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/WheelSetRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/WheelSetRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WheelSet'
-          description: ''
-  /bike/wheels/{id}/:
-    get:
-      operationId: bike_wheels_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this wheel set.
-        required: true
-      tags:
-      - bike
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WheelSet'
-          description: ''
-    put:
-      operationId: bike_wheels_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this wheel set.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WheelSetRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/WheelSetRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/WheelSetRequest'
-        required: true
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WheelSet'
-          description: ''
-    patch:
-      operationId: bike_wheels_partial_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this wheel set.
-        required: true
-      tags:
-      - bike
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedWheelSetRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedWheelSetRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedWheelSetRequest'
-      security:
-      - cookieAuth: []
-      - basicAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WheelSet'
-          description: ''
-    delete:
-      operationId: bike_wheels_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this wheel set.
-        required: true
-      tags:
-      - bike
+      - handlebars
       security:
       - cookieAuth: []
       - basicAuth: []
@@ -2246,6 +1364,153 @@ paths:
       - basicAuth: []
       responses:
         '201':
+          description: No response body
+  /pedals/:
+    get:
+      operationId: pedals_list
+      tags:
+      - pedals
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pedal'
+          description: ''
+    post:
+      operationId: pedals_create
+      tags:
+      - pedals
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PedalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PedalRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedal'
+          description: ''
+  /pedals/{id}/:
+    get:
+      operationId: pedals_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pedal.
+        required: true
+      tags:
+      - pedals
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedal'
+          description: ''
+    put:
+      operationId: pedals_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pedal.
+        required: true
+      tags:
+      - pedals
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PedalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PedalRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedal'
+          description: ''
+    patch:
+      operationId: pedals_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pedal.
+        required: true
+      tags:
+      - pedals
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPedalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPedalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPedalRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedal'
+          description: ''
+    delete:
+      operationId: pedals_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pedal.
+        required: true
+      tags:
+      - pedals
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
           description: No response body
   /profile/:
     get:
@@ -2292,6 +1557,741 @@ paths:
               schema:
                 $ref: '#/components/schemas/User'
           description: ''
+  /saddles/:
+    get:
+      operationId: saddles_list
+      tags:
+      - saddles
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Saddle'
+          description: ''
+    post:
+      operationId: saddles_create
+      tags:
+      - saddles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaddleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SaddleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SaddleRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Saddle'
+          description: ''
+  /saddles/{id}/:
+    get:
+      operationId: saddles_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this saddle.
+        required: true
+      tags:
+      - saddles
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Saddle'
+          description: ''
+    put:
+      operationId: saddles_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this saddle.
+        required: true
+      tags:
+      - saddles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaddleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SaddleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SaddleRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Saddle'
+          description: ''
+    patch:
+      operationId: saddles_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this saddle.
+        required: true
+      tags:
+      - saddles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSaddleRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSaddleRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSaddleRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Saddle'
+          description: ''
+    delete:
+      operationId: saddles_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this saddle.
+        required: true
+      tags:
+      - saddles
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /seatposts/:
+    get:
+      operationId: seatposts_list
+      tags:
+      - seatposts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Seatpost'
+          description: ''
+    post:
+      operationId: seatposts_create
+      tags:
+      - seatposts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeatpostRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SeatpostRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SeatpostRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seatpost'
+          description: ''
+  /seatposts/{id}/:
+    get:
+      operationId: seatposts_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this seatpost.
+        required: true
+      tags:
+      - seatposts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seatpost'
+          description: ''
+    put:
+      operationId: seatposts_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this seatpost.
+        required: true
+      tags:
+      - seatposts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeatpostRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SeatpostRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SeatpostRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seatpost'
+          description: ''
+    patch:
+      operationId: seatposts_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this seatpost.
+        required: true
+      tags:
+      - seatposts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSeatpostRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSeatpostRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSeatpostRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Seatpost'
+          description: ''
+    delete:
+      operationId: seatposts_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this seatpost.
+        required: true
+      tags:
+      - seatposts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /stems/:
+    get:
+      operationId: stems_list
+      tags:
+      - stems
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stem'
+          description: ''
+    post:
+      operationId: stems_create
+      tags:
+      - stems
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StemRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stem'
+          description: ''
+  /stems/{id}/:
+    get:
+      operationId: stems_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this stem.
+        required: true
+      tags:
+      - stems
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stem'
+          description: ''
+    put:
+      operationId: stems_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this stem.
+        required: true
+      tags:
+      - stems
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StemRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stem'
+          description: ''
+    patch:
+      operationId: stems_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this stem.
+        required: true
+      tags:
+      - stems
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStemRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStemRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStemRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stem'
+          description: ''
+    delete:
+      operationId: stems_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this stem.
+        required: true
+      tags:
+      - stems
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /tires/:
+    get:
+      operationId: tires_list
+      tags:
+      - tires
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TireSet'
+          description: ''
+    post:
+      operationId: tires_create
+      tags:
+      - tires
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TireSetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TireSetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TireSetRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TireSet'
+          description: ''
+  /tires/{id}/:
+    get:
+      operationId: tires_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this tire set.
+        required: true
+      tags:
+      - tires
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TireSet'
+          description: ''
+    put:
+      operationId: tires_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this tire set.
+        required: true
+      tags:
+      - tires
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TireSetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TireSetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TireSetRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TireSet'
+          description: ''
+    patch:
+      operationId: tires_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this tire set.
+        required: true
+      tags:
+      - tires
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTireSetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTireSetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTireSetRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TireSet'
+          description: ''
+    delete:
+      operationId: tires_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this tire set.
+        required: true
+      tags:
+      - tires
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /wheels/:
+    get:
+      operationId: wheels_list
+      tags:
+      - wheels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WheelSet'
+          description: ''
+    post:
+      operationId: wheels_create
+      tags:
+      - wheels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WheelSetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WheelSetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WheelSetRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WheelSet'
+          description: ''
+  /wheels/{id}/:
+    get:
+      operationId: wheels_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this wheel set.
+        required: true
+      tags:
+      - wheels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WheelSet'
+          description: ''
+    put:
+      operationId: wheels_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this wheel set.
+        required: true
+      tags:
+      - wheels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WheelSetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WheelSetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WheelSetRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WheelSet'
+          description: ''
+    patch:
+      operationId: wheels_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this wheel set.
+        required: true
+      tags:
+      - wheels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedWheelSetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedWheelSetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedWheelSetRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WheelSet'
+          description: ''
+    delete:
+      operationId: wheels_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this wheel set.
+        required: true
+      tags:
+      - wheels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
 components:
   schemas:
     Bike:
@@ -2345,9 +2345,6 @@ components:
           type: integer
           nullable: true
         owner:
-          type: integer
-          nullable: true
-        handlebar:
           type: integer
           nullable: true
         cassette:
@@ -2404,9 +2401,6 @@ components:
           type: integer
           nullable: true
         owner:
-          type: integer
-          nullable: true
-        handlebar:
           type: integer
           nullable: true
         cassette:
@@ -2866,32 +2860,6 @@ components:
         id:
           type: integer
           readOnly: true
-        model:
-          type: string
-          maxLength: 100
-        size:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          maxLength: 100
-        status:
-          $ref: '#/components/schemas/StatusEnum'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
         width:
           type: integer
           maximum: 32767
@@ -2924,25 +2892,17 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
       - backsweep
-      - brand
-      - created_at
+      - bike
       - drop_flare
       - drop_flare_out
       - drop_width
       - id
-      - mpn
       - reach
       - rise
-      - size
-      - updated_at
       - upsweep
       - width
     HandlebarRequest:
@@ -2951,25 +2911,6 @@ components:
         A serializer mixin that provides an easy way to assign permissions
         to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        size:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         width:
           type: integer
           maximum: 32767
@@ -3002,22 +2943,16 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
       required:
       - backsweep
-      - brand
+      - bike
       - drop_flare
       - drop_flare_out
       - drop_width
-      - mpn
       - reach
       - rise
-      - size
       - upsweep
       - width
     PatchedBikeRequest:
@@ -3061,9 +2996,6 @@ components:
           type: integer
           nullable: true
         owner:
-          type: integer
-          nullable: true
-        handlebar:
           type: integer
           nullable: true
         cassette:
@@ -3239,25 +3171,6 @@ components:
         A serializer mixin that provides an easy way to assign permissions
         to given users and/or group when an object is created or updated.
       properties:
-        model:
-          type: string
-          maxLength: 100
-        size:
-          type: string
-          maxLength: 100
-        gtin:
-          type: integer
-          maximum: 99999999999999
-          minimum: 0
-          format: int64
-          nullable: true
-        mpn:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 100
-        status:
-          $ref: '#/components/schemas/StatusEnum'
         width:
           type: integer
           maximum: 32767
@@ -3290,12 +3203,8 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-        brand:
+        bike:
           type: integer
-          nullable: true
-        owner:
-          type: integer
-          nullable: true
     PatchedPedalRequest:
       type: object
       description: |-

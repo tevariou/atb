@@ -1,2 +1,2 @@
 open-api-schema:
-	python api/manage.py spectacular --file admin-openapi-schema.yml
+	python api/manage.py spectacular --file openapi-schema.yml

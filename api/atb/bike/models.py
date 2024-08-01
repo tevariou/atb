@@ -81,7 +81,35 @@ class Pedal(Component):
     pedal_center = models.PositiveSmallIntegerField()
 
 
-class Handlebar(Component):
+class Cassette(Component):
+    gears = ArrayField(models.PositiveSmallIntegerField())
+
+
+class Bike(Component):
+    cassette = models.ForeignKey(Cassette, on_delete=models.SET_NULL, null=True)
+    pedal = models.ForeignKey(Pedal, on_delete=models.SET_NULL, null=True)
+
+    front_center = models.PositiveSmallIntegerField(blank=True, default=0)
+    wheelbase = models.PositiveSmallIntegerField(blank=True, default=0)
+    spacers = models.PositiveSmallIntegerField(blank=True, default=0)
+
+    def copy(self):
+        frame = self.frame
+        frame.pk = None
+        frame._state.adding = True
+        frame.save()
+
+        bike = self
+        bike.pk = None
+        bike._state.adding = True
+        bike.frame = frame
+        bike.save()
+
+
+class Handlebar(models.Model):
+    bike = models.OneToOneField(
+        Bike, on_delete=models.CASCADE, related_name="handlebar"
+    )
     width = models.PositiveSmallIntegerField()
     rise = models.PositiveSmallIntegerField()
     reach = models.PositiveSmallIntegerField()
@@ -90,20 +118,6 @@ class Handlebar(Component):
     drop_flare = AngleField()
     drop_flare_out = AngleField()
     drop_width = models.PositiveSmallIntegerField()
-
-
-class Cassette(Component):
-    gears = ArrayField(models.PositiveSmallIntegerField())
-
-
-class Bike(Component):
-    handlebar = models.ForeignKey(Handlebar, on_delete=models.SET_NULL, null=True)
-    cassette = models.ForeignKey(Cassette, on_delete=models.SET_NULL, null=True)
-    pedal = models.ForeignKey(Pedal, on_delete=models.SET_NULL, null=True)
-
-    front_center = models.PositiveSmallIntegerField(blank=True, default=0)
-    wheelbase = models.PositiveSmallIntegerField(blank=True, default=0)
-    spacers = models.PositiveSmallIntegerField(blank=True, default=0)
 
 
 class ExternalHeadset(models.Model):
