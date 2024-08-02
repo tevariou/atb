@@ -1,7 +1,7 @@
 {
   "schemaFile": "../openapi-schema.yml",
-  "apiFile": "./src/services/api/apiBaseQuery.ts",
+  "apiFile": "./app/services/api/apiBaseQuery.ts",
   "apiImport": "apiBaseQuery",
-  "outputFile": "./src/services/api/generated/api.ts",
+  "outputFile": "./app/services/api/generated/api.ts",
   "hooks": true
 }

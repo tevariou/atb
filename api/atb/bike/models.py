@@ -92,18 +92,8 @@ class Bike(Component):
     front_center = models.PositiveSmallIntegerField(blank=True, default=0)
     wheelbase = models.PositiveSmallIntegerField(blank=True, default=0)
     spacers = models.PositiveSmallIntegerField(blank=True, default=0)
-
-    def copy(self):
-        frame = self.frame
-        frame.pk = None
-        frame._state.adding = True
-        frame.save()
-
-        bike = self
-        bike.pk = None
-        bike._state.adding = True
-        bike.frame = frame
-        bike.save()
+    max_front_wheel_diameter = models.PositiveSmallIntegerField(default=0)
+    max_rear_wheel_diameter = models.PositiveSmallIntegerField(default=0)
 
 
 class Handlebar(models.Model):
