@@ -1,13 +1,7 @@
-import type { AppStore } from "~/store/store";
-import { makeStore } from "~/store/store";
-import type { CounterSliceState } from "./counterSlice";
-import {
-  counterSlice,
-  decrement,
-  increment,
-  incrementByAmount,
-  selectCount,
-} from "./counterSlice";
+import type { AppStore } from "~/store/store"
+import { makeStore } from "~/store/store"
+import type { CounterSliceState } from "./counterSlice"
+import { counterSlice, decrement, increment, incrementByAmount, selectCount } from "./counterSlice"
 
 interface LocalTestContext {
   store: AppStore;
@@ -20,9 +14,7 @@ describe<LocalTestContext>("counter reducer", (it) => {
       status: "idle",
     };
 
-    const store = makeStore({ counter: initialState });
-
-    context.store = store;
+    context.store = makeStore({ counter: initialState });
   });
 
   it("should handle initial state", () => {
