@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { BikeGeometry } from "~/utils/bike-geometry";
 import { Wheel } from "~/utils/wheel";
 
-export const Bike = ({ spinAngle }: { spinAngle: number }) => {
+const Bike = ({ spinAngle }: { spinAngle: number }) => {
   const bike = useMemo(
     () =>
       new BikeGeometry({
@@ -161,3 +161,5 @@ export const Bike = ({ spinAngle }: { spinAngle: number }) => {
     </svg>
   );
 };
+
+export default Bike;

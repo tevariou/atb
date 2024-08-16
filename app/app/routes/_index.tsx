@@ -2,7 +2,8 @@ import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useState } from "react";
 
 import "./_index.css";
-import { Bike } from "~/features/bike/Bike";
+import Bike from "~/features/bike/Bike";
+import Form from "~/features/bike/Form";
 
 export const meta: MetaFunction = () => {
   return [
@@ -30,6 +31,7 @@ export default function Index() {
 
   return (
     <div className="App">
+      <Form />
       <Bike spinAngle={spinAngle} />
     </div>
   );

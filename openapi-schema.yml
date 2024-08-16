@@ -2341,6 +2341,14 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
+        max_front_wheel_diameter:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        max_rear_wheel_diameter:
+          type: integer
+          maximum: 32767
+          minimum: 0
         brand:
           type: integer
           nullable: true
@@ -2394,6 +2402,14 @@ components:
           maximum: 32767
           minimum: 0
         spacers:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        max_front_wheel_diameter:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        max_rear_wheel_diameter:
           type: integer
           maximum: 32767
           minimum: 0
@@ -2989,6 +3005,14 @@ components:
           maximum: 32767
           minimum: 0
         spacers:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        max_front_wheel_diameter:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        max_rear_wheel_diameter:
           type: integer
           maximum: 32767
           minimum: 0

@@ -1133,6 +1133,8 @@ export type Bike = {
   front_center?: number;
   wheelbase?: number;
   spacers?: number;
+  max_front_wheel_diameter?: number;
+  max_rear_wheel_diameter?: number;
   brand: number | null;
   owner?: number | null;
   cassette?: number | null;
@@ -1150,6 +1152,8 @@ export type BikeRead = {
   front_center?: number;
   wheelbase?: number;
   spacers?: number;
+  max_front_wheel_diameter?: number;
+  max_rear_wheel_diameter?: number;
   brand: number | null;
   owner?: number | null;
   cassette?: number | null;
@@ -1164,6 +1168,8 @@ export type BikeRequest = {
   front_center?: number;
   wheelbase?: number;
   spacers?: number;
+  max_front_wheel_diameter?: number;
+  max_rear_wheel_diameter?: number;
   brand: number | null;
   owner?: number | null;
   cassette?: number | null;
@@ -1178,6 +1184,8 @@ export type PatchedBikeRequest = {
   front_center?: number;
   wheelbase?: number;
   spacers?: number;
+  max_front_wheel_diameter?: number;
+  max_rear_wheel_diameter?: number;
   brand?: number | null;
   owner?: number | null;
   cassette?: number | null;
