@@ -1,0 +1,41 @@
+const tumbleWeedBikes = [
+  {
+    id: "tw-stargazer-l",
+    name: "Stargazer L",
+    geometry: {
+      reach: 389,
+      stack: 653,
+      headTube: 200,
+      headTubeAngle: 69,
+      chainStay: 450,
+      actualSeatTubeAngle: 72.5,
+      effectiveSeatTubeAngle: 72.5,
+      seatTube: 490,
+      bottomBracketDrop: 63,
+      frontCenter: 0,
+      wheelBase: 0,
+      forkAxleToCrown: 440,
+      forkOffset: 55,
+      forkTravel: 0,
+      crankLength: 170,
+      crankQFactor: 172,
+      spacers: 100,
+      externalHeadsetUpperCupStackHeight: 100,
+      externalHeadsetLowerCupStackHeight: 100,
+      stemLength: 100,
+      stemAngle: 7,
+      stemSteererHeight: 100,
+      seatOffset: 0,
+      handlebarWidth: 420,
+      handlebarReach: 75,
+      handlebarRise: 5,
+      tireFrontWidth: 60,
+      tireRearWidth: 60,
+      wheelFrontDiameter: 622,
+      wheelRearDiameter: 622,
+    },
+  },
+];
+
+const bikeRegistry = [...tumbleWeedBikes];
+export default bikeRegistry;
