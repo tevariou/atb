@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import Bike from "@/app/bike/components/Bike";
 import BikeForm from "@/app/bike/components/BikeForm";
 import { Button } from "@/components/ui/button";
-import { useAppSelector, useInterval } from "@/lib/hooks"
+import { useInterval } from "@/lib/hooks"
 import {
   Drawer,
   DrawerContent,
@@ -16,17 +16,14 @@ import {
 } from "@/components/ui/drawer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RiderForm from "./components/RiderForm";
-import { bikeSelectors } from "@/app/bike/lib/bikeSlice";
-import { riderSelectors } from "@/app/bike/lib/riderSlice";
-import { toBikeGeometry } from "@/app/bike/lib/mappers";
+import { useBikeGeometry } from "@/app/bike/lib/mappers";
 
 
 export default function BikePage() {
-  const bike = useAppSelector(bikeSelectors.selectBike);
-  const rider = useAppSelector(riderSelectors.selectRider);
-
   const [spinAngle, setSpinAngle] = useState(0);
   const [spinState, setSpinState] = useState(false);
+
+  const { bike: bikeGeometry, shadowBike: shadowBikeGeometry } = useBikeGeometry(spinAngle);
 
   const incrementAngle = useCallback(() => {
     if (spinAngle < 360) {
@@ -82,8 +79,9 @@ export default function BikePage() {
               </DrawerPortal>
             </Drawer>
           </div>
-          <div className="w-full max-w-7xl relative">
-            {bike && <Bike bike={toBikeGeometry(bike, rider)} spinAngle={spinAngle} />}
+          <div className="w-full max-w-7xl h-[750px] relative">
+            {bikeGeometry && <div className="absolute inset-0"><Bike bike={bikeGeometry} spinAngle={spinAngle} /></div>}
+            {shadowBikeGeometry && <div className="absolute inset-0"><Bike bike={shadowBikeGeometry} spinAngle={spinAngle} isShadow /></div>}
           </div>
         </main>
         <footer className="flex row-start-3 gap-[24px] flex-wrap items-center justify-center">

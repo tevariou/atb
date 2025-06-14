@@ -4,12 +4,16 @@ import Wheel from "../lib/Wheel";
 export default function Bike({
   bike,
   spinAngle = 0,
+  isShadow = false,
 }: {
   bike: BikeGeometry;
+  isShadow?: boolean;
   spinAngle?: number;
 }) {
   const frontWheel = new Wheel(584, 75);
   const rearWheel = new Wheel(584, 75);
+
+  const strokeColor = isShadow ? "blue" : "black";
 
   return (
     <svg width="100%" height="100%" viewBox="0 0 1500 1500">
@@ -30,89 +34,125 @@ export default function Bike({
       </defs>
 
       <g transform="translate(750 750), scale(0.5), scale(-1 1), rotate(180)">
+        {/* Front tire */}
         <circle
           transform={`rotate(${-spinAngle}, ${bike.fork.end.x}, ${
             bike.fork.end.y
           })`}
-          fill="url(#rainbow)"
-          fillOpacity="0.5"
+          stroke={strokeColor}
+          strokeWidth="1"
+          fill="none"
           cx={bike.fork.end.x}
           cy={bike.fork.end.y}
           r={frontWheel.radiusWithTire}
         />
+
+        {/* Front rim */}
         <circle
-          fill="white"
+          stroke={strokeColor}
+          strokeWidth="1"
+          fill="none"
           cx={bike.fork.end.x}
           cy={bike.fork.end.y}
           r={frontWheel.radius}
         />
+
+        {/* Rear tire */}
         <circle
           transform={`rotate(${-spinAngle}, ${bike.chainStay.start.x}, ${
             bike.chainStay.start.y
           })`}
-          fill="url(#rainbow)"
-          fillOpacity="0.5"
+          stroke={strokeColor}
+          strokeWidth="1"
+          fill="none"
           cx={bike.chainStay.start.x}
           cy={bike.chainStay.start.y}
           r={rearWheel.radiusWithTire}
         />
+        {/* Rear rim */}
         <circle
-          fill="white"
+          stroke={strokeColor}
+          strokeWidth="1"
+          fill="none"
           cx={bike.chainStay.start.x}
           cy={bike.chainStay.start.y}
           r={rearWheel.radius}
         />
+
+        {/* Head tube */}
         <path
           d={bike.headTube.draw()}
           stroke="blue"
           strokeWidth="5"
           fill="none"
         />
+
+        {/* Fork */}
         <path d={bike.fork.draw()} stroke="blue" strokeWidth="5" fill="none" />
+
+        {/* Down tube */}
         <path
           d={bike.downTube.draw()}
           stroke="blue"
           strokeWidth="5"
           fill="none"
         />
+
+        {/* Seat tube */}
         <path
           d={bike.seatTube.draw()}
           stroke="blue"
           strokeWidth="5"
           fill="none"
         />
+
+        {/* Chainstay */}
         <path
           d={bike.chainStay.draw()}
           stroke="blue"
           strokeWidth="5"
           fill="none"
         />
+
+        {/* Seat tube */}
         <path
           d={bike.seatStay.draw()}
           stroke="blue"
           strokeWidth="5"
           fill="none"
         />
+
+        {/* Top tube */}
         <path
           d={bike.topTube.draw()}
           stroke="blue"
           strokeWidth="5"
           fill="none"
         />
+
+        {/* Crank */}
         <path d={bike.crank.draw()} stroke="red" strokeWidth="5" fill="none" />
+
+        {/* Steerer tube */}
         <path
           d={bike.spacers.draw()}
           stroke="red"
           strokeWidth="5"
           fill="none"
         />
+
+        {/* Stem */}
         <path d={bike.stem.draw()} stroke="red" strokeWidth="5" fill="none" />
+
+        {/* Seat post */}
         <path
           d={bike.seatPost.draw()}
           stroke="red"
           strokeWidth="5"
           fill="none"
         />
+
+        {/* Rider lower body */}
         <path
           d={bike.lowerBody.draw()}
           stroke="green"
@@ -120,6 +160,8 @@ export default function Bike({
           fill="none"
           strokeOpacity=".25"
         />
+
+        {/* Rider upper body */}
         <path
           d={bike.upperBody.draw()}
           stroke="green"

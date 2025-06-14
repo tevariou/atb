@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useDebouncedCallback } from "use-debounce";
+import React from "react";
 
 import {
   FormControl,
@@ -14,14 +14,12 @@ import {
   Form,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import React from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setBike, bikeSelectors } from "../lib/bikeSlice";
 import { setShadowBike, shadowBikeSelectors } from "../lib/shadowBikeSlice";
 import type { BikeState } from "../lib/bikeSlice";
 import BikeSelect from "./BikeSelect";
 import { Button } from "@/components/ui/button";
-
 
 type BikeFormProps = {  isShadow?: boolean; };
 
@@ -142,15 +140,15 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
       type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
     },
     tireRearWidth: {
-      label: "Rear tire width",
+      label: "Rear tire width (mm)",
       type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
     },
     wheelFrontDiameter: {
-      label: "Front wheel diameter",
+      label: "Front wheel diameter (mm)",
       type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
     },
     wheelRearDiameter: {
-      label: "Rear wheel diameter",
+      label: "Rear wheel diameter (mm)",
       type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
     },
   };
@@ -170,21 +168,19 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
     dispatch(isShadow ? setShadowBike(updatedBike) : setBike(updatedBike));
   };
 
-  const debouncedSave = useDebouncedCallback(onSubmit, 1000);
-
-  const onChange = (bike: BikeState) => {
+  const onBikeSelectChange = (bike: BikeState) => {
     form.reset(bike);
+    dispatch(isShadow ? setShadowBike(bike) : setBike(bike));
   };
 
   return (
     <div>
       <div className="grid gap-4 p-4">
-        <BikeSelect onChange={onChange} />
+        <BikeSelect onChange={onBikeSelectChange} />
       </div>
       <Form {...form}>
         <form 
           onSubmit={form.handleSubmit(onSubmit)} 
-          onBlur={() => debouncedSave(form.getValues())}
           className="bg-inherit"
         >
           <div className="grid gap-4 p-4">
@@ -200,11 +196,12 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
                       <Input
                         {...field}
                         type="number"
-                        onChange={(event) =>
-                          field.onChange(
-                            event.target.value && Number(event.target.value),
-                          )
-                        }
+                        value={field.value ?? ''}
+                        onChange={(event) => {
+                          const value = event.target.value === '' ? undefined : Number(event.target.value);
+                          field.onChange(value);
+                          onSubmit(form.getValues());
+                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -216,7 +213,6 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
               Submit
             </Button>
           </div>
-            
         </form>
       </Form>
     </div>

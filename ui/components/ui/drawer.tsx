@@ -63,6 +63,20 @@ function DrawerContent({
           "data-[vaul-drawer-direction=left]:inset-y-0 data-[vaul-drawer-direction=left]:left-0 data-[vaul-drawer-direction=left]:w-3/4 data-[vaul-drawer-direction=left]:border-r data-[vaul-drawer-direction=left]:sm:max-w-sm",
           className,
         )}
+        onOpenAutoFocus={(e) => {
+          e.preventDefault();
+          const firstFocusable = document.querySelector('[data-slot="drawer-content"] button, [data-slot="drawer-content"] [href], [data-slot="drawer-content"] input, [data-slot="drawer-content"] select, [data-slot="drawer-content"] textarea, [data-slot="drawer-content"] [tabindex]:not([tabindex="-1"])');
+          if (firstFocusable instanceof HTMLElement) {
+            firstFocusable.focus();
+          }
+        }}
+        onCloseAutoFocus={(e) => {
+          e.preventDefault();
+          const trigger = document.querySelector('[data-slot="drawer-trigger"]');
+          if (trigger instanceof HTMLElement) {
+            trigger.focus();
+          }
+        }}
         {...props}
       >
         <div className="bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block" />

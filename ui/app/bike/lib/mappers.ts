@@ -1,8 +1,12 @@
+import { useAppSelector } from "@/lib/hooks";
 import BikeGeometry from "./BikeGeometry";
 import type { BikeState } from "./bikeSlice";
-import type { RiderState } from "./riderSlice"
+import type { RiderState } from "./riderSlice";
+import { riderSelectors } from "./riderSlice";
+import { bikeSelectors } from "./bikeSlice";
+import { shadowBikeSelectors } from "./shadowBikeSlice";
 
-export function toBikeGeometry(
+function toBikeGeometry(
   bike?: BikeState,
   rider?: RiderState,
   spinAngle?: number
@@ -29,11 +33,22 @@ export function toBikeGeometry(
     handleBarReach: bike?.handlebarReach,
     handleBarHeight: bike?.handlebarRise,
     effectiveSeatTubeAngle: bike?.effectiveSeatTubeAngle,
-    riderUpperLegLength: rider?.upperLegLength,
-    riderFootLength: rider?.footLength,
-    riderArmLength: rider?.armLength,
-    riderSpineLength: rider?.spineLength,
-    riderInseamLength: rider?.inseamLength,
+    riderUpperLegLength: rider?.upperLegLength && rider.upperLegLength * 10,
+    riderFootLength: rider?.footLength && rider.footLength * 10,
+    riderArmLength: rider?.armLength && rider.armLength * 10,
+    riderSpineLength: rider?.spineLength && rider.spineLength * 10,
+    riderInseamLength: rider?.inseamLength && rider.inseamLength * 10,
     spinAngle,
   });
+}
+
+export function useBikeGeometry(spinAngle: number) {
+  const bike = useAppSelector(bikeSelectors.selectBike);
+  const shadowBike = useAppSelector(shadowBikeSelectors.selectShadowBike);
+  const rider = useAppSelector(riderSelectors.selectRider);
+
+  return {
+    bike: toBikeGeometry(bike, rider, spinAngle),
+    shadowBike: toBikeGeometry(shadowBike, rider, spinAngle),
+  };
 }
