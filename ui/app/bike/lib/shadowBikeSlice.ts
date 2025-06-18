@@ -13,6 +13,7 @@ const initialState = {
   effectiveSeatTubeAngle: 0,
   seatTube: 0,
   bottomBracketDrop: 0,
+  frontCenter: 0,
   wheelBase: 0,
   forkAxleToCrown: 0,
   forkOffset: 0,
@@ -20,8 +21,6 @@ const initialState = {
   crankLength: 0,
   crankQFactor: 0,
   spacers: 0,
-  externalHeadsetUpperCupStackHeight: 0,
-  externalHeadsetLowerCupStackHeight: 0,
   stemLength: 0,
   stemAngle: 0,
   stemSteererHeight: 0,
@@ -57,8 +56,6 @@ const shadowBikeSlice = createSlice({
         crankLength,
         crankQFactor,
         spacers,
-        externalHeadsetUpperCupStackHeight,
-        externalHeadsetLowerCupStackHeight,
         stemLength,
         stemAngle,
         stemSteererHeight,
@@ -87,12 +84,6 @@ const shadowBikeSlice = createSlice({
       state.crankLength = Math.trunc(crankLength);
       state.crankQFactor = Math.trunc(crankQFactor);
       state.spacers = Math.trunc(spacers);
-      state.externalHeadsetUpperCupStackHeight = Math.trunc(
-        externalHeadsetUpperCupStackHeight
-      );
-      state.externalHeadsetLowerCupStackHeight = Math.trunc(
-        externalHeadsetLowerCupStackHeight
-      );
       state.stemLength = Math.trunc(stemLength);
       state.stemAngle = Math.trunc(stemAngle);
       state.stemSteererHeight = Math.trunc(stemSteererHeight);

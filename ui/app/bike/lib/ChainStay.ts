@@ -14,6 +14,12 @@ export default class ChainStay extends Segment {
     bbDropLength: number;
     chainStayLength: number;
   }) {
+    if (Math.abs(chainStayLength) < Math.abs(bbDropLength)) {
+      throw new Error(
+        `Chain stay length (${chainStayLength}) must be greater than or equal to bottom bracket drop length (${bbDropLength})`
+      );
+    }
+
     const start = {
       x:
         -Math.sqrt(chainStayLength ** 2 - bbDropLength ** 2) +

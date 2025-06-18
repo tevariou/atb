@@ -10,6 +10,7 @@ export default class LowerBody extends Segment {
   private readonly __brand = "LowerBody";
   private readonly knee: Coordinates;
   private readonly heel: Coordinates;
+  private readonly _inseamLength: number;
 
   constructor({
     bottomBracket,
@@ -32,16 +33,11 @@ export default class LowerBody extends Segment {
         (crank.qFactor / 2) ** 2,
     );
 
-    let heel: Coordinates;
-
     if (fromSaddleToPedal > riderInseamLength) {
-      heel = {
-        x: seatPost.start.x,
-        y: seatPost.start.y - riderInseamLength,
-      };
+      throw new Error("From saddle to pedal is greater than inseam length");
     }
 
-    heel = {
+    const heel = {
       x: crank.end.x - (riderFootLength * 2) / 3,
       y: crank.end.y,
     };
@@ -61,6 +57,11 @@ export default class LowerBody extends Segment {
       const d = Math.sqrt(
         distance(heel, seatPost.start) ** 2 + (crank.qFactor / 2) ** 2,
       );
+
+      if (d === 0 || lowerLeg === 0) {
+        throw new Error("Lower leg or distance is 0");
+      }
+
       const gamma = Math.acos(
         (d ** 2 + lowerLeg ** 2 - riderUpperLegLength ** 2) /
           (2 * d * lowerLeg),
@@ -76,9 +77,11 @@ export default class LowerBody extends Segment {
       x: heel.x + riderFootLength,
       y: heel.y,
     };
+
     super({ start: seatPost.start, end });
     this.knee = knee;
     this.heel = heel;
+    this._inseamLength = riderInseamLength;
   }
 
   draw(): string {
@@ -90,5 +93,9 @@ export default class LowerBody extends Segment {
         [this.end.x, this.end.y],
       ]) ?? ""
     );
+  }
+
+  get inseamLength(): number {
+    return this._inseamLength;
   }
 }

@@ -1,5 +1,4 @@
 import BikeGeometry from "../lib/BikeGeometry";
-import Wheel from "../lib/Wheel";
 
 export default function Bike({
   bike,
@@ -10,10 +9,7 @@ export default function Bike({
   isShadow?: boolean;
   spinAngle?: number;
 }) {
-  const frontWheel = new Wheel(584, 75);
-  const rearWheel = new Wheel(584, 75);
-
-  const strokeColor = isShadow ? "blue" : "black";
+  const strokeColor = isShadow ? "black" : "blue";
 
   return (
     <svg width="100%" height="100%" viewBox="0 0 1500 1500">
@@ -44,7 +40,7 @@ export default function Bike({
           fill="none"
           cx={bike.fork.end.x}
           cy={bike.fork.end.y}
-          r={frontWheel.radiusWithTire}
+          r={bike.frontWheel.radiusWithTire}
         />
 
         {/* Front rim */}
@@ -54,7 +50,7 @@ export default function Bike({
           fill="none"
           cx={bike.fork.end.x}
           cy={bike.fork.end.y}
-          r={frontWheel.radius}
+          r={bike.frontWheel.radius}
         />
 
         {/* Rear tire */}
@@ -67,7 +63,7 @@ export default function Bike({
           fill="none"
           cx={bike.chainStay.start.x}
           cy={bike.chainStay.start.y}
-          r={rearWheel.radiusWithTire}
+          r={bike.rearWheel.radiusWithTire}
         />
         {/* Rear rim */}
         <circle
@@ -76,24 +72,24 @@ export default function Bike({
           fill="none"
           cx={bike.chainStay.start.x}
           cy={bike.chainStay.start.y}
-          r={rearWheel.radius}
+          r={bike.rearWheel.radius}
         />
 
         {/* Head tube */}
         <path
           d={bike.headTube.draw()}
-          stroke="blue"
+          stroke={strokeColor}
           strokeWidth="5"
           fill="none"
         />
 
         {/* Fork */}
-        <path d={bike.fork.draw()} stroke="blue" strokeWidth="5" fill="none" />
+        <path d={bike.fork.draw()} stroke={strokeColor} strokeWidth="5" fill="none" />
 
         {/* Down tube */}
         <path
           d={bike.downTube.draw()}
-          stroke="blue"
+          stroke={strokeColor}
           strokeWidth="5"
           fill="none"
         />
@@ -101,7 +97,7 @@ export default function Bike({
         {/* Seat tube */}
         <path
           d={bike.seatTube.draw()}
-          stroke="blue"
+          stroke={strokeColor}
           strokeWidth="5"
           fill="none"
         />
@@ -109,7 +105,7 @@ export default function Bike({
         {/* Chainstay */}
         <path
           d={bike.chainStay.draw()}
-          stroke="blue"
+          stroke={strokeColor}
           strokeWidth="5"
           fill="none"
         />
@@ -117,7 +113,7 @@ export default function Bike({
         {/* Seat tube */}
         <path
           d={bike.seatStay.draw()}
-          stroke="blue"
+          stroke={strokeColor}
           strokeWidth="5"
           fill="none"
         />
@@ -125,7 +121,7 @@ export default function Bike({
         {/* Top tube */}
         <path
           d={bike.topTube.draw()}
-          stroke="blue"
+          stroke={strokeColor}
           strokeWidth="5"
           fill="none"
         />
@@ -154,7 +150,7 @@ export default function Bike({
 
         {/* Rider lower body */}
         <path
-          d={bike.lowerBody.draw()}
+          d={bike.lowerBody && bike.lowerBody.draw()}
           stroke="green"
           strokeWidth="5"
           fill="none"
@@ -163,7 +159,7 @@ export default function Bike({
 
         {/* Rider upper body */}
         <path
-          d={bike.upperBody.draw()}
+          d={bike.upperBody && bike.upperBody.draw()}
           stroke="green"
           strokeWidth="5"
           fill="none"

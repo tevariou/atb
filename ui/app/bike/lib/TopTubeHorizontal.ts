@@ -14,6 +14,11 @@ export default class TopTubeHorizontal extends Segment {
     headTube: HeadTube;
     effectiveSeatTubeAngle: number;
   }) {
+
+    if (effectiveSeatTubeAngle === 0) {
+      throw new Error("Effective seat tube angle cannot be 0");
+    }
+
     const start = {
       x:
         (headTube.start.y - bottomBracket.coordinates.y) /

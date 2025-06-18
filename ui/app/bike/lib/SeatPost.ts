@@ -3,6 +3,7 @@ import BottomBracket from "./BottomBracket";
 import SeatTube from "./SeatTube";
 import Crank from "./Crank";
 import { distance } from "./helpers";
+import Coordinates from "./Coordinates";
 
 export default class SeatPost extends Segment {
   private readonly __brand = "SeatPost";
@@ -55,5 +56,9 @@ export default class SeatPost extends Segment {
     const end = seatTube.start;
 
     super({ start, end });
+  }
+
+  get start(): Coordinates {
+    return this._start;
   }
 }

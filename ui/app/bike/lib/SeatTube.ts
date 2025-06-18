@@ -34,7 +34,12 @@ export default class SeatTube extends Segment {
       seatTubeLength ** 2 +
       bottomBracket.coordinates.x ** 2;
 
-    let x = (-b - Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a);
+    const d = b ** 2 - 4 * a * c;
+    if (d < 0) {
+      throw new Error("Seat tube does not intersect with top tube");
+    }
+
+    let x = (-b - Math.sqrt(d)) / (2 * a);
     let y = Math.tan(alpha) * x + h.y - Math.tan(alpha) * h.x;
 
     const start = {
@@ -46,6 +51,11 @@ export default class SeatTube extends Segment {
     super({ start, end });
 
     y = bottomBracket.coordinates.y + seatTubeLength / 2;
+
+    if (topTubeHorizontal.start.x === start.x) {
+      throw new Error("Top tube horizontal and seat tube start x are the same");
+    }
+
     const m =
       (topTubeHorizontal.start.y - start.y) /
       (topTubeHorizontal.start.x - start.x);

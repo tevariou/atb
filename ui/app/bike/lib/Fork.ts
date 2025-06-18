@@ -7,6 +7,7 @@ import ChainStay from "./ChainStay";
 
 export default class Fork extends Segment {
   private readonly __brand = "Fork";
+  private readonly _forkOffsetLength: number;
 
   constructor({
     bottomBracket,
@@ -27,14 +28,20 @@ export default class Fork extends Segment {
   }) {
     let end: Coordinates;
 
-    if (frontCenterLength !== 0) {
+    if (crownToAxleLength === 0 && frontCenterLength !== 0) {
+      if (Math.abs(frontCenterLength) < Math.abs(chainStay.bbDropLength)) {
+        throw new Error(
+          `Front center length (${frontCenterLength}) must be greater than or equal to bottom bracket drop length (${chainStay.bbDropLength})`
+        );
+      }
+
       end = {
         x:
           Math.sqrt(frontCenterLength ** 2 - chainStay.bbDropLength ** 2) +
           bottomBracket.coordinates.x,
-        y: chainStay.bbDropLength + bottomBracket.coordinates.y,
+        y: chainStay.start.y,
       };
-    } else if (wheelBase !== 0) {
+    } else if (crownToAxleLength === 0 && wheelBase !== 0) {
       end = {
         x: chainStay.start.x + wheelBase,
         y: chainStay.start.y,
@@ -48,7 +55,7 @@ export default class Fork extends Segment {
       const frontAxleWithOffsetCoordinates = rotate(
         unRotatedFrontAxleWithOffsetCoordinates,
         toRadians(90) - headTube.angle,
-        headTube.end,
+        headTube.end
       );
 
       end = {
@@ -58,7 +65,13 @@ export default class Fork extends Segment {
     }
 
     const start = headTube.end;
-
+    
     super({ start, end });
+
+    this._forkOffsetLength = forkOffsetLength;
+  }
+
+  get forkOffsetLength(): number {
+    return this._forkOffsetLength;
   }
 }

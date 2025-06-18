@@ -13,7 +13,8 @@ import LowerBody from "./LowerBody";
 import UpperBody from "./UpperBody";
 import HandleBar from "./HandleBar";
 import BottomBracket from "./BottomBracket";
-import { toRadians } from "./helpers";
+import { toRadians, toDegrees, distance } from "./helpers";
+import Wheel from "./Wheel";
 
 export type BikeGeometryParams = {
   bottomBracketCoordinates?: Coordinates;
@@ -44,10 +45,15 @@ export type BikeGeometryParams = {
   riderArmLength?: number;
   riderSpineLength?: number;
   effectiveSeatTubeAngle?: number;
+  frontWheelDiameter?: number;
+  rearWheelDiameter?: number;
+  frontTireWidth?: number;
+  rearTireWidth?: number;
   spinAngle?: number;
 };
 
 export default class BikeGeometry {
+  private readonly _bottomBracket: BottomBracket;
   private readonly _headTube: HeadTube;
   private readonly _downTube: Segment;
   private readonly _topTubeHorizontal: TopTubeHorizontal;
@@ -61,8 +67,11 @@ export default class BikeGeometry {
   private readonly _fork: Fork;
   private readonly _topTube: Segment;
 
-  private readonly _lowerBody: LowerBody;
-  private readonly _upperBody: UpperBody;
+  private readonly _lowerBody: LowerBody | undefined;
+  private readonly _upperBody: UpperBody | undefined;
+
+  private readonly _frontWheel: Wheel;
+  private readonly _rearWheel: Wheel;
 
   constructor({
     bottomBracketCoordinates = { x: 0, y: 0 } as Coordinates,
@@ -93,6 +102,10 @@ export default class BikeGeometry {
     riderArmLength = 0,
     riderSpineLength = 0,
     effectiveSeatTubeAngle = 0,
+    frontWheelDiameter = 0,
+    rearWheelDiameter = 0,
+    frontTireWidth = 0,
+    rearTireWidth = 0,
     spinAngle = 0,
   }: BikeGeometryParams) {
     const bottomBracket = new BottomBracket(bottomBracketCoordinates);
@@ -104,6 +117,7 @@ export default class BikeGeometry {
       reachLength,
       stackLength,
     });
+
     const chainStay = new ChainStay({
       bottomBracket,
       bbDropLength,
@@ -144,13 +158,16 @@ export default class BikeGeometry {
     });
 
     const crank = new Crank({ bottomBracket, crankLength, qFactor, spinAngle });
+
     const spacers = new Spacers({ headTube, spacersLength });
+
     const stem = new Stem({
       spacers,
       headTube,
       stemLength,
       stemAngle: toRadians(stemAngle),
     });
+
     const handleBar = new HandleBar({
       stem,
       handleBarReach,
@@ -165,21 +182,32 @@ export default class BikeGeometry {
       riderInseamLength,
       seatPostOffset,
     });
-    const lowerBody = new LowerBody({
-      bottomBracket,
-      seatPost,
-      crank,
-      riderInseamLength,
-      riderUpperLegLength,
-      riderFootLength,
-    });
-    const upperBody = new UpperBody({
-      seatPost,
-      handleBar,
-      riderArmLength,
-      riderSpineLength,
-    });
 
+    try {
+      const lowerBody = new LowerBody({
+        bottomBracket,
+        seatPost,
+        crank,
+        riderInseamLength,
+        riderUpperLegLength,
+        riderFootLength,
+      });
+
+      const upperBody = new UpperBody({
+        seatPost,
+        handleBar,
+        riderArmLength,
+        riderSpineLength,
+      });
+
+      this._lowerBody = lowerBody;
+      this._upperBody = upperBody;
+    } catch {}
+
+    this._frontWheel = new Wheel(frontWheelDiameter, frontTireWidth);
+    this._rearWheel = new Wheel(rearWheelDiameter, rearTireWidth);
+
+    this._bottomBracket = bottomBracket;
     this._headTube = headTube;
     this._chainStay = chainStay;
     this._crank = crank;
@@ -189,8 +217,6 @@ export default class BikeGeometry {
     this._seatPost = seatPost;
     this._stem = stem;
     this._fork = fork;
-    this._lowerBody = lowerBody;
-    this._upperBody = upperBody;
   }
 
   get headTube(): HeadTube {
@@ -241,11 +267,53 @@ export default class BikeGeometry {
     return this._seatPost;
   }
 
-  get lowerBody(): LowerBody {
+  get lowerBody(): LowerBody | undefined {
     return this._lowerBody;
   }
 
-  get upperBody(): UpperBody {
+  get upperBody(): UpperBody | undefined {
     return this._upperBody;
+  }
+
+  get frontWheel(): Wheel {
+    return this._frontWheel;
+  }
+
+  get rearWheel(): Wheel {
+    return this._rearWheel;
+  }
+
+  get spineAngle(): number {
+    if (!this.upperBody) {
+      return 0;
+    }
+
+    return toDegrees(Math.asin(
+      (this.upperBody.shoulder.y - this.seatPost.start.y) / this.upperBody.spineLength
+    ));
+  }
+
+  get standoverHeight(): number {
+    return (this.headTube.start.y - this.seatTube.start.y) / 2 + this.seatTube.start.y - this.chainStay.bbDropLength + this.rearWheel.radiusWithTire;
+  }
+
+  get groundPedalClearance(): number {
+    return this.rearWheel.radiusWithTire - (this.crank.length + this.chainStay.bbDropLength);
+  }
+
+  get toeOverlapClearance(): number {
+    if (!this.lowerBody) {
+      return 0;
+    }
+
+    const feetCircleRadius = distance(this.lowerBody.end, this._bottomBracket.coordinates);
+    const frontWheelCircleRadius = this.frontWheel.radiusWithTire;
+    const frontHubToOriginDistance = distance(this.fork.end, this._bottomBracket.coordinates);
+    const _distance = frontHubToOriginDistance - (frontWheelCircleRadius + feetCircleRadius);
+    return _distance > 0 ? _distance : 0;
+  }
+
+  get trail(): number {
+    return this.frontWheel.radiusWithTire / Math.tan(this.headTube.angle) - this.fork.forkOffsetLength / Math.sin(this.headTube.angle);
   }
 }

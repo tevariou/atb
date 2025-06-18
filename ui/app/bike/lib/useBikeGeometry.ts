@@ -14,7 +14,7 @@ function toBikeGeometry(
   return new BikeGeometry({
     reachLength: bike?.reach,
     stackLength: bike?.stack,
-    headTubeLength: bike?.headTube,
+    headTubeLength: bike && bike.headTube,
     headTubeAngle: bike?.headTubeAngle,
     chainStayLength: bike?.chainStay,
     actualSeatTubeAngle: bike?.actualSeatTubeAngle,
@@ -38,6 +38,10 @@ function toBikeGeometry(
     riderArmLength: rider?.armLength && rider.armLength * 10,
     riderSpineLength: rider?.spineLength && rider.spineLength * 10,
     riderInseamLength: rider?.inseamLength && rider.inseamLength * 10,
+    frontWheelDiameter: bike?.wheelFrontDiameter,
+    rearWheelDiameter: bike?.wheelRearDiameter,
+    frontTireWidth: bike?.tireFrontWidth,
+    rearTireWidth: bike?.tireRearWidth,
     spinAngle,
   });
 }
@@ -47,8 +51,22 @@ export function useBikeGeometry(spinAngle: number) {
   const shadowBike = useAppSelector(shadowBikeSelectors.selectShadowBike);
   const rider = useAppSelector(riderSelectors.selectRider);
 
+  let bikeGeometry: BikeGeometry | undefined;
+  try {
+    bikeGeometry = toBikeGeometry(bike, rider, spinAngle);
+  } catch {
+    bikeGeometry = undefined;
+  }
+
+  let shadowBikeGeometry: BikeGeometry | undefined;
+  try {
+    shadowBikeGeometry = toBikeGeometry(shadowBike, rider, spinAngle);
+  } catch {
+    shadowBikeGeometry = undefined;
+  }
+
   return {
-    bike: toBikeGeometry(bike, rider, spinAngle),
-    shadowBike: toBikeGeometry(shadowBike, rider, spinAngle),
+    bike: bikeGeometry,
+    shadowBike: shadowBikeGeometry,
   };
 }

@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import React from "react";
+import { AlertCircle } from "lucide-react";
 
 import {
   FormControl,
@@ -20,6 +21,7 @@ import { setShadowBike, shadowBikeSelectors } from "../lib/shadowBikeSlice";
 import type { BikeState } from "../lib/bikeSlice";
 import BikeSelect from "./BikeSelect";
 import { Button } from "@/components/ui/button";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 
 type BikeFormProps = {  isShadow?: boolean; };
 
@@ -27,21 +29,22 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
   const dispatch = useAppDispatch();
   const bike = useAppSelector(isShadow ? shadowBikeSelectors.selectShadowBike : bikeSelectors.selectBike);
 
-  const bikeAttributes: Record<keyof BikeState, { label: string; type: z.ZodTypeAny }> = {
-    reach: {
-      label: "Reach (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
-    },
+  const bikeAttributes: Record<keyof BikeState, { label: string; type: z.ZodTypeAny; warnings?: string[] }> = {
     stack: {
       label: "Stack (mm)",
       type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
     },
+    reach: {
+      label: "Reach (mm)",
+      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000"),
+    },
     headTube: {
-      label: "Headtube length (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      label: "Head tube length (mm)",
+      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000"),
+      warnings: ["Include the external headset bottom cup stack height in the headtube length if applicable"]
     },
     headTubeAngle: {
-      label: "Headtube angle (degrees)",
+      label: "Head tube angle (degrees)",
       type: z.number().min(0, "Angle must be at least 0 degrees").max(89, "Angle must be less than 90 degrees")
         .refine(n => !(n * 100).toString().includes("."), { message: "Max precision is 2 decimal places" }),
     },
@@ -97,15 +100,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
     },
     spacers: {
       label: "Spacers height (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
-    },
-    externalHeadsetUpperCupStackHeight: {
-      label: "External headset upper cup stack height (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
-    },
-    externalHeadsetLowerCupStackHeight: {
-      label: "External headset lower cup stack height (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000"),
+      warnings: ["Include the external headset top cup stack height in the calculated length if applicable", "Include the stem steerer height in the calculated length if applicable"]
     },
     stemLength: {
       label: "Stem length (mm)",
@@ -191,7 +187,21 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
                 key={key}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{bikeAttributes[key].label}</FormLabel>
+                    <FormLabel className="flex items-center gap-2">
+                      {bikeAttributes[key].label}
+                      {bikeAttributes[key].warnings && (
+                        <HoverCard>
+                          <HoverCardTrigger asChild>
+                            <AlertCircle className="h-4 w-4 text-yellow-500 cursor-help font-bold" />
+                          </HoverCardTrigger>
+                          <HoverCardContent className="w-80">
+                            <ul className="list-inside list-disc text-sm">
+                              {bikeAttributes[key].warnings.map((warning, idx) => <li key={`${key}-warning-${idx}`}>{warning}</li>)}
+                            </ul>
+                          </HoverCardContent>
+                        </HoverCard>
+                      )}
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
