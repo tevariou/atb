@@ -62,7 +62,7 @@ export default class BikeGeometry {
   private readonly _crank: Crank;
   private readonly _spacers: Spacers;
   private readonly _stem: Stem;
-  private readonly _seatPost: SeatPost;
+  private readonly _seatPost: SeatPost | undefined;
   private readonly _chainStay: ChainStay;
   private readonly _fork: Fork;
   private readonly _topTube: Segment;
@@ -175,33 +175,37 @@ export default class BikeGeometry {
       handleBarWidth,
     });
 
-    const seatPost = new SeatPost({
-      bottomBracket,
-      seatTube,
-      crank,
-      riderInseamLength,
-      seatPostOffset,
-    });
-
     try {
-      const lowerBody = new LowerBody({
+      const seatPost = new SeatPost({
         bottomBracket,
-        seatPost,
+        seatTube,
         crank,
         riderInseamLength,
-        riderUpperLegLength,
-        riderFootLength,
+        seatPostOffset,
       });
 
-      const upperBody = new UpperBody({
-        seatPost,
-        handleBar,
-        riderArmLength,
-        riderSpineLength,
-      });
-
-      this._lowerBody = lowerBody;
-      this._upperBody = upperBody;
+      this._seatPost = seatPost;
+  
+      try {
+        const lowerBody = new LowerBody({
+          bottomBracket,
+          seatPost,
+          crank,
+          riderInseamLength,
+          riderUpperLegLength,
+          riderFootLength,
+        });
+  
+        const upperBody = new UpperBody({
+          seatPost,
+          handleBar,
+          riderArmLength,
+          riderSpineLength,
+        });
+  
+        this._lowerBody = lowerBody;
+        this._upperBody = upperBody;
+      } catch {}
     } catch {}
 
     this._frontWheel = new Wheel(frontWheelDiameter, frontTireWidth);
@@ -214,7 +218,6 @@ export default class BikeGeometry {
     this._topTubeHorizontal = topTubeHorizontal;
     this._seatTube = seatTube;
     this._spacers = spacers;
-    this._seatPost = seatPost;
     this._stem = stem;
     this._fork = fork;
   }
@@ -263,7 +266,7 @@ export default class BikeGeometry {
     return this._stem;
   }
 
-  get seatPost(): SeatPost {
+  get seatPost(): SeatPost | undefined {
     return this._seatPost;
   }
 
@@ -284,7 +287,7 @@ export default class BikeGeometry {
   }
 
   get spineAngle(): number {
-    if (!this.upperBody) {
+    if (!this.upperBody || !this.seatPost) {
       return 0;
     }
 

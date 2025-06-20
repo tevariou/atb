@@ -76,7 +76,7 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
     },
     wheelBase: {
       label: "Wheelbase (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      type: z.number().int().min(0, "Value must be at least 0").max(2000, "Value must be at most 2000")
     },
     forkAxleToCrown: {
       label: "Fork axle to crown (mm)",
@@ -84,19 +84,19 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
     },
     forkOffset: {
       label: "Fork offset (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      type: z.number().int().min(0, "Value must be at least 0").max(100, "Value must be at most 100")
     },
     forkTravel: {
       label: "Fork travel (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      type: z.number().int().min(0, "Value must be at least 0").max(300, "Value must be at most 300")
     },
     crankLength: {
       label: "Crank length (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      type: z.number().int().min(0, "Value must be at least 0").max(300, "Value must be at most 300")
     },
     crankQFactor: {
       label: "Crank Q factor (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      type: z.number().int().min(0, "Value must be at least 0").max(300, "Value must be at most 300")
     },
     spacers: {
       label: "Spacers height (mm)",
@@ -105,7 +105,7 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
     },
     stemLength: {
       label: "Stem length (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      type: z.number().int().min(0, "Value must be at least 0").max(200, "Value must be at most 200")
     },
     stemAngle: {
       label: "Stem angle (degrees)",
@@ -113,11 +113,11 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
     },
     stemSteererHeight: {
       label: "Stem steerer height (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      type: z.number().int().min(0, "Value must be at least 0").max(100, "Value must be at most 100")
     },
     seatOffset: {
       label: "Seat offset (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      type: z.number().int().min(0, "Value must be at least 0").max(100, "Value must be at most 100")
     },
     handlebarWidth: {
       label: "Handlebar width (mm)",
@@ -125,7 +125,7 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
     },
     handlebarReach: {
       label: "Handlebar reach (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      type: z.number().int().min(0, "Value must be at least 0").max(300, "Value must be at most 300")
     },
     handlebarRise: {
       label: "Handlebar rise (mm)",
@@ -133,11 +133,11 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
     },
     tireFrontWidth: {
       label: "Front tire width (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      type: z.number().int().min(0, "Value must be at least 0").max(200, "Value must be at most 200")
     },
     tireRearWidth: {
       label: "Rear tire width (mm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000, "Value must be at most 1000")
+      type: z.number().int().min(0, "Value must be at least 0").max(200, "Value must be at most 200")
     },
     wheelFrontDiameter: {
       label: "Front wheel diameter (mm)",

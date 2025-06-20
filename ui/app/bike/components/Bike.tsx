@@ -142,7 +142,7 @@ export default function Bike({
 
         {/* Seat post */}
         <path
-          d={bike.seatPost.draw()}
+          d={bike.seatPost && bike.seatPost.draw()}
           stroke="red"
           strokeWidth="5"
           fill="none"

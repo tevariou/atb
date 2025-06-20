@@ -79,6 +79,10 @@ export default function BikePage() {
               </DrawerPortal>
             </Drawer>
           </div>
+          <div className="flex flex-row gap-4">
+            {!bikeGeometry?.seatPost && <div>Bike is too short</div>}
+            {!shadowBikeGeometry?.seatPost && <div>Shadow bike is too short</div>}
+          </div>
           {/* Rider spine angle row */}
           {bikeGeometry && shadowBikeGeometry && (
             <div className="flex flex-row gap-4">

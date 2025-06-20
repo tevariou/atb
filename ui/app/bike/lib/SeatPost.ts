@@ -21,6 +21,7 @@ export default class SeatPost extends Segment {
     riderInseamLength: number;
     seatPostOffset: number;
   }) {
+    const MAX_SEAT_POST_LENGTH = 500;
     const getXWithOffset = (seatPostLength: number) =>
       -Math.cos(seatTube.actualAngle) * seatPostLength +
       seatTube.start.x -
@@ -40,14 +41,21 @@ export default class SeatPost extends Segment {
           2 +
           (crank.qFactor / 2) ** 2,
       );
+
     const getSeatPostLength = (seatPostLength: number): number => {
-      if (riderInseamLength - getDWithOffset(seatPostLength) < 1 || seatPostLength > 1000) {
+      if (riderInseamLength - getDWithOffset(seatPostLength) < 1 || seatPostLength > MAX_SEAT_POST_LENGTH) {
         return seatPostLength;
       }
       return getSeatPostLength(seatPostLength + 1);
     };
-    const xWithOffset = getXWithOffset(getSeatPostLength(0));
-    const yWithOffset = getYWithOffset(getSeatPostLength(0));
+    const seatPostLength = getSeatPostLength(0);
+
+    if (seatPostLength > MAX_SEAT_POST_LENGTH) {
+      throw new Error("Seatpost length is too long");
+    }
+
+    const xWithOffset = getXWithOffset(seatPostLength);
+    const yWithOffset = getYWithOffset(seatPostLength);
 
     const start = {
       x: xWithOffset,
