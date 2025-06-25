@@ -349,7 +349,7 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
                         onChange={(event) => {
                           const value =
                             event.target.value === ""
-                              ? undefined
+                              ? 0
                               : Number(event.target.value);
                           field.onChange(value);
                           onSubmit(form.getValues());

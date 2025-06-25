@@ -148,6 +148,7 @@ export default class BikeGeometry {
     });
 
     const frontWheel = new Wheel(frontWheelDiameter, frontTireWidth);
+    console.log("frontWheel", frontWheel);
     const rearWheel = new Wheel(rearWheelDiameter, rearTireWidth);
     const groundRearWheelCoordinates = {
       x: chainStay.start.x,
@@ -341,12 +342,13 @@ export default class BikeGeometry {
   }
 
   get groundPedalClearance(): number {
-    return (
+    const groundPedalClearance = (
       this.rearWheel.radiusWithTire -
       (this.crank.length +
         this.chainStay.start.y -
         this._bottomBracket.coordinates.y)
     );
+    return groundPedalClearance > 0 ? groundPedalClearance : 0;
   }
 
   get toeOverlapClearance(): number {
