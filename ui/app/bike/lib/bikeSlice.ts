@@ -17,6 +17,7 @@ export interface BikeState {
   forkAxleToCrown: number;
   forkOffset: number;
   forkTravel: number;
+  forkSag: number;
   crankLength: number;
   crankQFactor: number;
   spacers: number;
@@ -48,6 +49,7 @@ const bikeInitialState = {
   forkAxleToCrown: 0,
   forkOffset: 0,
   forkTravel: 0,
+  forkSag: 0,
   crankLength: 0,
   crankQFactor: 0,
   spacers: 0,
@@ -84,6 +86,7 @@ const bikeSlice = createSlice({
         forkAxleToCrown,
         forkOffset,
         forkTravel,
+        forkSag,
         crankLength,
         crankQFactor,
         spacers,
@@ -113,6 +116,7 @@ const bikeSlice = createSlice({
       state.forkAxleToCrown = Math.trunc(forkAxleToCrown);
       state.forkOffset = Math.trunc(forkOffset);
       state.forkTravel = Math.trunc(forkTravel);
+      state.forkSag = Math.trunc(forkSag);
       state.crankLength = Math.trunc(crankLength);
       state.crankQFactor = Math.trunc(crankQFactor);
       state.spacers = Math.trunc(spacers);

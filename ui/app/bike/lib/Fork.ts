@@ -17,6 +17,8 @@ export default class Fork extends Segment {
     crownToAxleLength,
     frontCenterLength,
     wheelBase,
+    forkTravel,
+    forkSag,
   }: {
     bottomBracket: BottomBracket;
     headTube: HeadTube;
@@ -25,6 +27,8 @@ export default class Fork extends Segment {
     crownToAxleLength: number;
     frontCenterLength: number;
     wheelBase: number;
+    forkTravel: number;
+    forkSag: number;
   }) {
     let end: Coordinates;
 
@@ -47,9 +51,13 @@ export default class Fork extends Segment {
         y: chainStay.start.y,
       };
     } else {
+      const forkTravelOffset = forkSag
+        ? forkTravel - forkTravel * (forkSag / 100)
+        : 0;
+      const forkLength = crownToAxleLength - forkTravelOffset;
       const unRotatedFrontAxleWithOffsetCoordinates = {
         x: headTube.end.x + forkOffsetLength,
-        y: headTube.end.y - crownToAxleLength,
+        y: headTube.end.y - forkLength,
       };
 
       const frontAxleWithOffsetCoordinates = rotate(

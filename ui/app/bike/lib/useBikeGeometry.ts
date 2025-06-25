@@ -43,6 +43,8 @@ function toBikeGeometry(
     frontTireWidth: bike?.tireFrontWidth,
     rearTireWidth: bike?.tireRearWidth,
     spinAngle,
+    forkTravel: bike?.forkTravel,
+    forkSag: bike?.forkSag,
   });
 }
 

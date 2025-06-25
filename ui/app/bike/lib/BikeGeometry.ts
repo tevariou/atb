@@ -50,6 +50,8 @@ export type BikeGeometryParams = {
   frontTireWidth?: number;
   rearTireWidth?: number;
   spinAngle?: number;
+  forkTravel?: number;
+  forkSag?: number;
 };
 
 export default class BikeGeometry {
@@ -107,6 +109,8 @@ export default class BikeGeometry {
     frontTireWidth = 0,
     rearTireWidth = 0,
     spinAngle = 0,
+    forkTravel = 0,
+    forkSag = 0,
   }: BikeGeometryParams) {
     const bottomBracket = new BottomBracket(bottomBracketCoordinates);
 
@@ -145,10 +149,11 @@ export default class BikeGeometry {
       crownToAxleLength,
       frontCenterLength,
       wheelBase,
+      forkTravel,
+      forkSag,
     });
 
     const frontWheel = new Wheel(frontWheelDiameter, frontTireWidth);
-    console.log("frontWheel", frontWheel);
     const rearWheel = new Wheel(rearWheelDiameter, rearTireWidth);
     const groundRearWheelCoordinates = {
       x: chainStay.start.x,
@@ -342,12 +347,11 @@ export default class BikeGeometry {
   }
 
   get groundPedalClearance(): number {
-    const groundPedalClearance = (
+    const groundPedalClearance =
       this.rearWheel.radiusWithTire -
       (this.crank.length +
         this.chainStay.start.y -
-        this._bottomBracket.coordinates.y)
-    );
+        this._bottomBracket.coordinates.y);
     return groundPedalClearance > 0 ? groundPedalClearance : 0;
   }
 

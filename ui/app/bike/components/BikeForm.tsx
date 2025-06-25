@@ -160,6 +160,14 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .min(0, "Value must be at least 0")
         .max(300, "Value must be at most 300"),
     },
+    forkSag: {
+      label: "Fork sag (mm)",
+      type: z
+        .number()
+        .int()
+        .min(0, "Value must be at least 0")
+        .max(100, "Value must be at most 100"),
+    },
     crankLength: {
       label: "Crank length (mm)",
       type: z
