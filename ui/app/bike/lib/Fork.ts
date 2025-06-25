@@ -31,7 +31,7 @@ export default class Fork extends Segment {
     if (crownToAxleLength === 0 && frontCenterLength !== 0) {
       if (Math.abs(frontCenterLength) < Math.abs(chainStay.bbDropLength)) {
         throw new Error(
-          `Front center length (${frontCenterLength}) must be greater than or equal to bottom bracket drop length (${chainStay.bbDropLength})`
+          `Front center length (${frontCenterLength}) must be greater than or equal to bottom bracket drop length (${chainStay.bbDropLength})`,
         );
       }
 
@@ -55,7 +55,7 @@ export default class Fork extends Segment {
       const frontAxleWithOffsetCoordinates = rotate(
         unRotatedFrontAxleWithOffsetCoordinates,
         toRadians(90) - headTube.angle,
-        headTube.end
+        headTube.end,
       );
 
       end = {
@@ -65,7 +65,7 @@ export default class Fork extends Segment {
     }
 
     const start = headTube.end;
-    
+
     super({ start, end });
 
     this._forkOffsetLength = forkOffsetLength;

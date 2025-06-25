@@ -13,7 +13,7 @@ import LowerBody from "./LowerBody";
 import UpperBody from "./UpperBody";
 import HandleBar from "./HandleBar";
 import BottomBracket from "./BottomBracket";
-import { toRadians, toDegrees, distance } from "./helpers";
+import { distance, toDegrees, toRadians } from "./helpers";
 import Wheel from "./Wheel";
 
 export type BikeGeometryParams = {
@@ -147,6 +147,38 @@ export default class BikeGeometry {
       wheelBase,
     });
 
+    const frontWheel = new Wheel(frontWheelDiameter, frontTireWidth);
+    const rearWheel = new Wheel(rearWheelDiameter, rearTireWidth);
+    const groundRearWheelCoordinates = {
+      x: chainStay.start.x,
+      y: chainStay.start.y - rearWheel.radiusWithTire,
+    };
+    const groundFrontWheelCoordinates = {
+      x: fork.end.x,
+      y: fork.end.y - frontWheel.radiusWithTire,
+    };
+    const wheelBaseLength = distance(
+      groundRearWheelCoordinates,
+      groundFrontWheelCoordinates,
+    );
+
+    const tiltAngle =
+      wheelBaseLength !== 0
+        ? Math.asin(
+            (groundRearWheelCoordinates.y - groundFrontWheelCoordinates.y) /
+              wheelBaseLength,
+          )
+        : 0;
+
+    if (tiltAngle !== 0) {
+      // Rotate all bike components by the tilt angle around the bottom bracket
+      chainStay.tilt(tiltAngle, bottomBracket.coordinates);
+      headTube.tilt(tiltAngle, bottomBracket.coordinates);
+      topTubeHorizontal.tilt(tiltAngle, bottomBracket.coordinates);
+      seatTube.tilt(tiltAngle, bottomBracket.coordinates);
+      fork.tilt(tiltAngle, bottomBracket.coordinates);
+    }
+
     this._downTube = new Segment({
       start: headTube.end,
       end: bottomBracket.coordinates,
@@ -185,7 +217,7 @@ export default class BikeGeometry {
       });
 
       this._seatPost = seatPost;
-  
+
       try {
         const lowerBody = new LowerBody({
           bottomBracket,
@@ -195,21 +227,21 @@ export default class BikeGeometry {
           riderUpperLegLength,
           riderFootLength,
         });
-  
+
         const upperBody = new UpperBody({
           seatPost,
           handleBar,
           riderArmLength,
           riderSpineLength,
         });
-  
+
         this._lowerBody = lowerBody;
         this._upperBody = upperBody;
       } catch {}
     } catch {}
 
-    this._frontWheel = new Wheel(frontWheelDiameter, frontTireWidth);
-    this._rearWheel = new Wheel(rearWheelDiameter, rearTireWidth);
+    this._frontWheel = frontWheel;
+    this._rearWheel = rearWheel;
 
     this._bottomBracket = bottomBracket;
     this._headTube = headTube;
@@ -291,17 +323,30 @@ export default class BikeGeometry {
       return 0;
     }
 
-    return toDegrees(Math.asin(
-      (this.upperBody.shoulder.y - this.seatPost.start.y) / this.upperBody.spineLength
-    ));
+    return toDegrees(
+      Math.asin(
+        (this.upperBody.shoulder.y - this.seatPost.start.y) /
+          this.upperBody.spineLength,
+      ),
+    );
   }
 
   get standoverHeight(): number {
-    return (this.headTube.start.y - this.seatTube.start.y) / 2 + this.seatTube.start.y - this.chainStay.bbDropLength + this.rearWheel.radiusWithTire;
+    const _standoverHeight =
+      (this.headTube.start.y - this.seatTube.start.y) / 2 +
+      this.seatTube.start.y -
+      this.chainStay.start.y +
+      this.rearWheel.radiusWithTire;
+    return _standoverHeight > 0 ? _standoverHeight : 0;
   }
 
   get groundPedalClearance(): number {
-    return this.rearWheel.radiusWithTire - (this.crank.length + this.chainStay.bbDropLength);
+    return (
+      this.rearWheel.radiusWithTire -
+      (this.crank.length +
+        this.chainStay.start.y -
+        this._bottomBracket.coordinates.y)
+    );
   }
 
   get toeOverlapClearance(): number {
@@ -309,14 +354,23 @@ export default class BikeGeometry {
       return 0;
     }
 
-    const feetCircleRadius = distance(this.lowerBody.end, this._bottomBracket.coordinates);
+    const feetCircleRadius =
+      this.crank.length +
+      this.lowerBody.footLength * (1 - LowerBody.feetPositionRatio);
     const frontWheelCircleRadius = this.frontWheel.radiusWithTire;
-    const frontHubToOriginDistance = distance(this.fork.end, this._bottomBracket.coordinates);
-    const _distance = frontHubToOriginDistance - (frontWheelCircleRadius + feetCircleRadius);
+    const frontHubToOriginDistance = distance(
+      this.fork.end,
+      this._bottomBracket.coordinates,
+    );
+    const _distance =
+      frontHubToOriginDistance - (frontWheelCircleRadius + feetCircleRadius);
     return _distance > 0 ? _distance : 0;
   }
 
   get trail(): number {
-    return this.frontWheel.radiusWithTire / Math.tan(this.headTube.angle) - this.fork.forkOffsetLength / Math.sin(this.headTube.angle);
+    return (
+      this.frontWheel.radiusWithTire / Math.tan(this.headTube.angle) -
+      this.fork.forkOffsetLength / Math.sin(this.headTube.angle)
+    );
   }
 }

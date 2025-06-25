@@ -27,7 +27,7 @@ export default class Crank extends Segment {
       toRadians(-spinAngle),
       bottomBracket.coordinates,
     );
-    
+
     super({ start, end });
     this.length = crankLength;
     this.qFactor = qFactor;

@@ -3,7 +3,7 @@ import BottomBracket from "./BottomBracket";
 
 export default class ChainStay extends Segment {
   private readonly __brand = "ChainStay";
-  bbDropLength: number;
+  private readonly _bbDropLength: number;
 
   constructor({
     bottomBracket,
@@ -16,7 +16,7 @@ export default class ChainStay extends Segment {
   }) {
     if (Math.abs(chainStayLength) < Math.abs(bbDropLength)) {
       throw new Error(
-        `Chain stay length (${chainStayLength}) must be greater than or equal to bottom bracket drop length (${bbDropLength})`
+        `Chain stay length (${chainStayLength}) must be greater than or equal to bottom bracket drop length (${bbDropLength})`,
       );
     }
 
@@ -29,6 +29,11 @@ export default class ChainStay extends Segment {
     const end = bottomBracket.coordinates;
 
     super({ start, end });
-    this.bbDropLength = bbDropLength;
+
+    this._bbDropLength = bbDropLength;
+  }
+
+  get bbDropLength(): number {
+    return this._bbDropLength;
   }
 }

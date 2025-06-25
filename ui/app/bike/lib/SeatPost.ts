@@ -43,7 +43,10 @@ export default class SeatPost extends Segment {
       );
 
     const getSeatPostLength = (seatPostLength: number): number => {
-      if (riderInseamLength - getDWithOffset(seatPostLength) < 1 || seatPostLength > MAX_SEAT_POST_LENGTH) {
+      if (
+        riderInseamLength - getDWithOffset(seatPostLength) < 1 ||
+        seatPostLength > MAX_SEAT_POST_LENGTH
+      ) {
         return seatPostLength;
       }
       return getSeatPostLength(seatPostLength + 1);

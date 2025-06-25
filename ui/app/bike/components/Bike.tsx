@@ -12,7 +12,7 @@ export default function Bike({
   const strokeColor = isShadow ? "black" : "blue";
 
   return (
-    <svg width="100%" height="100%" viewBox="0 0 1500 1500">
+    <svg width="100%" height="100%" viewBox="0 0 1500 1000">
       <defs>
         <linearGradient id="rainbow">
           <stop offset="0%" stopColor="rgba(255, 0, 0, 1)" />
@@ -84,7 +84,12 @@ export default function Bike({
         />
 
         {/* Fork */}
-        <path d={bike.fork.draw()} stroke={strokeColor} strokeWidth="5" fill="none" />
+        <path
+          d={bike.fork.draw()}
+          stroke={strokeColor}
+          strokeWidth="5"
+          fill="none"
+        />
 
         {/* Down tube */}
         <path

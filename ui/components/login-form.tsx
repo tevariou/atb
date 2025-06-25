@@ -54,8 +54,7 @@ export function LoginForm({
           password: values.password,
         },
         useCookies: true,
-      })
-      .unwrap();
+      }).unwrap();
       router.push("/");
     } catch (error) {
       console.error("rejected", error);

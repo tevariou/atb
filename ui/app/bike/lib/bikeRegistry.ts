@@ -39,7 +39,7 @@ const tumbleWeedBikes = [
     geometry: {
       reach: 403,
       stack: 680,
-      headTube: 220,
+      headTube: 220 + 12,
       headTubeAngle: 69,
       chainStay: 450,
       actualSeatTubeAngle: 72.5,

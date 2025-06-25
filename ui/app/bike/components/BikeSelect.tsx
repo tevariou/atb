@@ -19,16 +19,13 @@ import {
 } from "@/components/ui/popover";
 import bikeRegistry from "../lib/bikeRegistry";
 import type { BikeState } from "../lib/bikeSlice";
-import { cn } from "@/lib/utils"
-
+import { cn } from "@/lib/utils";
 
 type BikeSelectProps = {
   onChange: (bike: BikeState) => void;
-}
+};
 
-export default function BikeSelect({
-  onChange,
-}: BikeSelectProps) {
+export default function BikeSelect({ onChange }: BikeSelectProps) {
   const [open, setOpen] = useState(false);
   const [selectedBikeId, setSelectedBikeId] = useState("");
 
@@ -41,7 +38,9 @@ export default function BikeSelect({
           aria-expanded={open}
           className="w-full"
         >
-          {selectedBikeId ? bikeRegistry.find((bike) => bike.id === selectedBikeId)?.name : "Select bike..."}
+          {selectedBikeId
+            ? bikeRegistry.find((bike) => bike.id === selectedBikeId)?.name
+            : "Select bike..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -52,24 +51,26 @@ export default function BikeSelect({
             <CommandEmpty>No bike found.</CommandEmpty>
             <CommandGroup>
               {bikeRegistry.map((bike) => (
-                  <CommandItem
-                    key={`select-${bike.id}`}
-                    value={bike.id}
-                    onSelect={(bikeId) => {
-                      onChange(bikeRegistry.find((b) => b.id === bikeId)!.geometry);
-                      setSelectedBikeId(bikeId === selectedBikeId ? "" : bikeId);
-                      setOpen(false);
-                    }}
-                  >
-                    {bike.name}
-                    <Check
+                <CommandItem
+                  key={`select-${bike.id}`}
+                  value={bike.id}
+                  onSelect={(bikeId) => {
+                    onChange(
+                      bikeRegistry.find((b) => b.id === bikeId)!.geometry,
+                    );
+                    setSelectedBikeId(bikeId === selectedBikeId ? "" : bikeId);
+                    setOpen(false);
+                  }}
+                >
+                  {bike.name}
+                  <Check
                     className={cn(
                       "ml-auto",
-                      selectedBikeId === bike.id ? "opacity-100" : "opacity-0"
+                      selectedBikeId === bike.id ? "opacity-100" : "opacity-0",
                     )}
                   />
-                  </CommandItem>
-                ))}
+                </CommandItem>
+              ))}
             </CommandGroup>
           </CommandList>
         </Command>

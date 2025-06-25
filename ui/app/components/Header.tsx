@@ -36,7 +36,6 @@ export default function Header() {
             </Link>
           </nav>
 
-
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <Button

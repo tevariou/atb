@@ -51,5 +51,5 @@ const riderSlice = createSlice({
 export const { setRider } = riderSlice.actions;
 export default riderSlice.reducer;
 export const riderSelectors = riderSlice.getSelectors<RootState>(
-  (state) => state.rider
+  (state) => state.rider,
 );

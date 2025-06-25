@@ -34,11 +34,13 @@ export default function RiderForm() {
     },
     footLength: {
       label: "Foot length (in cm)",
-      type: z.number().min(0, "Value must be at least 0").max(1000)
-        .refine(
-          n => !(n * 10).toString().includes("."),
-          { message: "Max precision is 1 decimal place" }
-        ),
+      type: z
+        .number()
+        .min(0, "Value must be at least 0")
+        .max(1000)
+        .refine((n) => !(n * 10).toString().includes("."), {
+          message: "Max precision is 1 decimal place",
+        }),
     },
     armLength: {
       label: "Arm length (in cm)",
@@ -50,7 +52,14 @@ export default function RiderForm() {
     },
   };
 
-  const formSchema = z.object(Object.entries(riderAttributes).reduce<Record<keyof RiderState, z.ZodTypeAny>>((acc, [key, value]) => ({ ...acc, [key]: value.type }), {} as Record<keyof RiderState, z.ZodTypeAny>));
+  const formSchema = z.object(
+    Object.entries(riderAttributes).reduce<
+      Record<keyof RiderState, z.ZodTypeAny>
+    >(
+      (acc, [key, value]) => ({ ...acc, [key]: value.type }),
+      {} as Record<keyof RiderState, z.ZodTypeAny>,
+    ),
+  );
   const formFields = formSchema.keyof().options;
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -61,7 +70,7 @@ export default function RiderForm() {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    dispatch(setRider({...rider, ...values}));
+    dispatch(setRider({ ...rider, ...values }));
   };
 
   return (
@@ -97,6 +106,6 @@ export default function RiderForm() {
           </Button>
         </div>
       </form>
-    </Form>    
+    </Form>
   );
 }

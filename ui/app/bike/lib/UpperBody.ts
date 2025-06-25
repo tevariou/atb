@@ -23,7 +23,8 @@ export default class UpperBody extends Segment {
     const h = handleBar.coordinates;
     const s = seatPost.start;
 
-    const squaredProjectedArmLength = riderArmLength ** 2 - (handleBar.width / 2) ** 2;
+    const squaredProjectedArmLength =
+      riderArmLength ** 2 - (handleBar.width / 2) ** 2;
     if (squaredProjectedArmLength < 0) {
       throw new Error("Invalid arm length or handlebar width");
     }

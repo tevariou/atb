@@ -65,14 +65,18 @@ function DrawerContent({
         )}
         onOpenAutoFocus={(e) => {
           e.preventDefault();
-          const firstFocusable = document.querySelector('[data-slot="drawer-content"] button, [data-slot="drawer-content"] [href], [data-slot="drawer-content"] input, [data-slot="drawer-content"] select, [data-slot="drawer-content"] textarea, [data-slot="drawer-content"] [tabindex]:not([tabindex="-1"])');
+          const firstFocusable = document.querySelector(
+            '[data-slot="drawer-content"] button, [data-slot="drawer-content"] [href], [data-slot="drawer-content"] input, [data-slot="drawer-content"] select, [data-slot="drawer-content"] textarea, [data-slot="drawer-content"] [tabindex]:not([tabindex="-1"])',
+          );
           if (firstFocusable instanceof HTMLElement) {
             firstFocusable.focus();
           }
         }}
         onCloseAutoFocus={(e) => {
           e.preventDefault();
-          const trigger = document.querySelector('[data-slot="drawer-trigger"]');
+          const trigger = document.querySelector(
+            '[data-slot="drawer-trigger"]',
+          );
           if (trigger instanceof HTMLElement) {
             trigger.focus();
           }

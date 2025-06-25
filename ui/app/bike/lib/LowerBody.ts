@@ -11,6 +11,9 @@ export default class LowerBody extends Segment {
   private readonly knee: Coordinates;
   private readonly heel: Coordinates;
   private readonly _inseamLength: number;
+  private readonly _footLength: number;
+
+  static readonly feetPositionRatio: number = 2 / 3;
 
   constructor({
     bottomBracket,
@@ -38,7 +41,7 @@ export default class LowerBody extends Segment {
     }
 
     const heel = {
-      x: crank.end.x - (riderFootLength * 2) / 3,
+      x: crank.end.x - riderFootLength * LowerBody.feetPositionRatio,
       y: crank.end.y,
     };
 
@@ -82,6 +85,7 @@ export default class LowerBody extends Segment {
     this.knee = knee;
     this.heel = heel;
     this._inseamLength = riderInseamLength;
+    this._footLength = riderFootLength;
   }
 
   draw(): string {
@@ -97,5 +101,9 @@ export default class LowerBody extends Segment {
 
   get inseamLength(): number {
     return this._inseamLength;
+  }
+
+  get footLength(): number {
+    return this._footLength;
   }
 }
