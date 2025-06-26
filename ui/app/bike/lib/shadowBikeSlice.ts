@@ -18,6 +18,7 @@ const initialState = {
   forkAxleToCrown: 0,
   forkOffset: 0,
   forkTravel: 0,
+  forkSag: 0,
   crankLength: 0,
   crankQFactor: 0,
   spacers: 0,
@@ -53,6 +54,7 @@ const shadowBikeSlice = createSlice({
         forkAxleToCrown,
         forkOffset,
         forkTravel,
+        forkSag,
         crankLength,
         crankQFactor,
         spacers,
@@ -81,6 +83,7 @@ const shadowBikeSlice = createSlice({
       state.forkAxleToCrown = Math.trunc(forkAxleToCrown);
       state.forkOffset = Math.trunc(forkOffset);
       state.forkTravel = Math.trunc(forkTravel);
+      state.forkSag = Math.trunc(forkSag);
       state.crankLength = Math.trunc(crankLength);
       state.crankQFactor = Math.trunc(crankQFactor);
       state.spacers = Math.trunc(spacers);
@@ -109,6 +112,6 @@ const shadowBikeSlice = createSlice({
 
 export const { setShadowBike } = shadowBikeSlice.actions;
 export const shadowBikeSelectors = shadowBikeSlice.getSelectors<RootState>(
-  (state) => state.shadowBike,
+  (state) => state.shadowBike
 );
 export default shadowBikeSlice.reducer;

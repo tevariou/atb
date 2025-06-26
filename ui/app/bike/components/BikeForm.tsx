@@ -161,7 +161,7 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .max(300, "Value must be at most 300"),
     },
     forkSag: {
-      label: "Fork sag (mm)",
+      label: "Fork sag (%)",
       type: z
         .number()
         .int()

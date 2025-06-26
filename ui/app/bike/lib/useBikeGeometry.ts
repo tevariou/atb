@@ -14,7 +14,7 @@ function toBikeGeometry(
   return new BikeGeometry({
     reachLength: bike?.reach,
     stackLength: bike?.stack,
-    headTubeLength: bike && bike.headTube,
+    headTubeLength: bike?.headTube,
     headTubeAngle: bike?.headTubeAngle,
     chainStayLength: bike?.chainStay,
     actualSeatTubeAngle: bike?.actualSeatTubeAngle,

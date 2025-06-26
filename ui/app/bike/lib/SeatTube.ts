@@ -3,6 +3,7 @@ import Coordinates from "./Coordinates";
 import Segment from "./Segment";
 import BottomBracket from "./BottomBracket";
 import TopTubeHorizontal from "./TopTubeHorizontal";
+import { rotate } from "./helpers";
 
 export default class SeatTube extends Segment {
   private readonly __brand = "SeatTube";
@@ -77,5 +78,15 @@ export default class SeatTube extends Segment {
         [this.end.x, this.end.y],
       ]) ?? ""
     );
+  }
+
+  tilt(angle: number, origin: Coordinates) {
+    const newStart = rotate(this.start, angle, origin);
+    const newEnd = rotate(this.end, angle, origin);
+    const newBreakPoint = rotate(this.breakPoint, angle, origin);
+
+    this.start = newStart;
+    this.end = newEnd;
+    this.breakPoint = newBreakPoint;
   }
 }
