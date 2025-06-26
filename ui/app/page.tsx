@@ -6,7 +6,7 @@ export default function HomePage() {
           Welcome...
         </h1>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+      <footer className="row-start-3 flex gap-4 flex-wrap items-center justify-center">
         Ad Astra
       </footer>
     </div>

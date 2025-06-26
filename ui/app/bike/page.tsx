@@ -22,6 +22,8 @@ import { useBikeGeometry } from "@/app/bike/lib/useBikeGeometry";
 export default function BikePage() {
   const [spinAngle, setSpinAngle] = useState(0);
   const [spinState, setSpinState] = useState(false);
+  const [showBike, setShowBike] = useState(true);
+  const [showShadowBike, setShowShadowBike] = useState(true);
 
   const { bike: bikeGeometry, shadowBike: shadowBikeGeometry } =
     useBikeGeometry(spinAngle);
@@ -45,8 +47,20 @@ export default function BikePage() {
       <div className="min-h-screen p-10 pb-20">
         <main className="flex flex-col w-full justify-center row-start-2 items-center">
           <div className="flex flex-row gap-4">
+            <Button 
+              onClick={() => setShowBike(!showBike)} 
+              variant="outline"
+            >
+              {showBike ? "Hide" : "Show"} Bike
+            </Button>
+            <Button 
+              onClick={() => setShowShadowBike(!showShadowBike)} 
+              variant="outline"
+            >
+              {showShadowBike ? "Hide" : "Show"} Shadow Bike
+            </Button>
             <Button onClick={handleSpin} variant="outline">
-              {spinState ? "Stop" : "Spin"} the bike
+              {spinState ? "Stop" : "Spin"} the bikes
             </Button>
             <Drawer direction="right">
               <DrawerTrigger asChild>
@@ -55,9 +69,9 @@ export default function BikePage() {
               <DrawerPortal>
                 <DrawerContent className="min-h-full overflow-y-auto overflow-x-hidden max-h-screen">
                   <DrawerHeader>
-                    <DrawerTitle>Configure your bike here</DrawerTitle>
+                    <DrawerTitle>Configure your bikes here</DrawerTitle>
                     <DrawerDescription>
-                      You can save if logged in
+                      Select one below or fill in the fields
                     </DrawerDescription>
                   </DrawerHeader>
                   <Tabs defaultValue="bike">
@@ -81,12 +95,12 @@ export default function BikePage() {
             </Drawer>
           </div>
           <div className="w-full max-w-7xl h-[500px] relative">
-            {bikeGeometry && (
+            {bikeGeometry && showBike && (
               <div className="absolute inset-0">
                 <Bike bike={bikeGeometry} spinAngle={spinAngle} />
               </div>
             )}
-            {shadowBikeGeometry && (
+            {shadowBikeGeometry && showShadowBike && (
               <div className="absolute inset-0">
                 <Bike
                   bike={shadowBikeGeometry}
