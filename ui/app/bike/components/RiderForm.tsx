@@ -18,37 +18,57 @@ import { setRider, riderSelectors } from "../lib/riderSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { RiderState } from "../lib/riderSlice";
 import { Button } from "@/components/ui/button";
+import { AlertCircle } from "lucide-react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 export default function RiderForm() {
   const dispatch = useAppDispatch();
   const rider = useAppSelector(riderSelectors.selectRider);
 
-  const riderAttributes = {
+  const riderAttributes: Record<
+    keyof RiderState,
+    { label: string; type: z.ZodTypeAny; warnings?: string[] }
+  > = {
     inseamLength: {
       label: "Inseam (in cm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000),
+      type: z.number().int().min(0, "Value must be at least 0").max(200, {
+        message: "Value must be less than 200",
+      }),
+      warnings: ["This is your inseam length wearing shoes"],
     },
     upperLegLength: {
       label: "Upper leg length (in cm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000),
+      type: z.number().int().min(0, "Value must be at least 0").max(100, {
+        message: "Value must be less than 100",
+      }),
     },
     footLength: {
-      label: "Foot length (in cm)",
+      label: "Shoe length (in cm)",
       type: z
         .number()
         .min(0, "Value must be at least 0")
-        .max(1000)
+        .max(100, {
+          message: "Value must be less than 100",
+        })
         .refine((n) => !(n * 10).toString().includes("."), {
           message: "Max precision is 1 decimal place",
         }),
     },
     armLength: {
       label: "Arm length (in cm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000),
+      type: z.number().int().min(0, "Value must be at least 0").max(200, {
+        message: "Value must be less than 200",
+      }),
     },
     spineLength: {
       label: "Spine length (in cm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(1000),
+      type: z.number().int().min(0, "Value must be at least 0").max(200, {
+        message: "Value must be less than 200",
+      }),
     },
   };
 
@@ -84,7 +104,25 @@ export default function RiderForm() {
               key={key}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{riderAttributes[key].label}</FormLabel>
+                  <FormLabel className="flex items-center gap-2">
+                    {riderAttributes[key].label}
+                    {riderAttributes[key].warnings && (
+                      <HoverCard>
+                        <HoverCardTrigger asChild>
+                          <AlertCircle className="h-4 w-4 text-yellow-500 cursor-help font-bold" />
+                        </HoverCardTrigger>
+                        <HoverCardContent className="w-80">
+                          <ul className="list-inside list-disc text-sm">
+                            {riderAttributes[key].warnings.map(
+                              (warning, idx) => (
+                                <li key={`${key}-warning-${idx}`}>{warning}</li>
+                              ),
+                            )}
+                          </ul>
+                        </HoverCardContent>
+                      </HoverCard>
+                    )}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       {...field}

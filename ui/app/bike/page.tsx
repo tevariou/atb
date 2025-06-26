@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import Bike from "@/app/bike/components/Bike";
 import BikeForm from "@/app/bike/components/BikeForm";
+import BikeMeasurementsTable from "@/app/bike/components/BikeMeasurementsTable";
 import { Button } from "@/components/ui/button";
 import { useInterval } from "@/lib/hooks";
 import {
@@ -15,14 +16,6 @@ import {
   DrawerPortal,
 } from "@/components/ui/drawer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import RiderForm from "./components/RiderForm";
 import { useBikeGeometry } from "@/app/bike/lib/useBikeGeometry";
 
@@ -87,13 +80,6 @@ export default function BikePage() {
               </DrawerPortal>
             </Drawer>
           </div>
-          <div className="flex flex-row gap-4">
-            {!bikeGeometry?.seatPost && <div>Bike is too short</div>}
-            {!shadowBikeGeometry?.seatPost && (
-              <div>Shadow bike is too short</div>
-            )}
-          </div>
-
           <div className="w-full max-w-7xl h-[500px] relative">
             {bikeGeometry && (
               <div className="absolute inset-0">
@@ -113,126 +99,10 @@ export default function BikePage() {
 
           {/* Bike Measurements Table */}
           {bikeGeometry && shadowBikeGeometry && (
-            <div className="w-full max-w-7xl">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Measurement</TableHead>
-                    <TableHead>Bike</TableHead>
-                    <TableHead>Shadow Bike</TableHead>
-                    <TableHead>Delta</TableHead>
-                    <TableHead>Status</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {/* Rider spine angle row */}
-                  <TableRow>
-                    <TableCell>Rider Spine Angle</TableCell>
-                    <TableCell>{bikeGeometry.spineAngle.toFixed(0)}°</TableCell>
-                    <TableCell>
-                      {shadowBikeGeometry.spineAngle.toFixed(0)}°
-                    </TableCell>
-                    <TableCell>
-                      {(
-                        bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle
-                      ).toFixed(0)}
-                      °
-                    </TableCell>
-                    <TableCell>
-                      {bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle >
-                      0
-                        ? "Bike is more upright"
-                        : "Shadow bike is more upright"}
-                    </TableCell>
-                  </TableRow>
-
-                  {/* Standover height row */}
-                  {bikeGeometry.lowerBody && shadowBikeGeometry.lowerBody && (
-                    <TableRow>
-                      <TableCell>Standover Height</TableCell>
-                      <TableCell>
-                        {(bikeGeometry.standoverHeight / 10).toFixed(0)}cm
-                      </TableCell>
-                      <TableCell>
-                        {(shadowBikeGeometry.standoverHeight / 10).toFixed(0)}cm
-                      </TableCell>
-                      <TableCell>
-                        {(
-                          (bikeGeometry.standoverHeight -
-                            shadowBikeGeometry.standoverHeight) /
-                          10
-                        ).toFixed(2)}
-                        cm
-                      </TableCell>
-                      <TableCell>
-                        {bikeGeometry.standoverHeight >
-                        bikeGeometry.lowerBody.inseamLength
-                          ? "Bike is too tall"
-                          : ""}
-                        {shadowBikeGeometry.standoverHeight >
-                        shadowBikeGeometry.lowerBody.inseamLength
-                          ? "Shadow bike is too tall"
-                          : ""}
-                      </TableCell>
-                    </TableRow>
-                  )}
-
-                  {/* Ground pedal clearance row */}
-                  <TableRow>
-                    <TableCell>Ground Pedal Clearance</TableCell>
-                    <TableCell>
-                      {bikeGeometry.groundPedalClearance.toFixed(0)}mm
-                    </TableCell>
-                    <TableCell>
-                      {shadowBikeGeometry.groundPedalClearance.toFixed(0)}mm
-                    </TableCell>
-                    <TableCell>
-                      {(
-                        bikeGeometry.groundPedalClearance -
-                        shadowBikeGeometry.groundPedalClearance
-                      ).toFixed(0)}
-                      mm
-                    </TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-
-                  {/* Toe overlap clearance row */}
-                  <TableRow>
-                    <TableCell>Toe Overlap Clearance</TableCell>
-                    <TableCell>
-                      {bikeGeometry.toeOverlapClearance.toFixed(0)}mm
-                    </TableCell>
-                    <TableCell>
-                      {shadowBikeGeometry.toeOverlapClearance.toFixed(0)}mm
-                    </TableCell>
-                    <TableCell>
-                      {(
-                        bikeGeometry.toeOverlapClearance -
-                        shadowBikeGeometry.toeOverlapClearance
-                      ).toFixed(0)}
-                      mm
-                    </TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-
-                  {/* Trail row */}
-                  <TableRow>
-                    <TableCell>Trail</TableCell>
-                    <TableCell>{bikeGeometry.trail.toFixed(0)}mm</TableCell>
-                    <TableCell>
-                      {shadowBikeGeometry.trail.toFixed(0)}mm
-                    </TableCell>
-                    <TableCell>
-                      {(bikeGeometry.trail - shadowBikeGeometry.trail).toFixed(
-                        0,
-                      )}
-                      mm
-                    </TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
+            <BikeMeasurementsTable
+              bikeGeometry={bikeGeometry}
+              shadowBikeGeometry={shadowBikeGeometry}
+            />
           )}
         </main>
         <footer className="flex row-start-3 gap-[24px] flex-wrap items-center justify-center">

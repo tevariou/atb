@@ -7,6 +7,7 @@ import Coordinates from "./Coordinates";
 
 export default class SeatPost extends Segment {
   private readonly __brand = "SeatPost";
+  private readonly _seatPostLength: number;
 
   constructor({
     bottomBracket,
@@ -21,7 +22,7 @@ export default class SeatPost extends Segment {
     riderInseamLength: number;
     seatPostOffset: number;
   }) {
-    const MAX_SEAT_POST_LENGTH = 500;
+    const MAX_SEAT_POST_LENGTH = 450;
     const getXWithOffset = (seatPostLength: number) =>
       -Math.cos(seatTube.actualAngle) * seatPostLength +
       seatTube.start.x -
@@ -67,9 +68,14 @@ export default class SeatPost extends Segment {
     const end = seatTube.start;
 
     super({ start, end });
+    this._seatPostLength = seatPostLength;
   }
 
   get start(): Coordinates {
     return this._start;
+  }
+
+  get seatPostLength(): number {
+    return this._seatPostLength;
   }
 }

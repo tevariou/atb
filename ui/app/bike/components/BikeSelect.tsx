@@ -17,7 +17,7 @@ type BikeSelectProps = {
 };
 
 export default function BikeSelect({ onChange }: BikeSelectProps) {
-  const handleValueChange = (bikeId: string) => {    
+  const handleValueChange = (bikeId: string) => {
     // Find the selected bike across all brands
     for (const brandBikes of Object.values(bikeRegistry)) {
       const bike = brandBikes.find((b) => b.id === bikeId);
