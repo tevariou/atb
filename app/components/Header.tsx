@@ -34,6 +34,12 @@ export default function Header() {
             >
               Bike
             </Link>
+            <Link
+              href="/gears"
+              className="text-sm font-medium hover:text-primary"
+            >
+              Gears
+            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -71,6 +77,13 @@ export default function Header() {
               onClick={toggleMenu}
             >
               Bike
+            </Link>
+            <Link
+              href="/gears"
+              className="block px-3 py-2 text-base font-medium hover:bg-muted rounded-md"
+              onClick={toggleMenu}
+            >
+              Gears
             </Link>
           </div>
         </div>

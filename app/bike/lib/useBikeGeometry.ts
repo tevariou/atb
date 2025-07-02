@@ -9,7 +9,7 @@ import { shadowBikeSelectors } from "./shadowBikeSlice";
 function toBikeGeometry(
   bike?: BikeState,
   rider?: RiderState,
-  spinAngle?: number,
+  spinAngle?: number
 ): BikeGeometry {
   return new BikeGeometry({
     reachLength: bike?.reach,

@@ -6,7 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import BikeGeometry from "@/app/bike/lib/BikeGeometry";
+import { TriangleAlert, Triangle, Bike } from "lucide-react";
+import type BikeGeometry from "@/app/bike/lib/BikeGeometry";
 
 interface BikeMeasurementsTableProps {
   bikeGeometry: BikeGeometry;
@@ -17,6 +18,9 @@ export default function BikeMeasurementsTable({
   bikeGeometry,
   shadowBikeGeometry,
 }: BikeMeasurementsTableProps) {
+  const MAIN_BIKE_COLOR = "text-blue-500";
+  const SHADOW_BIKE_COLOR = "text-black";
+
   const spineAngleDelta = Math.trunc(
     bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle,
   );
@@ -26,10 +30,16 @@ export default function BikeMeasurementsTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Measurement</TableHead>
-            <TableHead>Bike</TableHead>
-            <TableHead>Shadow Bike</TableHead>
-            <TableHead>Delta</TableHead>
+            <TableHead>Measurements</TableHead>
+            <TableHead>
+              <Bike className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`} />
+            </TableHead>
+            <TableHead>
+              <Bike className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`} />
+            </TableHead>
+            <TableHead>
+              <Triangle className={`inline w-4 h-4 text-black mr-1`} />
+            </TableHead>
             <TableHead>Status</TableHead>
           </TableRow>
         </TableHeader>
@@ -46,8 +56,20 @@ export default function BikeMeasurementsTable({
               °
             </TableCell>
             <TableCell>
-              {spineAngleDelta >= 1 && "Bike is more upright"}
-              {spineAngleDelta <= -1 && "Shadow bike is more upright"}
+              <span className="font-bold">
+                {spineAngleDelta >= 1 && (
+                  <>
+                    <Bike className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`} />
+                    is more upright
+                  </>
+                )}
+                {spineAngleDelta <= -1 && (
+                  <>
+                    <Bike className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`} />
+                    is more upright
+                  </>
+                )}
+              </span>
             </TableCell>
           </TableRow>
 
@@ -70,14 +92,24 @@ export default function BikeMeasurementsTable({
                 cm
               </TableCell>
               <TableCell>
-                {bikeGeometry.standoverHeight >
-                bikeGeometry.lowerBody.inseamLength
-                  ? "Bike might be too tall"
-                  : ""}
-                {shadowBikeGeometry.standoverHeight >
-                shadowBikeGeometry.lowerBody.inseamLength
-                  ? "Shadow bike might be too tall"
-                  : ""}
+                <span className="font-bold">
+                  {bikeGeometry.standoverHeight >
+                  bikeGeometry.lowerBody.inseamLength && (
+                    <>
+                      <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
+                      <Bike className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`} />
+                      might be too tall
+                    </>
+                  )}
+                  {shadowBikeGeometry.standoverHeight >
+                  shadowBikeGeometry.lowerBody.inseamLength && (
+                    <>
+                      <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
+                      <Bike className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`} />
+                      might be too tall
+                    </>
+                  )}
+                </span>
               </TableCell>
             </TableRow>
           )}
@@ -118,9 +150,22 @@ export default function BikeMeasurementsTable({
               mm
             </TableCell>
             <TableCell>
-              {bikeGeometry.toeOverlapClearance <= 0 && "Bike might be too short"}
-              {shadowBikeGeometry.toeOverlapClearance <= 0 &&
-                "Shadow bike might be too short"}
+              <span className="font-bold">
+                {bikeGeometry.toeOverlapClearance <= 0 && (
+                  <>
+                    <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
+                    <Bike className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`} />
+                    might be too short
+                  </>
+                )}
+                {shadowBikeGeometry.toeOverlapClearance <= 0 && (
+                  <>
+                    <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
+                    <Bike className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`} />
+                    might be too short
+                  </>
+                )}
+              </span>
             </TableCell>
           </TableRow>
 
@@ -155,10 +200,22 @@ export default function BikeMeasurementsTable({
                 : "N/A"}
             </TableCell>
             <TableCell>
-              {bikeGeometry.seatPost?.seatPostLength === undefined &&
-                "Bike is too short"}
-              {shadowBikeGeometry.seatPost?.seatPostLength === undefined &&
-                "Shadow bike is too short"}
+              <span className="font-bold">
+                {bikeGeometry.seatPost?.seatPostLength === undefined && (
+                  <>
+                    <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
+                    <Bike className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`} />
+                    is too short
+                  </>
+                )}
+                {shadowBikeGeometry.seatPost?.seatPostLength === undefined && (
+                  <>
+                    <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
+                    <Bike className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`} />
+                    is too short
+                  </>
+                )}
+              </span>
             </TableCell>
           </TableRow>
         </TableBody>

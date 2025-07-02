@@ -1,4 +1,4 @@
-import BikeGeometry from "../lib/BikeGeometry";
+import type BikeGeometry from "../lib/BikeGeometry";
 
 export default function Bike({
   bike,

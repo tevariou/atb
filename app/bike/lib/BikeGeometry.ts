@@ -165,14 +165,14 @@ export default class BikeGeometry {
     };
     const wheelBaseLength = distance(
       groundRearWheelCoordinates,
-      groundFrontWheelCoordinates,
+      groundFrontWheelCoordinates
     );
 
     const tiltAngle =
       wheelBaseLength !== 0
         ? Math.asin(
             (groundRearWheelCoordinates.y - groundFrontWheelCoordinates.y) /
-              wheelBaseLength,
+              wheelBaseLength
           )
         : 0;
 
@@ -332,8 +332,8 @@ export default class BikeGeometry {
     return toDegrees(
       Math.asin(
         (this.upperBody.shoulder.y - this.seatPost.start.y) /
-          this.upperBody.spineLength,
-      ),
+          this.upperBody.spineLength
+      )
     );
   }
 
@@ -366,7 +366,7 @@ export default class BikeGeometry {
     const frontWheelCircleRadius = this.frontWheel.radiusWithTire;
     const frontHubToOriginDistance = distance(
       this.fork.end,
-      this._bottomBracket.coordinates,
+      this._bottomBracket.coordinates
     );
     const _distance =
       frontHubToOriginDistance - (frontWheelCircleRadius + feetCircleRadius);
@@ -375,8 +375,8 @@ export default class BikeGeometry {
 
   get trail(): number {
     return (
-      this.frontWheel.radiusWithTire / Math.tan(this.headTube.angle) -
-      this.fork.forkOffsetLength / Math.sin(this.headTube.angle)
+      this.frontWheel.radiusWithTire * Math.abs((this.headTube.end.x - this.headTube.start.x) / (this.headTube.start.y - this.headTube.end.y)) -
+      this.fork.forkOffsetLength / Math.cos(Math.atan(Math.abs((this.headTube.end.x - this.headTube.start.x) / (this.headTube.start.y - this.headTube.end.y))))
     );
   }
 }

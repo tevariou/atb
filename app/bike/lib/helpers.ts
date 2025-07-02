@@ -10,7 +10,7 @@ export const distance = (start: Coordinates, end: Coordinates) =>
 export const rotate = (
   coordinates: Coordinates,
   angle: number,
-  origin: Coordinates = { x: 0, y: 0 },
+  origin: Coordinates = { x: 0, y: 0 }
 ): Coordinates => {
   return {
     x:
