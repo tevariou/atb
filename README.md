@@ -38,7 +38,7 @@ A comprehensive web application for visualizing and comparing bicycle geometry p
 
 ### Prerequisites
 - Node.js 18+ 
-- npm
+- pnpm
 
 ### Installation
 
@@ -51,12 +51,12 @@ cd atb
 2. Install dependencies:
 ```bash
 cd ui
-npm install
+pnpm i
 ```
 
 3. Start the development server:
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 4. Open [https://localhost:3000](https://localhost:3000) in your browser
@@ -64,7 +64,7 @@ npm run dev
 ## 🧪 Testing
 
 ```bash
-npm run test
+pnpm run test
 ```
 
 ## 📄 License
