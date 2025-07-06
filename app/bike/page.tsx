@@ -25,8 +25,7 @@ export default function BikePage() {
   const [showBike, setShowBike] = useState(true);
   const [showShadowBike, setShowShadowBike] = useState(true);
 
-  const { bike: bikeGeometry, shadowBike: shadowBikeGeometry } =
-    useBikeGeometry(spinAngle);
+  const { bike: bikeGeometry, shadowBike: shadowBikeGeometry } = useBikeGeometry();
 
   const incrementAngle = useCallback(() => {
     if (spinAngle < 360) {

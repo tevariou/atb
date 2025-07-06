@@ -9,7 +9,6 @@ import { shadowBikeSelectors } from "./shadowBikeSlice";
 function toBikeGeometry(
   bike?: BikeState,
   rider?: RiderState,
-  spinAngle?: number
 ): BikeGeometry {
   return new BikeGeometry({
     reachLength: bike?.reach,
@@ -42,27 +41,26 @@ function toBikeGeometry(
     rearWheelDiameter: bike?.wheelRearDiameter,
     frontTireWidth: bike?.tireFrontWidth,
     rearTireWidth: bike?.tireRearWidth,
-    spinAngle,
     forkTravel: bike?.forkTravel,
     forkSag: bike?.forkSag,
   });
 }
 
-export function useBikeGeometry(spinAngle: number) {
+export function useBikeGeometry() {
   const bike = useAppSelector(bikeSelectors.selectBike);
   const shadowBike = useAppSelector(shadowBikeSelectors.selectShadowBike);
   const rider = useAppSelector(riderSelectors.selectRider);
 
   let bikeGeometry: BikeGeometry | undefined;
   try {
-    bikeGeometry = toBikeGeometry(bike, rider, spinAngle);
+    bikeGeometry = toBikeGeometry(bike, rider);
   } catch {
     bikeGeometry = undefined;
   }
 
   let shadowBikeGeometry: BikeGeometry | undefined;
   try {
-    shadowBikeGeometry = toBikeGeometry(shadowBike, rider, spinAngle);
+    shadowBikeGeometry = toBikeGeometry(shadowBike, rider);
   } catch {
     shadowBikeGeometry = undefined;
   }

@@ -49,7 +49,6 @@ export type BikeGeometryParams = {
   rearWheelDiameter?: number;
   frontTireWidth?: number;
   rearTireWidth?: number;
-  spinAngle?: number;
   forkTravel?: number;
   forkSag?: number;
 };
@@ -108,7 +107,6 @@ export default class BikeGeometry {
     rearWheelDiameter = 0,
     frontTireWidth = 0,
     rearTireWidth = 0,
-    spinAngle = 0,
     forkTravel = 0,
     forkSag = 0,
   }: BikeGeometryParams) {
@@ -195,7 +193,7 @@ export default class BikeGeometry {
       end: chainStay.start,
     });
 
-    const crank = new Crank({ bottomBracket, crankLength, qFactor, spinAngle });
+    const crank = new Crank({ bottomBracket, crankLength, qFactor });
 
     const spacers = new Spacers({ headTube, spacersLength });
 
