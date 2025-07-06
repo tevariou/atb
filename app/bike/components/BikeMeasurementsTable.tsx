@@ -59,13 +59,17 @@ export default function BikeMeasurementsTable({
               <span className="font-bold">
                 {spineAngleDelta >= 1 && (
                   <>
-                    <Bike className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`} />
+                    <Bike
+                      className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`}
+                    />
                     is more upright
                   </>
                 )}
                 {spineAngleDelta <= -1 && (
                   <>
-                    <Bike className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`} />
+                    <Bike
+                      className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`}
+                    />
                     is more upright
                   </>
                 )}
@@ -94,18 +98,22 @@ export default function BikeMeasurementsTable({
               <TableCell>
                 <span className="font-bold">
                   {bikeGeometry.standoverHeight >
-                  bikeGeometry.lowerBody.inseamLength && (
+                    bikeGeometry.lowerBody.inseamLength && (
                     <>
                       <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
-                      <Bike className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`} />
+                      <Bike
+                        className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`}
+                      />
                       might be too tall
                     </>
                   )}
                   {shadowBikeGeometry.standoverHeight >
-                  shadowBikeGeometry.lowerBody.inseamLength && (
+                    shadowBikeGeometry.lowerBody.inseamLength && (
                     <>
                       <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
-                      <Bike className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`} />
+                      <Bike
+                        className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`}
+                      />
                       might be too tall
                     </>
                   )}
@@ -154,14 +162,18 @@ export default function BikeMeasurementsTable({
                 {bikeGeometry.toeOverlapClearance <= 0 && (
                   <>
                     <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
-                    <Bike className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`} />
+                    <Bike
+                      className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`}
+                    />
                     might be too short
                   </>
                 )}
                 {shadowBikeGeometry.toeOverlapClearance <= 0 && (
                   <>
                     <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
-                    <Bike className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`} />
+                    <Bike
+                      className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`}
+                    />
                     might be too short
                   </>
                 )}
@@ -204,14 +216,18 @@ export default function BikeMeasurementsTable({
                 {bikeGeometry.seatPost?.seatPostLength === undefined && (
                   <>
                     <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
-                    <Bike className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`} />
+                    <Bike
+                      className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`}
+                    />
                     is too short
                   </>
                 )}
                 {shadowBikeGeometry.seatPost?.seatPostLength === undefined && (
                   <>
                     <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
-                    <Bike className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`} />
+                    <Bike
+                      className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`}
+                    />
                     is too short
                   </>
                 )}

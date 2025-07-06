@@ -13,6 +13,7 @@ export default class LowerBody extends Segment {
   private readonly _crank: Crank;
   private readonly _seatPost: SeatPost;
   static readonly feetPositionRatio: number = 2 / 3;
+  private readonly _bottomBracket: BottomBracket;
 
   constructor({
     bottomBracket,
@@ -60,6 +61,7 @@ export default class LowerBody extends Segment {
     };
 
     super({ start: seatPost.start, end });
+    this._bottomBracket = bottomBracket;
     this._footLength = riderFootLength;
     this._crank = crank;
     this._seatPost = seatPost;
@@ -67,11 +69,11 @@ export default class LowerBody extends Segment {
     this._upperLegLength = riderUpperLegLength;
   }
 
-  draw(spinAngle?: number, origin?: BottomBracket): string {
+  draw(spinAngle?: number): string {
     const crankEnd = rotate(
       this._crank.end,
-      toRadians(spinAngle && -spinAngle || 0),
-      origin?.coordinates,
+      toRadians((spinAngle && -spinAngle) || 0),
+      this._bottomBracket.coordinates,
     );
 
     const heel = {
@@ -83,7 +85,8 @@ export default class LowerBody extends Segment {
       (this._seatPost.start.y - heel.y) / (this._seatPost.start.x - heel.x),
     );
     const d = Math.sqrt(
-      distance(heel, this._seatPost.start) ** 2 + (this._crank.qFactor / 2) ** 2,
+      distance(heel, this._seatPost.start) ** 2 +
+        (this._crank.qFactor / 2) ** 2,
     );
 
     const lowerLeg = this._inseamLength - this._upperLegLength;

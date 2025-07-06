@@ -6,10 +6,7 @@ import { riderSelectors } from "./riderSlice";
 import { bikeSelectors } from "./bikeSlice";
 import { shadowBikeSelectors } from "./shadowBikeSlice";
 
-function toBikeGeometry(
-  bike?: BikeState,
-  rider?: RiderState,
-): BikeGeometry {
+function toBikeGeometry(bike?: BikeState, rider?: RiderState): BikeGeometry {
   return new BikeGeometry({
     reachLength: bike?.reach,
     stackLength: bike?.stack,

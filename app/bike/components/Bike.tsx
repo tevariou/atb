@@ -132,7 +132,12 @@ export default function Bike({
         />
 
         {/* Crank */}
-        <path d={bike.crank.draw(spinAngle)} stroke="red" strokeWidth="5" fill="none" />
+        <path
+          d={bike.crank.draw(spinAngle)}
+          stroke="red"
+          strokeWidth="5"
+          fill="none"
+        />
 
         {/* Steerer tube */}
         <path

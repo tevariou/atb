@@ -25,7 +25,8 @@ export default function BikePage() {
   const [showBike, setShowBike] = useState(true);
   const [showShadowBike, setShowShadowBike] = useState(true);
 
-  const { bike: bikeGeometry, shadowBike: shadowBikeGeometry } = useBikeGeometry();
+  const { bike: bikeGeometry, shadowBike: shadowBikeGeometry } =
+    useBikeGeometry();
 
   const incrementAngle = useCallback(() => {
     if (spinAngle < 360) {
@@ -46,14 +47,11 @@ export default function BikePage() {
       <div className="min-h-screen p-10 pb-20">
         <main className="flex flex-col w-full justify-center row-start-2 items-center">
           <div className="flex flex-row gap-4">
-            <Button 
-              onClick={() => setShowBike(!showBike)} 
-              variant="outline"
-            >
+            <Button onClick={() => setShowBike(!showBike)} variant="outline">
               {showBike ? "Hide" : "Show"} Bike
             </Button>
-            <Button 
-              onClick={() => setShowShadowBike(!showShadowBike)} 
+            <Button
+              onClick={() => setShowShadowBike(!showShadowBike)}
               variant="outline"
             >
               {showShadowBike ? "Hide" : "Show"} Shadow Bike
