@@ -103,7 +103,7 @@ export default function BikePage() {
                   bike={shadowBikeGeometry}
                   spinAngle={spinAngle}
                   isShadow
-                  adjustYAxis={bikeGeometry.groundPedalClearance - shadowBikeGeometry.groundPedalClearance}
+                  adjustYAxis={bikeGeometry.ground - shadowBikeGeometry.ground}
                 />
               </div>
             )}

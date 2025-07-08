@@ -50,10 +50,11 @@ export default function BikeMeasurementsTable({
             <TableCell>{bikeGeometry.spineAngle.toFixed(0)}°</TableCell>
             <TableCell>{shadowBikeGeometry.spineAngle.toFixed(0)}°</TableCell>
             <TableCell>
-              {(
-                bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle
-              ).toFixed(0)}
-              °
+              {(() => {
+                const diff =
+                  bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle;
+                return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}°`;
+              })()}
             </TableCell>
             <TableCell>
               <p>
@@ -94,12 +95,13 @@ export default function BikeMeasurementsTable({
                 {(shadowBikeGeometry.standoverHeight / 10).toFixed(0)}cm
               </TableCell>
               <TableCell>
-                {(
-                  (bikeGeometry.standoverHeight -
-                    shadowBikeGeometry.standoverHeight) /
-                  10
-                ).toFixed(2)}
-                cm
+                {(() => {
+                  const diff =
+                    (bikeGeometry.standoverHeight -
+                      shadowBikeGeometry.standoverHeight) /
+                    10;
+                  return `${diff > 0 ? "+" : ""}${diff.toFixed(2)}cm`;
+                })()}
               </TableCell>
               <TableCell>
                 <p>
@@ -144,11 +146,12 @@ export default function BikeMeasurementsTable({
               {shadowBikeGeometry.groundPedalClearance.toFixed(0)}mm
             </TableCell>
             <TableCell>
-              {(
-                bikeGeometry.groundPedalClearance -
-                shadowBikeGeometry.groundPedalClearance
-              ).toFixed(0)}
-              mm
+              {(() => {
+                const diff =
+                  bikeGeometry.groundPedalClearance -
+                  shadowBikeGeometry.groundPedalClearance;
+                return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
+              })()}
             </TableCell>
             <TableCell></TableCell>
           </TableRow>
@@ -163,11 +166,12 @@ export default function BikeMeasurementsTable({
               {shadowBikeGeometry.toeOverlapClearance.toFixed(0)}mm
             </TableCell>
             <TableCell>
-              {(
-                bikeGeometry.toeOverlapClearance -
-                shadowBikeGeometry.toeOverlapClearance
-              ).toFixed(0)}
-              mm
+              {(() => {
+                const diff =
+                  bikeGeometry.toeOverlapClearance -
+                  shadowBikeGeometry.toeOverlapClearance;
+                return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
+              })()}
             </TableCell>
             <TableCell>
               <p>
@@ -205,7 +209,57 @@ export default function BikeMeasurementsTable({
             <TableCell>{bikeGeometry.trail.toFixed(0)}mm</TableCell>
             <TableCell>{shadowBikeGeometry.trail.toFixed(0)}mm</TableCell>
             <TableCell>
-              {(bikeGeometry.trail - shadowBikeGeometry.trail).toFixed(0)}mm
+              {(() => {
+                const diff = bikeGeometry.trail - shadowBikeGeometry.trail;
+                return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
+              })()}
+            </TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+
+          {/* Handlebar to Saddle Height row */}
+          <TableRow>
+            <TableCell>Handlebar to Saddle Height</TableCell>
+            <TableCell>
+              {bikeGeometry.handlebarToSaddleHeight
+                ? `${bikeGeometry.handlebarToSaddleHeight.toFixed(0)}mm`
+                : "N/A"}
+            </TableCell>
+            <TableCell>
+              {shadowBikeGeometry.handlebarToSaddleHeight
+                ? `${shadowBikeGeometry.handlebarToSaddleHeight.toFixed(0)}mm`
+                : "N/A"}
+            </TableCell>
+            <TableCell>
+              {bikeGeometry.handlebarToSaddleHeight &&
+              shadowBikeGeometry.handlebarToSaddleHeight
+                ? (() => {
+                    const diff =
+                      bikeGeometry.handlebarToSaddleHeight -
+                      shadowBikeGeometry.handlebarToSaddleHeight;
+                    return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
+                  })()
+                : "N/A"}
+            </TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+
+          {/* Front axle to handlebar offset row */}
+          <TableRow>
+            <TableCell>Front axle to handlebar offset</TableCell>
+            <TableCell>
+              {bikeGeometry.frontAxleToHandlebarOffset.toFixed(0)}mm
+            </TableCell>
+            <TableCell>
+              {shadowBikeGeometry.frontAxleToHandlebarOffset.toFixed(0)}mm
+            </TableCell>
+            <TableCell>
+              {(() => {
+                const diff =
+                  bikeGeometry.frontAxleToHandlebarOffset -
+                  shadowBikeGeometry.frontAxleToHandlebarOffset;
+                return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
+              })()}
             </TableCell>
             <TableCell></TableCell>
           </TableRow>
@@ -226,7 +280,12 @@ export default function BikeMeasurementsTable({
             <TableCell>
               {bikeGeometry.seatPost?.seatPostLength !== undefined &&
               shadowBikeGeometry.seatPost?.seatPostLength !== undefined
-                ? `${(bikeGeometry.seatPost.seatPostLength - shadowBikeGeometry.seatPost.seatPostLength).toFixed(0)}mm`
+                ? (() => {
+                    const diff =
+                      bikeGeometry.seatPost.seatPostLength -
+                      shadowBikeGeometry.seatPost.seatPostLength;
+                    return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
+                  })()
                 : "N/A"}
             </TableCell>
             <TableCell>
@@ -245,7 +304,8 @@ export default function BikeMeasurementsTable({
               </p>
               <p>
                 <span className="font-bold">
-                  {shadowBikeGeometry.seatPost?.seatPostLength === undefined && (
+                  {shadowBikeGeometry.seatPost?.seatPostLength ===
+                    undefined && (
                     <>
                       <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
                       <Bike

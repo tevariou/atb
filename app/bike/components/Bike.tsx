@@ -34,7 +34,7 @@ export default function Bike({
       </defs>
 
       <g
-        transform={`translate(750 ${750 + adjustedYAxis / 2}), scale(0.5), scale(-1 1), rotate(180)`}
+        transform={`translate(750 ${750 - adjustedYAxis / 2}), scale(0.5), scale(-1 1), rotate(180)`}
       >
         {/* Front tire */}
         <circle

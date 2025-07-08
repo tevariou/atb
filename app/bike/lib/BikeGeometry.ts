@@ -73,6 +73,7 @@ export default class BikeGeometry {
 
   private readonly _frontWheel: Wheel;
   private readonly _rearWheel: Wheel;
+  private readonly _handleBar: HandleBar;
 
   constructor({
     bottomBracketCoordinates = { x: 0, y: 0 } as Coordinates,
@@ -246,6 +247,7 @@ export default class BikeGeometry {
 
     this._frontWheel = frontWheel;
     this._rearWheel = rearWheel;
+    this._handleBar = handleBar;
 
     this._bottomBracket = bottomBracket;
     this._headTube = headTube;
@@ -348,6 +350,10 @@ export default class BikeGeometry {
     return _standoverHeight > 0 ? _standoverHeight : 0;
   }
 
+  get ground(): number {
+    return this.chainStay.start.y - this.rearWheel.radiusWithTire;
+  }
+
   get groundPedalClearance(): number {
     const groundPedalClearance =
       this.rearWheel.radiusWithTire -
@@ -392,5 +398,16 @@ export default class BikeGeometry {
           ),
         )
     );
+  }
+
+  get handlebarToSaddleHeight(): number | undefined {
+    if (!this.seatPost) {
+      return undefined;
+    }
+    return this._handleBar.coordinates.y - this.seatPost.start.y;
+  }
+
+  get frontAxleToHandlebarOffset(): number {
+    return this._handleBar.coordinates.x - this.fork.end.x;
   }
 }
