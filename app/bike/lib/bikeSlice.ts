@@ -23,7 +23,6 @@ export interface BikeState {
   spacers: number;
   stemLength: number;
   stemAngle: number;
-  stemSteererHeight: number;
   seatOffset: number;
   handlebarWidth: number;
   handlebarReach: number;
@@ -55,7 +54,6 @@ const bikeInitialState = {
   spacers: 0,
   stemLength: 0,
   stemAngle: 0,
-  stemSteererHeight: 0,
   seatOffset: 0,
   handlebarWidth: 0,
   handlebarReach: 0,
@@ -92,7 +90,6 @@ const bikeSlice = createSlice({
         spacers,
         stemLength,
         stemAngle,
-        stemSteererHeight,
         seatOffset,
         handlebarWidth,
         handlebarReach,
@@ -122,7 +119,6 @@ const bikeSlice = createSlice({
       state.spacers = Math.trunc(spacers);
       state.stemLength = Math.trunc(stemLength);
       state.stemAngle = Math.trunc(stemAngle);
-      state.stemSteererHeight = Math.trunc(stemSteererHeight);
       state.seatOffset = Math.trunc(seatOffset);
       state.handlebarWidth = Math.trunc(handlebarWidth);
       state.handlebarReach = Math.trunc(handlebarReach);

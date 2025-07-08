@@ -185,15 +185,14 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .max(300, "Value must be at most 300"),
     },
     spacers: {
-      label: "Spacers height (mm)",
+      label: "Steerer tube height (mm)",
       type: z
         .number()
         .int()
         .min(0, "Value must be at least 0")
         .max(1000, "Value must be at most 1000"),
       warnings: [
-        "Include the external headset top cup stack height in the calculated length if applicable",
-        "Include the stem steerer height in the calculated length if applicable",
+        "Length from the top of the stem cap to the top of the head tube (not the top of the headset)",
       ],
     },
     stemLength: {
@@ -211,14 +210,6 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .int()
         .min(-89, "Angle must be at least -90 degrees")
         .max(89, "Angle must be less than 90 degrees"),
-    },
-    stemSteererHeight: {
-      label: "Stem steerer height (mm)",
-      type: z
-        .number()
-        .int()
-        .min(0, "Value must be at least 0")
-        .max(100, "Value must be at most 100"),
     },
     seatOffset: {
       label: "Seat offset (mm)",

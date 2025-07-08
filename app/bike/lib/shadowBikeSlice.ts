@@ -24,7 +24,6 @@ const initialState = {
   spacers: 0,
   stemLength: 0,
   stemAngle: 0,
-  stemSteererHeight: 0,
   seatOffset: 0,
   handlebarWidth: 0,
   handlebarReach: 0,
@@ -60,7 +59,6 @@ const shadowBikeSlice = createSlice({
         spacers,
         stemLength,
         stemAngle,
-        stemSteererHeight,
         seatOffset,
         handlebarWidth,
         handlebarReach,
@@ -89,7 +87,6 @@ const shadowBikeSlice = createSlice({
       state.spacers = Math.trunc(spacers);
       state.stemLength = Math.trunc(stemLength);
       state.stemAngle = Math.trunc(stemAngle);
-      state.stemSteererHeight = Math.trunc(stemSteererHeight);
       state.seatOffset = Math.trunc(seatOffset);
       state.handlebarWidth = Math.trunc(handlebarWidth);
       state.handlebarReach = Math.trunc(handlebarReach);
