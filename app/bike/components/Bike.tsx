@@ -4,12 +4,16 @@ export default function Bike({
   bike,
   spinAngle = 0,
   isShadow = false,
+  adjustYAxis = 0,
 }: {
   bike: BikeGeometry;
   isShadow?: boolean;
   spinAngle?: number;
+  adjustYAxis?: number;
 }) {
   const strokeColor = isShadow ? "black" : "blue";
+
+  const adjustedYAxis = adjustYAxis ? adjustYAxis : 0;
 
   return (
     <svg width="100%" height="100%" viewBox="0 0 1500 1000">
@@ -29,7 +33,9 @@ export default function Bike({
         </linearGradient>
       </defs>
 
-      <g transform="translate(750 750), scale(0.5), scale(-1 1), rotate(180)">
+      <g
+        transform={`translate(750 ${750 + adjustedYAxis / 2}), scale(0.5), scale(-1 1), rotate(180)`}
+      >
         {/* Front tire */}
         <circle
           transform={`rotate(${-spinAngle}, ${bike.fork.end.x}, ${
