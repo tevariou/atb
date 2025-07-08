@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -24,19 +26,28 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <Link href="/" className="text-sm font-medium hover:text-primary">
+          <nav className="hidden md:flex space-x-8 mx-auto">
+            <Link
+              href="/"
+              className={`text-sm font-medium hover:text-primary ${
+                pathname === "/" ? "border-b-2 border-primary" : ""
+              }`}
+            >
               Home
             </Link>
             <Link
               href="/bike"
-              className="text-sm font-medium hover:text-primary"
+              className={`text-sm font-medium hover:text-primary ${
+                pathname === "/bike" ? "border-b-2 border-primary" : ""
+              }`}
             >
               Bike
             </Link>
             <Link
               href="/gears"
-              className="text-sm font-medium hover:text-primary"
+              className={`text-sm font-medium hover:text-primary ${
+                pathname === "/gears" ? "border-b-2 border-primary" : ""
+              }`}
             >
               Gears
             </Link>
@@ -66,21 +77,27 @@ export default function Header() {
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t">
             <Link
               href="/"
-              className="block px-3 py-2 text-base font-medium hover:bg-muted rounded-md"
+              className={`block px-3 py-2 text-base font-medium hover:bg-muted rounded-md ${
+                pathname === "/" ? "border-b-2 border-primary" : ""
+              }`}
               onClick={toggleMenu}
             >
               Home
             </Link>
             <Link
               href="/bike"
-              className="block px-3 py-2 text-base font-medium hover:bg-muted rounded-md"
+              className={`block px-3 py-2 text-base font-medium hover:bg-muted rounded-md ${
+                pathname === "/bike" ? "border-b-2 border-primary" : ""
+              }`}
               onClick={toggleMenu}
             >
               Bike
             </Link>
             <Link
               href="/gears"
-              className="block px-3 py-2 text-base font-medium hover:bg-muted rounded-md"
+              className={`block px-3 py-2 text-base font-medium hover:bg-muted rounded-md ${
+                pathname === "/gears" ? "border-b-2 border-primary" : ""
+              }`}
               onClick={toggleMenu}
             >
               Gears
