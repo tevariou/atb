@@ -351,7 +351,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
                               ? 0
                               : Number(event.target.value);
                           field.onChange(value);
-                          onSubmit(form.getValues());
+                          // Use handleSubmit to ensure validation runs
+                          form.handleSubmit(onSubmit)();
                         }}
                       />
                     </FormControl>
