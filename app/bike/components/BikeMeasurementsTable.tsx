@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import { TriangleAlert, Triangle, Bike } from "lucide-react";
 import type BikeGeometry from "@/app/bike/lib/BikeGeometry";
+import { MAIN_BIKE_COLOR, SHADOW_BIKE_COLOR } from "../lib/constants";
 
 interface BikeMeasurementsTableProps {
   bikeGeometry: BikeGeometry;
@@ -18,11 +19,8 @@ export default function BikeMeasurementsTable({
   bikeGeometry,
   shadowBikeGeometry,
 }: BikeMeasurementsTableProps) {
-  const MAIN_BIKE_COLOR = "text-blue-500";
-  const SHADOW_BIKE_COLOR = "text-black";
-
   const spineAngleDelta = Math.trunc(
-    bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle,
+    bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle
   );
 
   return (
@@ -32,10 +30,16 @@ export default function BikeMeasurementsTable({
           <TableRow>
             <TableHead>Measurements</TableHead>
             <TableHead>
-              <Bike className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`} />
+              <Bike
+                className="inline w-4 h-4 mr-1"
+                style={{ color: MAIN_BIKE_COLOR }}
+              />
             </TableHead>
             <TableHead>
-              <Bike className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`} />
+              <Bike
+                className="inline w-4 h-4 mr-1"
+                style={{ color: SHADOW_BIKE_COLOR }}
+              />
             </TableHead>
             <TableHead>
               <Triangle className={`inline w-4 h-4 text-black mr-1`} />
@@ -62,7 +66,8 @@ export default function BikeMeasurementsTable({
                   {spineAngleDelta >= 1 && (
                     <>
                       <Bike
-                        className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`}
+                        className="inline w-4 h-4 mr-1"
+                        style={{ color: MAIN_BIKE_COLOR }}
                       />
                       is more upright
                     </>
@@ -74,7 +79,8 @@ export default function BikeMeasurementsTable({
                   {spineAngleDelta <= -1 && (
                     <>
                       <Bike
-                        className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`}
+                        className="inline w-4 h-4 mr-1"
+                        style={{ color: SHADOW_BIKE_COLOR }}
                       />
                       is more upright
                     </>
@@ -111,7 +117,8 @@ export default function BikeMeasurementsTable({
                       <>
                         <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
                         <Bike
-                          className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`}
+                          className="inline w-4 h-4 mr-1"
+                          style={{ color: MAIN_BIKE_COLOR }}
                         />
                         might be too tall
                       </>
@@ -125,7 +132,8 @@ export default function BikeMeasurementsTable({
                       <>
                         <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
                         <Bike
-                          className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`}
+                          className="inline w-4 h-4 mr-1"
+                          style={{ color: SHADOW_BIKE_COLOR }}
                         />
                         might be too tall
                       </>
@@ -180,7 +188,8 @@ export default function BikeMeasurementsTable({
                     <>
                       <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
                       <Bike
-                        className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`}
+                        className="inline w-4 h-4 mr-1"
+                        style={{ color: MAIN_BIKE_COLOR }}
                       />
                       might be too short
                     </>
@@ -193,7 +202,8 @@ export default function BikeMeasurementsTable({
                     <>
                       <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
                       <Bike
-                        className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`}
+                        className="inline w-4 h-4 mr-1"
+                        style={{ color: SHADOW_BIKE_COLOR }}
                       />
                       might be too short
                     </>
@@ -295,7 +305,8 @@ export default function BikeMeasurementsTable({
                     <>
                       <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
                       <Bike
-                        className={`inline w-4 h-4 ${MAIN_BIKE_COLOR} mr-1`}
+                        className="inline w-4 h-4 mr-1"
+                        style={{ color: MAIN_BIKE_COLOR }}
                       />
                       is too short
                     </>
@@ -309,7 +320,8 @@ export default function BikeMeasurementsTable({
                     <>
                       <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
                       <Bike
-                        className={`inline w-4 h-4 ${SHADOW_BIKE_COLOR} mr-1`}
+                        className="inline w-4 h-4 mr-1"
+                        style={{ color: SHADOW_BIKE_COLOR }}
                       />
                       is too short
                     </>

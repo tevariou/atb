@@ -92,11 +92,6 @@ export default function BikePage() {
             </Drawer>
           </div>
           <div className="w-full max-w-7xl h-[500px] relative">
-            {bikeGeometry && showBike && (
-              <div className="absolute inset-0">
-                <Bike bike={bikeGeometry} spinAngle={spinAngle} />
-              </div>
-            )}
             {bikeGeometry && shadowBikeGeometry && showShadowBike && (
               <div className="absolute inset-0">
                 <Bike
@@ -105,6 +100,11 @@ export default function BikePage() {
                   isShadow
                   adjustYAxis={bikeGeometry.ground - shadowBikeGeometry.ground}
                 />
+              </div>
+            )}
+            {bikeGeometry && showBike && (
+              <div className="absolute inset-0">
+                <Bike bike={bikeGeometry} spinAngle={spinAngle} />
               </div>
             )}
           </div>
