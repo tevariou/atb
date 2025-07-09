@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, Suspense } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Bike from "@/app/bike/components/Bike";
 import BikeForm from "@/app/bike/components/BikeForm";
 import BikeMeasurementsTable from "@/app/bike/components/BikeMeasurementsTable";
@@ -20,12 +20,29 @@ import RiderForm from "./components/RiderForm";
 import { useBikeGeometry } from "@/app/bike/lib/useBikeGeometry";
 import { Share2 } from "lucide-react";
 
-function BikePageContent() {
+function Loading() {
+  return (
+    <div className="container mx-auto">
+      <div className="min-h-screen p-10 pb-20">
+        <main className="flex flex-col w-full justify-center row-start-2 items-center">
+          <div>Loading...</div>
+        </main>
+      </div>
+    </div>
+  )
+}
+
+export default function BikePage() {
   const [spinAngle, setSpinAngle] = useState(0);
   const [spinState, setSpinState] = useState(false);
   const [showBike, setShowBike] = useState(true);
   const [showShadowBike, setShowShadowBike] = useState(true);
   const [shareStatus, setShareStatus] = useState<string>("Share");
+  const [isClient, setIsClient] = useState(false)
+ 
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   const {
     bike: bikeGeometry,
@@ -59,11 +76,15 @@ function BikePageContent() {
       await navigator.clipboard.writeText(currentUrl.toString());
       setShareStatus("Copied!");
     } catch (error) {
-      console.error("Failed to copy to clipboard:", error);      
+      console.error("Failed to copy to clipboard:", error);
     }
-    
+
     setTimeout(() => setShareStatus("Share"), 2000);
   };
+
+  if (!isClient) {
+    return <Loading />
+  }
 
   return (
     <div className="container mx-auto">
@@ -148,28 +169,7 @@ function BikePageContent() {
             />
           )}
         </main>
-        <footer className="flex row-start-3 gap-[24px] flex-wrap items-center justify-center">
-          Ad Astra ✨
-        </footer>
       </div>
     </div>
-  );
-}
-
-export default function BikePage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="container mx-auto">
-          <div className="min-h-screen p-10 pb-20">
-            <main className="flex flex-col w-full justify-center row-start-2 items-center">
-              <div>Loading...</div>
-            </main>
-          </div>
-        </div>
-      }
-    >
-      <BikePageContent />
-    </Suspense>
   );
 }
