@@ -44,3 +44,7 @@ certificates
 
 # IDEs
 .idea
+
+# Serwist
+public/sw*
+public/swe-worker*
