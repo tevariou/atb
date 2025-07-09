@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, Suspense } from "react";
 import Bike from "@/app/bike/components/Bike";
 import BikeForm from "@/app/bike/components/BikeForm";
 import BikeMeasurementsTable from "@/app/bike/components/BikeMeasurementsTable";
@@ -29,20 +29,20 @@ function Loading() {
         </main>
       </div>
     </div>
-  )
+  );
 }
 
-export default function BikePage() {
+function BikePageContent() {
   const [spinAngle, setSpinAngle] = useState(0);
   const [spinState, setSpinState] = useState(false);
   const [showBike, setShowBike] = useState(true);
   const [showShadowBike, setShowShadowBike] = useState(true);
   const [shareStatus, setShareStatus] = useState<string>("Share");
-  const [isClient, setIsClient] = useState(false)
- 
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
-    setIsClient(true)
-  }, [])
+    setIsClient(true);
+  }, []);
 
   const {
     bike: bikeGeometry,
@@ -83,7 +83,7 @@ export default function BikePage() {
   };
 
   if (!isClient) {
-    return <Loading />
+    return <Loading />;
   }
 
   return (
@@ -171,5 +171,13 @@ export default function BikePage() {
         </main>
       </div>
     </div>
+  );
+}
+
+export default function BikePage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <BikePageContent />
+    </Suspense>
   );
 }
