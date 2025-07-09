@@ -18,7 +18,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RiderForm from "./components/RiderForm";
 import { useBikeGeometry } from "@/app/bike/lib/useBikeGeometry";
-import { Share2 } from "lucide-react";
+import { Share2, Settings } from "lucide-react";
 
 function Loading() {
   return (
@@ -113,7 +113,9 @@ function BikePageContent() {
             </Button>
             <Drawer direction="right">
               <DrawerTrigger asChild>
-                <Button variant="outline">Configure</Button>
+                <Button variant="outline" className="flex items-center gap-2">
+                  <Settings className="w-4 h-4" />
+                </Button>
               </DrawerTrigger>
               <DrawerPortal>
                 <DrawerContent className="min-h-full overflow-y-auto overflow-x-hidden max-h-screen">

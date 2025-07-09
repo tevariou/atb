@@ -37,7 +37,7 @@ A comprehensive web application for visualizing and comparing bicycle geometry p
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+- Node.js 22+ 
 - pnpm
 
 ### Installation
