@@ -54,3 +54,4 @@ export default riderSlice.reducer;
 export const riderSelectors = riderSlice.getSelectors<RootState>(
   (state) => state.rider
 );
+export { initialState as riderInitialState };

@@ -4,6 +4,7 @@ import rider from "@/app/bike/lib/riderSlice";
 import bike from "@/app/bike/lib/bikeSlice";
 import shadowBike from "@/app/bike/lib/shadowBikeSlice";
 import { loadAllPersistedData } from "@/lib/localStorage";
+import { parseToken } from "@/app/bike/lib/useBikeGeometry";
 
 const rootReducer = combineReducers({
   rider,
@@ -13,11 +14,28 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-// Get preloaded state from localStorage
+// Get preloaded state from URL token or localStorage
 function getPreloadedState(): Partial<RootState> | undefined {
   if (typeof window === "undefined") return undefined; // SSR safety
 
   try {
+    // First, check for URL token parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenParam = urlParams.get("t");
+
+    if (tokenParam) {
+      const parsedData = parseToken(tokenParam);
+      if (parsedData) {
+        // Return the parsed data as preloaded state
+        return {
+          bike: parsedData.rawBike,
+          shadowBike: parsedData.rawShadowBike,
+          rider: parsedData.rawRider,
+        };
+      }
+    }
+
+    // Fallback to localStorage if no valid token found
     const persistedData = loadAllPersistedData();
     const preloadedState: Partial<RootState> = {};
 
@@ -33,7 +51,7 @@ function getPreloadedState(): Partial<RootState> | undefined {
 
     return Object.keys(preloadedState).length > 0 ? preloadedState : undefined;
   } catch (error) {
-    console.warn("Failed to load preloaded state from localStorage:", error);
+    console.warn("Failed to load preloaded state:", error);
     return undefined;
   }
 }

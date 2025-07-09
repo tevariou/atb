@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, Suspense } from "react";
 import Bike from "@/app/bike/components/Bike";
 import BikeForm from "@/app/bike/components/BikeForm";
 import BikeMeasurementsTable from "@/app/bike/components/BikeMeasurementsTable";
@@ -18,15 +18,20 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RiderForm from "./components/RiderForm";
 import { useBikeGeometry } from "@/app/bike/lib/useBikeGeometry";
+import { Share2 } from "lucide-react";
 
-export default function BikePage() {
+function BikePageContent() {
   const [spinAngle, setSpinAngle] = useState(0);
   const [spinState, setSpinState] = useState(false);
   const [showBike, setShowBike] = useState(true);
   const [showShadowBike, setShowShadowBike] = useState(true);
+  const [shareStatus, setShareStatus] = useState<string>("Share");
 
-  const { bike: bikeGeometry, shadowBike: shadowBikeGeometry } =
-    useBikeGeometry();
+  const {
+    bike: bikeGeometry,
+    shadowBike: shadowBikeGeometry,
+    token,
+  } = useBikeGeometry();
 
   const incrementAngle = useCallback(() => {
     if (spinAngle < 360) {
@@ -40,6 +45,24 @@ export default function BikePage() {
 
   const handleSpin = () => {
     setSpinState(!spinState);
+  };
+
+  const handleShare = async () => {
+    if (!token) {
+      return;
+    }
+
+    try {
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.set("t", token);
+
+      await navigator.clipboard.writeText(currentUrl.toString());
+      setShareStatus("Copied!");
+    } catch (error) {
+      console.error("Failed to copy to clipboard:", error);      
+    }
+    
+    setTimeout(() => setShareStatus("Share"), 2000);
   };
 
   return (
@@ -58,6 +81,14 @@ export default function BikePage() {
             </Button>
             <Button onClick={handleSpin} variant="outline">
               {spinState ? "Stop" : "Spin"} the bikes
+            </Button>
+            <Button
+              onClick={handleShare}
+              variant="outline"
+              className="flex items-center gap-2"
+            >
+              <Share2 className="w-4 h-4" />
+              {shareStatus}
             </Button>
             <Drawer direction="right">
               <DrawerTrigger asChild>
@@ -122,5 +153,23 @@ export default function BikePage() {
         </footer>
       </div>
     </div>
+  );
+}
+
+export default function BikePage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="container mx-auto">
+          <div className="min-h-screen p-10 pb-20">
+            <main className="flex flex-col w-full justify-center row-start-2 items-center">
+              <div>Loading...</div>
+            </main>
+          </div>
+        </div>
+      }
+    >
+      <BikePageContent />
+    </Suspense>
   );
 }

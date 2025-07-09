@@ -6,7 +6,7 @@ export const STORAGE_KEYS = {
   BIKE: "atb-bike-data",
   SHADOW_BIKE: "atb-shadow-bike-data",
   RIDER: "atb-rider-data",
-} as const;
+};
 
 // Save data to localStorage
 export function saveToLocalStorage<T>(key: string, data: T): void {
