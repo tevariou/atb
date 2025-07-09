@@ -45,11 +45,12 @@ const riderSlice = createSlice({
       armLength: state.armLength / 10,
       spineLength: state.spineLength / 10,
     })),
+    selectRawRider: (state: RiderState) => state,
   },
 });
 
 export const { setRider } = riderSlice.actions;
 export default riderSlice.reducer;
 export const riderSelectors = riderSlice.getSelectors<RootState>(
-  (state) => state.rider,
+  (state) => state.rider
 );

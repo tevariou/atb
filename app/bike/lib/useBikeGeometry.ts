@@ -1,10 +1,12 @@
 import { useAppSelector } from "@/lib/hooks";
+import { useEffect } from "react";
 import BikeGeometry from "./BikeGeometry";
 import type { BikeState } from "./bikeSlice";
 import type { RiderState } from "./riderSlice";
 import { riderSelectors } from "./riderSlice";
 import { bikeSelectors } from "./bikeSlice";
 import { shadowBikeSelectors } from "./shadowBikeSlice";
+import { STORAGE_KEYS, saveToLocalStorage } from "@/lib/localStorage";
 
 function toBikeGeometry(bike?: BikeState, rider?: RiderState): BikeGeometry {
   return new BikeGeometry({
@@ -47,6 +49,22 @@ export function useBikeGeometry() {
   const bike = useAppSelector(bikeSelectors.selectBike);
   const shadowBike = useAppSelector(shadowBikeSelectors.selectShadowBike);
   const rider = useAppSelector(riderSelectors.selectRider);
+  const rawBike = useAppSelector(bikeSelectors.selectRawBike);
+  const rawShadowBike = useAppSelector(shadowBikeSelectors.selectRawShadowBike);
+  const rawRider = useAppSelector(riderSelectors.selectRawRider);
+
+  // Save data to localStorage when values change
+  useEffect(() => {
+    saveToLocalStorage(STORAGE_KEYS.BIKE, rawBike);
+  }, [rawBike]);
+
+  useEffect(() => {
+    saveToLocalStorage(STORAGE_KEYS.SHADOW_BIKE, rawShadowBike);
+  }, [rawShadowBike]);
+
+  useEffect(() => {
+    saveToLocalStorage(STORAGE_KEYS.RIDER, rawRider);
+  }, [rawRider]);
 
   let bikeGeometry: BikeGeometry | undefined;
   try {

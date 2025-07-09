@@ -104,11 +104,12 @@ const shadowBikeSlice = createSlice({
       actualSeatTubeAngle: state.actualSeatTubeAngle / 10,
       effectiveSeatTubeAngle: state.effectiveSeatTubeAngle / 10,
     })),
+    selectRawShadowBike: (state: BikeState) => state,
   },
 });
 
 export const { setShadowBike } = shadowBikeSlice.actions;
 export const shadowBikeSelectors = shadowBikeSlice.getSelectors<RootState>(
-  (state) => state.shadowBike,
+  (state) => state.shadowBike
 );
 export default shadowBikeSlice.reducer;

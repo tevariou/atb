@@ -136,11 +136,12 @@ const bikeSlice = createSlice({
       actualSeatTubeAngle: state.actualSeatTubeAngle / 10,
       effectiveSeatTubeAngle: state.effectiveSeatTubeAngle / 10,
     })),
+    selectRawBike: (state: BikeState) => state,
   },
 });
 
 export const { setBike } = bikeSlice.actions;
 export const bikeSelectors = bikeSlice.getSelectors<RootState>(
-  (state) => state.bike,
+  (state) => state.bike
 );
 export default bikeSlice.reducer;
