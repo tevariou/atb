@@ -117,50 +117,52 @@ function BikePageContent() {
                   </Button>
                 </DrawerTrigger>
                 <DrawerPortal>
-                  <DrawerContent className="h-full overflow-y-auto overflow-x-hidden">
+                  <DrawerContent className="h-full overflow-y-auto overflow-x-hidden -webkit-overflow-scrolling-touch">
                     <DrawerHeader>
                       <DrawerTitle>Configure your bikes here</DrawerTitle>
                       <DrawerDescription>
                         Select one below or fill in the fields
                       </DrawerDescription>
                     </DrawerHeader>
-                    <Tabs defaultValue="bike">
-                      <TabsList className="grid w-full grid-cols-3">
-                        <TabsTrigger
-                          value="bike"
-                          className="flex items-center gap-2"
-                        >
-                          <BikeIcon
-                            className="w-4 h-4"
-                            style={{ color: MAIN_BIKE_COLOR }}
-                          />
-                        </TabsTrigger>
-                        <TabsTrigger
-                          value="shadow"
-                          className="flex items-center gap-2"
-                        >
-                          <BikeIcon
-                            className="w-4 h-4"
-                            style={{ color: SHADOW_BIKE_COLOR }}
-                          />
-                        </TabsTrigger>
-                        <TabsTrigger
-                          value="rider"
-                          className="flex items-center gap-2"
-                        >
-                          <User className="w-4 h-4" />
-                        </TabsTrigger>
-                      </TabsList>
-                      <TabsContent value="bike">
-                        <BikeForm />
-                      </TabsContent>
-                      <TabsContent value="shadow">
-                        <BikeForm isShadow />
-                      </TabsContent>
-                      <TabsContent value="rider">
-                        <RiderForm />
-                      </TabsContent>
-                    </Tabs>
+                    <div className="flex-1 overflow-y-auto">
+                      <Tabs defaultValue="bike">
+                        <TabsList className="grid w-full grid-cols-3">
+                          <TabsTrigger
+                            value="bike"
+                            className="flex items-center gap-2"
+                          >
+                            <BikeIcon
+                              className="w-4 h-4"
+                              style={{ color: MAIN_BIKE_COLOR }}
+                            />
+                          </TabsTrigger>
+                          <TabsTrigger
+                            value="shadow"
+                            className="flex items-center gap-2"
+                          >
+                            <BikeIcon
+                              className="w-4 h-4"
+                              style={{ color: SHADOW_BIKE_COLOR }}
+                            />
+                          </TabsTrigger>
+                          <TabsTrigger
+                            value="rider"
+                            className="flex items-center gap-2"
+                          >
+                            <User className="w-4 h-4" />
+                          </TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="bike">
+                          <BikeForm />
+                        </TabsContent>
+                        <TabsContent value="shadow">
+                          <BikeForm isShadow />
+                        </TabsContent>
+                        <TabsContent value="rider">
+                          <RiderForm />
+                        </TabsContent>
+                      </Tabs>
+                    </div>
                   </DrawerContent>
                 </DrawerPortal>
               </Drawer>
