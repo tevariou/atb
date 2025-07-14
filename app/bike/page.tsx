@@ -18,7 +18,17 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RiderForm from "./components/RiderForm";
 import { useBikeGeometry } from "@/app/bike/lib/useBikeGeometry";
-import { Share2, Settings } from "lucide-react";
+import {
+  Share2,
+  Settings,
+  Eye,
+  EyeOff,
+  Bike as BikeIcon,
+  Disc as NonSpinIcon,
+  Disc3 as SpinIcon,
+  User,
+} from "lucide-react";
+import { MAIN_BIKE_COLOR, SHADOW_BIKE_COLOR } from "./lib/constants";
 
 function Loading() {
   return (
@@ -90,60 +100,110 @@ function BikePageContent() {
     <div className="container mx-auto">
       <div className="min-h-screen p-10 pb-20">
         <main className="flex flex-col w-full justify-center row-start-2 items-center">
-          <div className="flex flex-row gap-4">
-            <Button onClick={() => setShowBike(!showBike)} variant="outline">
-              {showBike ? "Hide" : "Show"} Bike
-            </Button>
-            <Button
-              onClick={() => setShowShadowBike(!showShadowBike)}
-              variant="outline"
-            >
-              {showShadowBike ? "Hide" : "Show"} Shadow Bike
-            </Button>
-            <Button onClick={handleSpin} variant="outline">
-              {spinState ? "Stop" : "Spin"} the bikes
-            </Button>
-            <Button
-              onClick={handleShare}
-              variant="outline"
-              className="flex items-center gap-2"
-            >
-              <Share2 className="w-4 h-4" />
-              {shareStatus}
-            </Button>
-            <Drawer direction="right">
-              <DrawerTrigger asChild>
-                <Button variant="outline" className="flex items-center gap-2">
-                  <Settings className="w-4 h-4" />
-                </Button>
-              </DrawerTrigger>
-              <DrawerPortal>
-                <DrawerContent className="min-h-full overflow-y-auto overflow-x-hidden max-h-screen">
-                  <DrawerHeader>
-                    <DrawerTitle>Configure your bikes here</DrawerTitle>
-                    <DrawerDescription>
-                      Select one below or fill in the fields
-                    </DrawerDescription>
-                  </DrawerHeader>
-                  <Tabs defaultValue="bike">
-                    <TabsList className="grid w-full grid-cols-3">
-                      <TabsTrigger value="bike">Bike</TabsTrigger>
-                      <TabsTrigger value="shadow">Shadow Bike</TabsTrigger>
-                      <TabsTrigger value="rider">Rider</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="bike">
-                      <BikeForm />
-                    </TabsContent>
-                    <TabsContent value="shadow">
-                      <BikeForm isShadow />
-                    </TabsContent>
-                    <TabsContent value="rider">
-                      <RiderForm />
-                    </TabsContent>
-                  </Tabs>
-                </DrawerContent>
-              </DrawerPortal>
-            </Drawer>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-row gap-4 justify-center">
+              <Button
+                onClick={handleShare}
+                variant="outline"
+                className="flex items-center gap-2"
+              >
+                <Share2 className="w-4 h-4" />
+                {shareStatus}
+              </Button>
+              <Drawer direction="right">
+                <DrawerTrigger asChild>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <Settings className="w-4 h-4" />
+                  </Button>
+                </DrawerTrigger>
+                <DrawerPortal>
+                  <DrawerContent className="h-full overflow-y-auto overflow-x-hidden">
+                    <DrawerHeader>
+                      <DrawerTitle>Configure your bikes here</DrawerTitle>
+                      <DrawerDescription>
+                        Select one below or fill in the fields
+                      </DrawerDescription>
+                    </DrawerHeader>
+                    <Tabs defaultValue="bike">
+                      <TabsList className="grid w-full grid-cols-3">
+                        <TabsTrigger
+                          value="bike"
+                          className="flex items-center gap-2"
+                        >
+                          <BikeIcon
+                            className="w-4 h-4"
+                            style={{ color: MAIN_BIKE_COLOR }}
+                          />
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="shadow"
+                          className="flex items-center gap-2"
+                        >
+                          <BikeIcon
+                            className="w-4 h-4"
+                            style={{ color: SHADOW_BIKE_COLOR }}
+                          />
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="rider"
+                          className="flex items-center gap-2"
+                        >
+                          <User className="w-4 h-4" />
+                        </TabsTrigger>
+                      </TabsList>
+                      <TabsContent value="bike">
+                        <BikeForm />
+                      </TabsContent>
+                      <TabsContent value="shadow">
+                        <BikeForm isShadow />
+                      </TabsContent>
+                      <TabsContent value="rider">
+                        <RiderForm />
+                      </TabsContent>
+                    </Tabs>
+                  </DrawerContent>
+                </DrawerPortal>
+              </Drawer>
+            </div>
+            <div className="flex flex-row gap-4">
+              <Button
+                onClick={() => setShowBike(!showBike)}
+                variant="outline"
+                className="flex items-center gap-2"
+              >
+                {showBike ? (
+                  <EyeOff className="w-4 h-4" />
+                ) : (
+                  <Eye className="w-4 h-4" />
+                )}
+                <BikeIcon
+                  className="inline w-4 h-4 mr-1"
+                  style={{ color: MAIN_BIKE_COLOR }}
+                />
+              </Button>
+              <Button
+                onClick={() => setShowShadowBike(!showShadowBike)}
+                variant="outline"
+                className="flex items-center gap-2"
+              >
+                {showShadowBike ? (
+                  <EyeOff className="w-4 h-4" />
+                ) : (
+                  <Eye className="w-4 h-4" />
+                )}
+                <BikeIcon
+                  className="inline w-4 h-4 mr-1"
+                  style={{ color: SHADOW_BIKE_COLOR }}
+                />
+              </Button>
+              <Button onClick={handleSpin} variant="outline">
+                {spinState ? (
+                  <NonSpinIcon className="w-4 h-4" />
+                ) : (
+                  <SpinIcon className="w-4 h-4" />
+                )}
+              </Button>
+            </div>
           </div>
           <div className="w-full max-w-7xl h-[500px] relative">
             {bikeGeometry && shadowBikeGeometry && showShadowBike && (
