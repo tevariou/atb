@@ -49,6 +49,7 @@ function BikePageContent() {
   const [showShadowBike, setShowShadowBike] = useState(true);
   const [shareStatus, setShareStatus] = useState<string>("Share");
   const [isClient, setIsClient] = useState(false);
+  const [activeTab, setActiveTab] = useState("bike");
 
   useEffect(() => {
     setIsClient(true);
@@ -126,7 +127,8 @@ function BikePageContent() {
                     </DrawerHeader>
                     <div className="flex-1 flex flex-col min-h-0">
                       <Tabs
-                        defaultValue="bike"
+                        value={activeTab}
+                        onValueChange={setActiveTab}
                         className="flex flex-col flex-1 min-h-0"
                       >
                         <TabsList className="grid w-full grid-cols-3">
@@ -155,7 +157,10 @@ function BikePageContent() {
                             <User className="w-4 h-4" />
                           </TabsTrigger>
                         </TabsList>
-                        <div className="flex-1 min-h-0 max-h-screen overflow-y-auto">
+                        <div
+                          key={activeTab}
+                          className="flex-1 min-h-0 max-h-screen overflow-y-auto"
+                        >
                           <TabsContent value="bike">
                             <BikeForm />
                           </TabsContent>
