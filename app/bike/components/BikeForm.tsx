@@ -32,7 +32,7 @@ type BikeFormProps = { isShadow?: boolean };
 export default function BikeForm({ isShadow = false }: BikeFormProps) {
   const dispatch = useAppDispatch();
   const bike = useAppSelector(
-    isShadow ? shadowBikeSelectors.selectShadowBike : bikeSelectors.selectBike,
+    isShadow ? shadowBikeSelectors.selectShadowBike : bikeSelectors.selectBike
   );
 
   const bikeAttributes: Record<
@@ -282,8 +282,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
       Record<keyof BikeState, z.ZodTypeAny>
     >(
       (acc, [key, value]) => ({ ...acc, [key]: value.type }),
-      {} as Record<keyof BikeState, z.ZodTypeAny>,
-    ),
+      {} as Record<keyof BikeState, z.ZodTypeAny>
+    )
   );
   const formFields = formSchema.keyof().options;
 
@@ -311,7 +311,7 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="bg-inherit">
-          <div className="grid gap-4 p-4">
+          <div className="grid gap-6 p-4">
             {formFields.map((key) => (
               <FormField
                 control={form.control}
@@ -333,7 +333,7 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
                                   <li key={`${key}-warning-${idx}`}>
                                     {warning}
                                   </li>
-                                ),
+                                )
                               )}
                             </ul>
                           </HoverCardContent>

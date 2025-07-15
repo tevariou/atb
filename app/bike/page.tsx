@@ -117,15 +117,18 @@ function BikePageContent() {
                   </Button>
                 </DrawerTrigger>
                 <DrawerPortal>
-                  <DrawerContent className="h-full overflow-y-auto overflow-x-hidden -webkit-overflow-scrolling-touch">
+                  <DrawerContent className="w-screen h-[100dvh] max-w-full overflow-y-auto overflow-x-hidden -webkit-overflow-scrolling-touch">
                     <DrawerHeader>
                       <DrawerTitle>Configure your bikes here</DrawerTitle>
                       <DrawerDescription>
                         Select one below or fill in the fields
                       </DrawerDescription>
                     </DrawerHeader>
-                    <div className="flex-1 overflow-y-auto">
-                      <Tabs defaultValue="bike">
+                    <div className="flex-1 flex flex-col min-h-0">
+                      <Tabs
+                        defaultValue="bike"
+                        className="flex flex-col flex-1 min-h-0"
+                      >
                         <TabsList className="grid w-full grid-cols-3">
                           <TabsTrigger
                             value="bike"
@@ -152,15 +155,17 @@ function BikePageContent() {
                             <User className="w-4 h-4" />
                           </TabsTrigger>
                         </TabsList>
-                        <TabsContent value="bike">
-                          <BikeForm />
-                        </TabsContent>
-                        <TabsContent value="shadow">
-                          <BikeForm isShadow />
-                        </TabsContent>
-                        <TabsContent value="rider">
-                          <RiderForm />
-                        </TabsContent>
+                        <div className="flex-1 min-h-0 max-h-screen overflow-y-auto">
+                          <TabsContent value="bike">
+                            <BikeForm />
+                          </TabsContent>
+                          <TabsContent value="shadow">
+                            <BikeForm isShadow />
+                          </TabsContent>
+                          <TabsContent value="rider">
+                            <RiderForm />
+                          </TabsContent>
+                        </div>
                       </Tabs>
                     </div>
                   </DrawerContent>

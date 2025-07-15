@@ -77,8 +77,8 @@ export default function RiderForm() {
       Record<keyof RiderState, z.ZodTypeAny>
     >(
       (acc, [key, value]) => ({ ...acc, [key]: value.type }),
-      {} as Record<keyof RiderState, z.ZodTypeAny>,
-    ),
+      {} as Record<keyof RiderState, z.ZodTypeAny>
+    )
   );
   const formFields = formSchema.keyof().options;
 
@@ -96,7 +96,7 @@ export default function RiderForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="bg-inherit">
-        <div className="grid gap-4 p-4">
+        <div className="grid gap-6 p-4">
           {formFields.map((key) => (
             <FormField
               control={form.control}
@@ -116,7 +116,7 @@ export default function RiderForm() {
                             {riderAttributes[key].warnings.map(
                               (warning, idx) => (
                                 <li key={`${key}-warning-${idx}`}>{warning}</li>
-                              ),
+                              )
                             )}
                           </ul>
                         </HoverCardContent>
@@ -128,7 +128,7 @@ export default function RiderForm() {
                       {...field}
                       onChange={(event) =>
                         field.onChange(
-                          event.target.value && Number(event.target.value),
+                          event.target.value && Number(event.target.value)
                         )
                       }
                       type="number"
