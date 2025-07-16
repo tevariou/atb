@@ -20,7 +20,7 @@ export default function BikeMeasurementsTable({
   shadowBikeGeometry,
 }: BikeMeasurementsTableProps) {
   const spineAngleDelta = Math.trunc(
-    bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle
+    bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle,
   );
 
   return (

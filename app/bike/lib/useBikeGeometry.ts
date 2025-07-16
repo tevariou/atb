@@ -51,16 +51,16 @@ function toBikeGeometry(bike?: BikeState, rider?: RiderState): BikeGeometry {
 function createToken(
   rawBike: BikeState,
   rawShadowBike: BikeState,
-  rawRider: RiderState
+  rawRider: RiderState,
 ): string {
   // Use bikeInitialState to construct bikeKeys for consistent ordering
   const bikeKeys = Object.keys(
-    bikeInitialState
+    bikeInitialState,
   ).toSorted() as (keyof BikeState)[];
 
   // Use riderInitialState to construct riderKeys for consistent ordering
   const riderKeys = Object.keys(
-    riderInitialState
+    riderInitialState,
   ).toSorted() as (keyof RiderState)[];
 
   // Extract non-zero values in order
@@ -92,12 +92,12 @@ export function parseToken(token: string): {
 
     // Use bikeInitialState to construct bikeKeys for consistent ordering
     const bikeKeys = Object.keys(
-      bikeInitialState
+      bikeInitialState,
     ).toSorted() as (keyof BikeState)[];
 
     // Use riderInitialState to construct riderKeys for consistent ordering
     const riderKeys = Object.keys(
-      riderInitialState
+      riderInitialState,
     ).toSorted() as (keyof RiderState)[];
 
     const rawBike = bikeKeys.reduce(
@@ -105,7 +105,7 @@ export function parseToken(token: string): {
         ...acc,
         [val]: compactData.b[idx],
       }),
-      {} as BikeState
+      {} as BikeState,
     );
 
     const rawShadowBike = bikeKeys.reduce(
@@ -113,7 +113,7 @@ export function parseToken(token: string): {
         ...acc,
         [val]: compactData.s[idx],
       }),
-      {} as BikeState
+      {} as BikeState,
     );
 
     const rawRider = riderKeys.reduce(
@@ -121,7 +121,7 @@ export function parseToken(token: string): {
         ...acc,
         [val]: compactData.r[idx],
       }),
-      {} as RiderState
+      {} as RiderState,
     );
 
     return { rawBike, rawShadowBike, rawRider };
@@ -169,7 +169,8 @@ export function useBikeGeometry() {
   }, [rawRider]);
 
   const token = useMemo(
-    () => createToken(rawBike, rawShadowBike, rawRider), [rawBike, rawShadowBike, rawRider]
+    () => createToken(rawBike, rawShadowBike, rawRider),
+    [rawBike, rawShadowBike, rawRider],
   );
 
   let bikeGeometry: BikeGeometry | undefined;

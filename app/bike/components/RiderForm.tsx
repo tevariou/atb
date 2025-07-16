@@ -35,16 +35,26 @@ export default function RiderForm() {
   > = {
     inseamLength: {
       label: "Inseam (in cm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(200, {
-        message: "Value must be less than 200",
-      }),
+      type: z
+        .number()
+        .int()
+        .min(0, "Value must be at least 0")
+        .max(200, {
+          message: "Value must be less than 200",
+        })
+        .nullable(),
       warnings: ["This is your inseam length wearing shoes"],
     },
     upperLegLength: {
       label: "Upper leg length (in cm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(100, {
-        message: "Value must be less than 100",
-      }),
+      type: z
+        .number()
+        .int()
+        .min(0, "Value must be at least 0")
+        .max(100, {
+          message: "Value must be less than 100",
+        })
+        .nullable(),
     },
     footLength: {
       label: "Shoe length (in cm)",
@@ -56,19 +66,30 @@ export default function RiderForm() {
         })
         .refine((n) => !(n * 10).toString().includes("."), {
           message: "Max precision is 1 decimal place",
-        }),
+        })
+        .nullable(),
     },
     armLength: {
       label: "Arm length (in cm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(200, {
-        message: "Value must be less than 200",
-      }),
+      type: z
+        .number()
+        .int()
+        .min(0, "Value must be at least 0")
+        .max(200, {
+          message: "Value must be less than 200",
+        })
+        .nullable(),
     },
     spineLength: {
       label: "Spine length (in cm)",
-      type: z.number().int().min(0, "Value must be at least 0").max(200, {
-        message: "Value must be less than 200",
-      }),
+      type: z
+        .number()
+        .int()
+        .min(0, "Value must be at least 0")
+        .max(200, {
+          message: "Value must be less than 200",
+        })
+        .nullable(),
     },
   };
 
@@ -77,20 +98,36 @@ export default function RiderForm() {
       Record<keyof RiderState, z.ZodTypeAny>
     >(
       (acc, [key, value]) => ({ ...acc, [key]: value.type }),
-      {} as Record<keyof RiderState, z.ZodTypeAny>
-    )
+      {} as Record<keyof RiderState, z.ZodTypeAny>,
+    ),
   );
   const formFields = formSchema.keyof().options;
 
+  const defaultValues = {
+    ...Object.fromEntries(
+      Object.entries(rider).map(([key, value]) => [
+        key,
+        value === 0 ? null : value,
+      ]),
+    ),
+  };
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      ...rider,
-    },
+    defaultValues,
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    dispatch(setRider({ ...rider, ...values }));
+    const updatedRider = {
+      ...rider,
+      ...Object.fromEntries(
+        Object.entries(values).map(([key, value]) => [
+          key,
+          value === null ? 0 : value,
+        ]),
+      ),
+    };
+    dispatch(setRider(updatedRider));
   };
 
   return (
@@ -116,7 +153,7 @@ export default function RiderForm() {
                             {riderAttributes[key].warnings.map(
                               (warning, idx) => (
                                 <li key={`${key}-warning-${idx}`}>{warning}</li>
-                              )
+                              ),
                             )}
                           </ul>
                         </HoverCardContent>
@@ -126,12 +163,16 @@ export default function RiderForm() {
                   <FormControl>
                     <Input
                       {...field}
-                      onChange={(event) =>
-                        field.onChange(
-                          event.target.value && Number(event.target.value)
-                        )
-                      }
+                      onChange={(event) => {
+                        const value =
+                          event.target.value === ""
+                            ? null
+                            : Number(event.target.value);
+                        field.onChange(value);
+                        form.handleSubmit(onSubmit)();
+                      }}
                       type="number"
+                      placeholder="0"
                     />
                   </FormControl>
                   <FormMessage />

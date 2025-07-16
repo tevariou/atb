@@ -31,8 +31,8 @@ type BikeFormProps = { isShadow?: boolean };
 
 export default function BikeForm({ isShadow = false }: BikeFormProps) {
   const dispatch = useAppDispatch();
-  const bike = useAppSelector(
-    isShadow ? shadowBikeSelectors.selectShadowBike : bikeSelectors.selectBike
+  const bike: BikeState = useAppSelector(
+    isShadow ? shadowBikeSelectors.selectShadowBike : bikeSelectors.selectBike,
   );
 
   const bikeAttributes: Record<
@@ -45,7 +45,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(1000, "Value must be at most 1000"),
+        .max(1000, "Value must be at most 1000")
+        .nullable(),
     },
     reach: {
       label: "Reach (mm)",
@@ -53,7 +54,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(1000, "Value must be at most 1000"),
+        .max(1000, "Value must be at most 1000")
+        .nullable(),
     },
     headTube: {
       label: "Head tube length (mm)",
@@ -61,7 +63,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(1000, "Value must be at most 1000"),
+        .max(1000, "Value must be at most 1000")
+        .nullable(),
       warnings: [
         "Include the external headset bottom cup stack height in the headtube length if applicable",
       ],
@@ -74,7 +77,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .max(89, "Angle must be less than 90 degrees")
         .refine((n) => !(n * 100).toString().includes("."), {
           message: "Max precision is 2 decimal places",
-        }),
+        })
+        .nullable(),
     },
     chainStay: {
       label: "Chainstay length (mm)",
@@ -82,7 +86,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(1000, "Value must be at most 1000"),
+        .max(1000, "Value must be at most 1000")
+        .nullable(),
     },
     actualSeatTubeAngle: {
       label: "Actual seat tube angle (degrees)",
@@ -92,7 +97,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .max(89, "Angle must be less than 90 degrees")
         .refine((n) => !(n * 100).toString().includes("."), {
           message: "Max precision is 2 decimal places",
-        }),
+        })
+        .nullable(),
     },
     effectiveSeatTubeAngle: {
       label: "Effective seat tube angle (degrees)",
@@ -102,7 +108,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .max(89, "Angle must be less than 90 degrees")
         .refine((n) => !(n * 100).toString().includes("."), {
           message: "Max precision is 2 decimal places",
-        }),
+        })
+        .nullable(),
     },
     seatTube: {
       label: "Seat tube length (mm)",
@@ -110,7 +117,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(1000, "Value must be at most 1000"),
+        .max(1000, "Value must be at most 1000")
+        .nullable(),
     },
     bottomBracketDrop: {
       label: "Bottom bracket drop (mm)",
@@ -118,7 +126,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(1000, "Value must be at most 1000"),
+        .max(1000, "Value must be at most 1000")
+        .nullable(),
     },
     frontCenter: {
       label: "Front center (mm)",
@@ -126,7 +135,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(1000, "Value must be at most 1000"),
+        .max(1000, "Value must be at most 1000")
+        .nullable(),
     },
     wheelBase: {
       label: "Wheelbase (mm)",
@@ -134,7 +144,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(2000, "Value must be at most 2000"),
+        .max(2000, "Value must be at most 2000")
+        .nullable(),
     },
     forkAxleToCrown: {
       label: "Fork axle to crown (mm)",
@@ -142,7 +153,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(1000, "Value must be at most 1000"),
+        .max(1000, "Value must be at most 1000")
+        .nullable(),
     },
     forkOffset: {
       label: "Fork offset (mm)",
@@ -150,7 +162,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(100, "Value must be at most 100"),
+        .max(100, "Value must be at most 100")
+        .nullable(),
     },
     forkTravel: {
       label: "Fork travel (mm)",
@@ -158,7 +171,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(300, "Value must be at most 300"),
+        .max(300, "Value must be at most 300")
+        .nullable(),
     },
     forkSag: {
       label: "Fork sag (%)",
@@ -166,7 +180,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(100, "Value must be at most 100"),
+        .max(100, "Value must be at most 100")
+        .nullable(),
     },
     crankLength: {
       label: "Crank length (mm)",
@@ -174,7 +189,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(300, "Value must be at most 300"),
+        .max(300, "Value must be at most 300")
+        .nullable(),
     },
     crankQFactor: {
       label: "Crank Q factor (mm)",
@@ -182,7 +198,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(300, "Value must be at most 300"),
+        .max(300, "Value must be at most 300")
+        .nullable(),
     },
     spacers: {
       label: "Steerer tube height (mm)",
@@ -190,7 +207,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(1000, "Value must be at most 1000"),
+        .max(1000, "Value must be at most 1000")
+        .nullable(),
       warnings: [
         "Length from the top of the stem cap to the top of the head tube (not the top of the headset)",
       ],
@@ -201,7 +219,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(200, "Value must be at most 200"),
+        .max(200, "Value must be at most 200")
+        .nullable(),
     },
     stemAngle: {
       label: "Stem angle (degrees)",
@@ -209,7 +228,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(-89, "Angle must be at least -90 degrees")
-        .max(89, "Angle must be less than 90 degrees"),
+        .max(89, "Angle must be less than 90 degrees")
+        .nullable(),
     },
     seatOffset: {
       label: "Seat offset (mm)",
@@ -217,7 +237,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(100, "Value must be at most 100"),
+        .max(100, "Value must be at most 100")
+        .nullable(),
     },
     handlebarWidth: {
       label: "Handlebar width (mm)",
@@ -225,7 +246,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(1000, "Value must be at most 1000"),
+        .max(1000, "Value must be at most 1000")
+        .nullable(),
     },
     handlebarReach: {
       label: "Handlebar reach (mm)",
@@ -233,7 +255,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(300, "Value must be at most 300"),
+        .max(300, "Value must be at most 300")
+        .nullable(),
     },
     handlebarRise: {
       label: "Handlebar rise (mm)",
@@ -241,7 +264,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(-100, "Handlebar rise must be at least -100mm")
-        .max(100, "Handlebar rise must be at most 100mm"),
+        .max(100, "Handlebar rise must be at most 100mm")
+        .nullable(),
     },
     tireFrontWidth: {
       label: "Front tire width (mm)",
@@ -249,7 +273,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(200, "Value must be at most 200"),
+        .max(200, "Value must be at most 200")
+        .nullable(),
     },
     tireRearWidth: {
       label: "Rear tire width (mm)",
@@ -257,7 +282,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(200, "Value must be at most 200"),
+        .max(200, "Value must be at most 200")
+        .nullable(),
     },
     wheelFrontDiameter: {
       label: "Front wheel diameter (mm)",
@@ -265,7 +291,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(1000, "Value must be at most 1000"),
+        .max(1000, "Value must be at most 1000")
+        .nullable(),
     },
     wheelRearDiameter: {
       label: "Rear wheel diameter (mm)",
@@ -273,7 +300,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .int()
         .min(0, "Value must be at least 0")
-        .max(1000, "Value must be at most 1000"),
+        .max(1000, "Value must be at most 1000")
+        .nullable(),
     },
   };
 
@@ -282,20 +310,34 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
       Record<keyof BikeState, z.ZodTypeAny>
     >(
       (acc, [key, value]) => ({ ...acc, [key]: value.type }),
-      {} as Record<keyof BikeState, z.ZodTypeAny>
-    )
+      {} as Record<keyof BikeState, z.ZodTypeAny>,
+    ),
   );
   const formFields = formSchema.keyof().options;
 
+  const defaultValues = {
+    ...Object.fromEntries(
+      Object.entries(bike).map(([key, value]) => [
+        key,
+        value === 0 ? null : value,
+      ]),
+    ),
+  };
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      ...bike,
-    },
+    defaultValues,
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const updatedBike = { ...bike, ...values };
+    const updatedBike = {
+      ...bike,
+      ...Object.fromEntries(
+        Object.entries(values).map(([key, value]) => [
+          key,
+          value === null ? 0 : value,
+        ]),
+      ),
+    };
     dispatch(isShadow ? setShadowBike(updatedBike) : setBike(updatedBike));
   };
 
@@ -333,7 +375,7 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
                                   <li key={`${key}-warning-${idx}`}>
                                     {warning}
                                   </li>
-                                )
+                                ),
                               )}
                             </ul>
                           </HoverCardContent>
@@ -345,13 +387,13 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
                         {...field}
                         type="number"
                         value={field.value ?? ""}
+                        placeholder="0"
                         onChange={(event) => {
                           const value =
                             event.target.value === ""
-                              ? 0
+                              ? null
                               : Number(event.target.value);
                           field.onChange(value);
-                          // Use handleSubmit to ensure validation runs
                           form.handleSubmit(onSubmit)();
                         }}
                       />

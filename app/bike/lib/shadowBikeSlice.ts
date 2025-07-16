@@ -110,6 +110,6 @@ const shadowBikeSlice = createSlice({
 
 export const { setShadowBike } = shadowBikeSlice.actions;
 export const shadowBikeSelectors = shadowBikeSlice.getSelectors<RootState>(
-  (state) => state.shadowBike
+  (state) => state.shadowBike,
 );
 export default shadowBikeSlice.reducer;

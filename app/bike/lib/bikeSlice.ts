@@ -142,7 +142,7 @@ const bikeSlice = createSlice({
 
 export const { setBike } = bikeSlice.actions;
 export const bikeSelectors = bikeSlice.getSelectors<RootState>(
-  (state) => state.bike
+  (state) => state.bike,
 );
 export { bikeInitialState };
 export default bikeSlice.reducer;
