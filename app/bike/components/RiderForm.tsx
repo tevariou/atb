@@ -34,7 +34,7 @@ export default function RiderForm() {
     { label: string; type: z.ZodTypeAny; warnings?: string[] }
   > = {
     inseamLength: {
-      label: "Inseam (in cm)",
+      label: "Inseam (cm)",
       type: z
         .number()
         .int()
@@ -46,7 +46,7 @@ export default function RiderForm() {
       warnings: ["This is your inseam length wearing shoes"],
     },
     upperLegLength: {
-      label: "Upper leg length (in cm)",
+      label: "Upper leg length (cm)",
       type: z
         .number()
         .int()
@@ -57,7 +57,7 @@ export default function RiderForm() {
         .nullable(),
     },
     footLength: {
-      label: "Shoe length (in cm)",
+      label: "Shoe length (cm)",
       type: z
         .number()
         .min(0, "Value must be at least 0")
@@ -70,7 +70,7 @@ export default function RiderForm() {
         .nullable(),
     },
     armLength: {
-      label: "Arm length (in cm)",
+      label: "Arm length (cm)",
       type: z
         .number()
         .int()
@@ -81,7 +81,7 @@ export default function RiderForm() {
         .nullable(),
     },
     spineLength: {
-      label: "Spine length (in cm)",
+      label: "Spine length (cm)",
       type: z
         .number()
         .int()
