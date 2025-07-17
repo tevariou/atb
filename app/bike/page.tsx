@@ -27,8 +27,14 @@ import {
   Disc as NonSpinIcon,
   Disc3 as SpinIcon,
   User,
+  AlertCircle, 
 } from "lucide-react";
 import { MAIN_BIKE_COLOR, SHADOW_BIKE_COLOR } from "./lib/constants";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 function Loading() {
   return (
@@ -175,7 +181,25 @@ function BikePageContent() {
                     </div>
                   </DrawerContent>
                 </DrawerPortal>
-              </Drawer>
+              </Drawer> 
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="flex items-center gap-2"
+                    aria-label="Help"
+                  >
+                    <AlertCircle className="w-4 h-4" />
+                  </Button>
+                </HoverCardTrigger>
+                <HoverCardContent>
+                  <div className="text-sm">
+                    Need help? Here you can configure your bikes, compare
+                    geometries, and see measurements. Start by clicking on the
+                    settings button to configure your bikes.
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
             </div>
             <div className="flex flex-row gap-4">
               <Button
