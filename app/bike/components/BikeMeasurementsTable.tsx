@@ -53,13 +53,22 @@ export default function BikeMeasurementsTable({
             <TableCell>Riding position Angle</TableCell>
             <TableCell>{bikeGeometry.spineAngle.toFixed(0)}°</TableCell>
             <TableCell>{shadowBikeGeometry.spineAngle.toFixed(0)}°</TableCell>
-            <TableCell>
-              {(() => {
-                const diff =
-                  bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle;
-                return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}°`;
-              })()}
-            </TableCell>
+            {(() => {
+              const diff =
+                bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle;
+              const diffValue = Number(diff.toFixed(0));
+              return (
+                <TableCell
+                  className={
+                    diffValue === 0 ? "text-center font-bold" : "font-bold"
+                  }
+                >
+                  {diffValue === 0
+                    ? ""
+                    : `${diffValue > 0 ? "+" : ""}${diffValue}°`}
+                </TableCell>
+              );
+            })()}
             <TableCell>
               <p>
                 <span className="font-bold">
@@ -91,58 +100,67 @@ export default function BikeMeasurementsTable({
           </TableRow>
 
           {/* Standover height row */}
-          {bikeGeometry.lowerBody && shadowBikeGeometry.lowerBody && (
-            <TableRow>
-              <TableCell>Standover Height</TableCell>
-              <TableCell>
-                {(bikeGeometry.standoverHeight / 10).toFixed(0)}cm
-              </TableCell>
-              <TableCell>
-                {(shadowBikeGeometry.standoverHeight / 10).toFixed(0)}cm
-              </TableCell>
-              <TableCell>
-                {(() => {
-                  const diff =
-                    (bikeGeometry.standoverHeight -
-                      shadowBikeGeometry.standoverHeight) /
-                    10;
-                  return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}cm`;
-                })()}
-              </TableCell>
-              <TableCell>
-                <p>
-                  <span className="font-bold">
-                    {bikeGeometry.standoverHeight >
-                      bikeGeometry.lowerBody.inseamLength && (
-                      <>
-                        <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
-                        <Bike
-                          className="inline w-4 h-4 mr-1"
-                          style={{ color: MAIN_BIKE_COLOR }}
-                        />
-                        might be too tall
-                      </>
-                    )}
-                  </span>
-                </p>
-                <p>
-                  <span className="font-bold">
-                    {shadowBikeGeometry.standoverHeight >
-                      shadowBikeGeometry.lowerBody.inseamLength && (
-                      <>
-                        <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
-                        <Bike
-                          className="inline w-4 h-4 mr-1"
-                          style={{ color: SHADOW_BIKE_COLOR }}
-                        />
-                        might be too tall
-                      </>
-                    )}
-                  </span>
-                </p>
-              </TableCell>
-            </TableRow>
-          )}
+          {bikeGeometry.lowerBody &&
+            shadowBikeGeometry.lowerBody &&
+            (() => {
+              const diff =
+                (bikeGeometry.standoverHeight -
+                  shadowBikeGeometry.standoverHeight) /
+                10;
+              const diffValue = Number(diff.toFixed(0));
+              return (
+                <TableRow>
+                  <TableCell>Standover Height</TableCell>
+                  <TableCell>
+                    {(bikeGeometry.standoverHeight / 10).toFixed(0)}cm
+                  </TableCell>
+                  <TableCell>
+                    {(shadowBikeGeometry.standoverHeight / 10).toFixed(0)}cm
+                  </TableCell>
+                  <TableCell
+                    className={
+                      diffValue === 0 ? "text-center font-bold" : "font-bold"
+                    }
+                  >
+                    {diffValue === 0
+                      ? ""
+                      : `${diffValue > 0 ? "+" : ""}${diffValue}cm`}
+                  </TableCell>
+                  <TableCell>
+                    <p>
+                      <span className="font-bold">
+                        {bikeGeometry.standoverHeight >
+                          bikeGeometry.lowerBody.inseamLength && (
+                          <>
+                            <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
+                            <Bike
+                              className="inline w-4 h-4 mr-1"
+                              style={{ color: MAIN_BIKE_COLOR }}
+                            />
+                            might be too tall
+                          </>
+                        )}
+                      </span>
+                    </p>
+                    <p>
+                      <span className="font-bold">
+                        {shadowBikeGeometry.standoverHeight >
+                          shadowBikeGeometry.lowerBody.inseamLength && (
+                          <>
+                            <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
+                            <Bike
+                              className="inline w-4 h-4 mr-1"
+                              style={{ color: SHADOW_BIKE_COLOR }}
+                            />
+                            might be too tall
+                          </>
+                        )}
+                      </span>
+                    </p>
+                  </TableCell>
+                </TableRow>
+              );
+            })()}
 
           {/* Ground pedal clearance row */}
           <TableRow>
@@ -153,14 +171,23 @@ export default function BikeMeasurementsTable({
             <TableCell>
               {shadowBikeGeometry.groundPedalClearance.toFixed(0)}mm
             </TableCell>
-            <TableCell>
-              {(() => {
-                const diff =
-                  bikeGeometry.groundPedalClearance -
-                  shadowBikeGeometry.groundPedalClearance;
-                return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
-              })()}
-            </TableCell>
+            {(() => {
+              const diff =
+                bikeGeometry.groundPedalClearance -
+                shadowBikeGeometry.groundPedalClearance;
+              const diffValue = Number(diff.toFixed(0));
+              return (
+                <TableCell
+                  className={
+                    diffValue === 0 ? "text-center font-bold" : "font-bold"
+                  }
+                >
+                  {diffValue === 0
+                    ? ""
+                    : `${diffValue > 0 ? "+" : ""}${diffValue}mm`}
+                </TableCell>
+              );
+            })()}
             <TableCell></TableCell>
           </TableRow>
 
@@ -173,14 +200,23 @@ export default function BikeMeasurementsTable({
             <TableCell>
               {shadowBikeGeometry.toeOverlapClearance.toFixed(0)}mm
             </TableCell>
-            <TableCell>
-              {(() => {
-                const diff =
-                  bikeGeometry.toeOverlapClearance -
-                  shadowBikeGeometry.toeOverlapClearance;
-                return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
-              })()}
-            </TableCell>
+            {(() => {
+              const diff =
+                bikeGeometry.toeOverlapClearance -
+                shadowBikeGeometry.toeOverlapClearance;
+              const diffValue = Number(diff.toFixed(0));
+              return (
+                <TableCell
+                  className={
+                    diffValue === 0 ? "text-center font-bold" : "font-bold"
+                  }
+                >
+                  {diffValue === 0
+                    ? ""
+                    : `${diffValue > 0 ? "+" : ""}${diffValue}mm`}
+                </TableCell>
+              );
+            })()}
             <TableCell>
               <p>
                 <span className="font-bold">
@@ -218,12 +254,21 @@ export default function BikeMeasurementsTable({
             <TableCell>Trail</TableCell>
             <TableCell>{bikeGeometry.trail.toFixed(0)}mm</TableCell>
             <TableCell>{shadowBikeGeometry.trail.toFixed(0)}mm</TableCell>
-            <TableCell>
-              {(() => {
-                const diff = bikeGeometry.trail - shadowBikeGeometry.trail;
-                return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
-              })()}
-            </TableCell>
+            {(() => {
+              const diff = bikeGeometry.trail - shadowBikeGeometry.trail;
+              const diffValue = Number(diff.toFixed(0));
+              return (
+                <TableCell
+                  className={
+                    diffValue === 0 ? "text-center font-bold" : "font-bold"
+                  }
+                >
+                  {diffValue === 0
+                    ? ""
+                    : `${diffValue > 0 ? "+" : ""}${diffValue}mm`}
+                </TableCell>
+              );
+            })()}
             <TableCell></TableCell>
           </TableRow>
 
@@ -240,17 +285,29 @@ export default function BikeMeasurementsTable({
                 ? `${shadowBikeGeometry.handlebarToSaddleHeight.toFixed(0)}mm`
                 : "N/A"}
             </TableCell>
-            <TableCell>
-              {bikeGeometry.handlebarToSaddleHeight &&
-              shadowBikeGeometry.handlebarToSaddleHeight
-                ? (() => {
-                    const diff =
-                      bikeGeometry.handlebarToSaddleHeight -
-                      shadowBikeGeometry.handlebarToSaddleHeight;
-                    return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
-                  })()
-                : "N/A"}
-            </TableCell>
+            {(() => {
+              if (
+                !bikeGeometry.handlebarToSaddleHeight ||
+                !shadowBikeGeometry.handlebarToSaddleHeight
+              ) {
+                return <TableCell className="font-bold">N/A</TableCell>;
+              }
+              const diff =
+                bikeGeometry.handlebarToSaddleHeight -
+                shadowBikeGeometry.handlebarToSaddleHeight;
+              const diffValue = Number(diff.toFixed(0));
+              return (
+                <TableCell
+                  className={
+                    diffValue === 0 ? "text-center font-bold" : "font-bold"
+                  }
+                >
+                  {diffValue === 0
+                    ? ""
+                    : `${diffValue > 0 ? "+" : ""}${diffValue}mm`}
+                </TableCell>
+              );
+            })()}
             <TableCell></TableCell>
           </TableRow>
 
@@ -263,14 +320,23 @@ export default function BikeMeasurementsTable({
             <TableCell>
               {shadowBikeGeometry.frontAxleToHandlebarOffset.toFixed(0)}mm
             </TableCell>
-            <TableCell>
-              {(() => {
-                const diff =
-                  bikeGeometry.frontAxleToHandlebarOffset -
-                  shadowBikeGeometry.frontAxleToHandlebarOffset;
-                return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
-              })()}
-            </TableCell>
+            {(() => {
+              const diff =
+                bikeGeometry.frontAxleToHandlebarOffset -
+                shadowBikeGeometry.frontAxleToHandlebarOffset;
+              const diffValue = Number(diff.toFixed(0));
+              return (
+                <TableCell
+                  className={
+                    diffValue === 0 ? "text-center font-bold" : "font-bold"
+                  }
+                >
+                  {diffValue === 0
+                    ? ""
+                    : `${diffValue > 0 ? "+" : ""}${diffValue}mm`}
+                </TableCell>
+              );
+            })()}
             <TableCell></TableCell>
           </TableRow>
 
@@ -287,17 +353,29 @@ export default function BikeMeasurementsTable({
                 ? `${shadowBikeGeometry.seatPost.seatPostLength.toFixed(0)}mm`
                 : "N/A"}
             </TableCell>
-            <TableCell>
-              {bikeGeometry.seatPost?.seatPostLength !== undefined &&
-              shadowBikeGeometry.seatPost?.seatPostLength !== undefined
-                ? (() => {
-                    const diff =
-                      bikeGeometry.seatPost.seatPostLength -
-                      shadowBikeGeometry.seatPost.seatPostLength;
-                    return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
-                  })()
-                : "N/A"}
-            </TableCell>
+            {(() => {
+              if (
+                bikeGeometry.seatPost?.seatPostLength === undefined ||
+                shadowBikeGeometry.seatPost?.seatPostLength === undefined
+              ) {
+                return <TableCell className="font-bold">N/A</TableCell>;
+              }
+              const diff =
+                bikeGeometry.seatPost.seatPostLength -
+                shadowBikeGeometry.seatPost.seatPostLength;
+              const diffValue = Number(diff.toFixed(0));
+              return (
+                <TableCell
+                  className={
+                    diffValue === 0 ? "text-center font-bold" : "font-bold"
+                  }
+                >
+                  {diffValue === 0
+                    ? ""
+                    : `${diffValue > 0 ? "+" : ""}${diffValue}mm`}
+                </TableCell>
+              );
+            })()}
             <TableCell>
               <p>
                 <span className="font-bold">
