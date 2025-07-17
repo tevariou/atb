@@ -14,11 +14,6 @@ exports[`renders homepage unchanged 1`] = `
         Welcome...
       </h1>
     </main>
-    <footer
-      class="row-start-3 flex gap-[24px] flex-wrap items-center justify-center"
-    >
-      Ad Astra
-    </footer>
   </div>
 </div>
 `;

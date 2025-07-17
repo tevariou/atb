@@ -12,7 +12,7 @@ describe("Home", () => {
 
   it("renders welcome text", () => {
     render(<HomePage />);
-    const welcomeText = screen.getByText(/Ad Astra/i);
+    const welcomeText = screen.getByText(/Welcome/i);
 
     expect(welcomeText).toBeInTheDocument();
   });

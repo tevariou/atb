@@ -346,10 +346,26 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
     dispatch(isShadow ? setShadowBike(bike) : setBike(bike));
   };
 
+  const handleClear = () => {
+    const clearedBike = Object.fromEntries(
+      Object.keys(bike).map((key) => [key, 0]),
+    ) as unknown as BikeState;
+    form.reset(clearedBike);
+    dispatch(isShadow ? setShadowBike(clearedBike) : setBike(clearedBike));
+  };
+
   return (
     <div>
       <div className="grid gap-4 p-4">
         <BikeSelect onChange={onBikeSelectChange} />
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full"
+          onClick={handleClear}
+        >
+          Clear
+        </Button>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="bg-inherit">
