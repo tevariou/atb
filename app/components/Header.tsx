@@ -43,14 +43,6 @@ export default function Header() {
             >
               Bike
             </Link>
-            <Link
-              href="/gears"
-              className={`text-sm font-medium hover:text-primary ${
-                pathname === "/gears" ? "border-b-2 border-primary" : ""
-              }`}
-            >
-              Gears
-            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
