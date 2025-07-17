@@ -27,7 +27,7 @@ import {
   Disc as NonSpinIcon,
   Disc3 as SpinIcon,
   User,
-  AlertCircle, 
+  AlertCircle,
 } from "lucide-react";
 import { MAIN_BIKE_COLOR, SHADOW_BIKE_COLOR } from "./lib/constants";
 import {
@@ -181,7 +181,7 @@ function BikePageContent() {
                     </div>
                   </DrawerContent>
                 </DrawerPortal>
-              </Drawer> 
+              </Drawer>
               <HoverCard>
                 <HoverCardTrigger asChild>
                   <Button

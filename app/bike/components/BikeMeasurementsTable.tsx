@@ -57,7 +57,7 @@ export default function BikeMeasurementsTable({
               {(() => {
                 const diff =
                   bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle;
-                return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}°`;
+                return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}°`;
               })()}
             </TableCell>
             <TableCell>
@@ -106,7 +106,7 @@ export default function BikeMeasurementsTable({
                     (bikeGeometry.standoverHeight -
                       shadowBikeGeometry.standoverHeight) /
                     10;
-                  return `${diff > 0 ? "+" : ""}${diff.toFixed(2)}cm`;
+                  return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}cm`;
                 })()}
               </TableCell>
               <TableCell>
@@ -158,7 +158,7 @@ export default function BikeMeasurementsTable({
                 const diff =
                   bikeGeometry.groundPedalClearance -
                   shadowBikeGeometry.groundPedalClearance;
-                return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
+                return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
               })()}
             </TableCell>
             <TableCell></TableCell>
@@ -178,7 +178,7 @@ export default function BikeMeasurementsTable({
                 const diff =
                   bikeGeometry.toeOverlapClearance -
                   shadowBikeGeometry.toeOverlapClearance;
-                return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
+                return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
               })()}
             </TableCell>
             <TableCell>
@@ -221,7 +221,7 @@ export default function BikeMeasurementsTable({
             <TableCell>
               {(() => {
                 const diff = bikeGeometry.trail - shadowBikeGeometry.trail;
-                return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
+                return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
               })()}
             </TableCell>
             <TableCell></TableCell>
@@ -247,7 +247,7 @@ export default function BikeMeasurementsTable({
                     const diff =
                       bikeGeometry.handlebarToSaddleHeight -
                       shadowBikeGeometry.handlebarToSaddleHeight;
-                    return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
+                    return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
                   })()
                 : "N/A"}
             </TableCell>
@@ -268,7 +268,7 @@ export default function BikeMeasurementsTable({
                 const diff =
                   bikeGeometry.frontAxleToHandlebarOffset -
                   shadowBikeGeometry.frontAxleToHandlebarOffset;
-                return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
+                return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
               })()}
             </TableCell>
             <TableCell></TableCell>
@@ -294,7 +294,7 @@ export default function BikeMeasurementsTable({
                     const diff =
                       bikeGeometry.seatPost.seatPostLength -
                       shadowBikeGeometry.seatPost.seatPostLength;
-                    return `${diff > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
+                    return `${Number(diff.toFixed(0)) > 0 ? "+" : ""}${diff.toFixed(0)}mm`;
                   })()
                 : "N/A"}
             </TableCell>
