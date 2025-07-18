@@ -56,6 +56,7 @@ function BikePageContent() {
   const [shareStatus, setShareStatus] = useState<string>("Share");
   const [isClient, setIsClient] = useState(false);
   const [activeTab, setActiveTab] = useState("bike");
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -103,6 +104,9 @@ function BikePageContent() {
     return <Loading />;
   }
 
+  // Placeholder for when bikeGeometry is undefined
+  const showPlaceholder = !bikeGeometry;
+
   return (
     <div className="container mx-auto">
       <div className="min-h-screen p-10 pb-20">
@@ -117,7 +121,11 @@ function BikePageContent() {
                 <Share2 className="w-4 h-4" />
                 {shareStatus}
               </Button>
-              <Drawer direction="right">
+              <Drawer
+                direction="right"
+                open={drawerOpen}
+                onOpenChange={setDrawerOpen}
+              >
                 <DrawerTrigger asChild>
                   <Button variant="outline" className="flex items-center gap-2">
                     <Settings className="w-4 h-4" />
@@ -241,26 +249,39 @@ function BikePageContent() {
               </Button>
             </div>
           </div>
-          <div className="w-full max-w-7xl h-[500px] relative">
-            {bikeGeometry && shadowBikeGeometry && showShadowBike && (
-              <div className="absolute inset-0">
-                <Bike
-                  bike={shadowBikeGeometry}
-                  spinAngle={spinAngle}
-                  isShadow
-                  adjustYAxis={bikeGeometry.ground - shadowBikeGeometry.ground}
-                />
-              </div>
-            )}
-            {bikeGeometry && showBike && (
-              <div className="absolute inset-0">
-                <Bike bike={bikeGeometry} spinAngle={spinAngle} />
-              </div>
+          <div className="w-full max-w-7xl h-[500px] relative flex items-center justify-center bg-white rounded-md">
+            {showPlaceholder ? (
+              <Button
+                className="bg-white rounded shadow text-gray-700 hover:bg-gray-50"
+                onClick={() => setDrawerOpen(true)}
+              >
+                Starts here
+              </Button>
+            ) : (
+              <>
+                {bikeGeometry && shadowBikeGeometry && showShadowBike && (
+                  <div className="absolute inset-0">
+                    <Bike
+                      bike={shadowBikeGeometry}
+                      spinAngle={spinAngle}
+                      isShadow
+                      adjustYAxis={
+                        bikeGeometry.ground - shadowBikeGeometry.ground
+                      }
+                    />
+                  </div>
+                )}
+                {bikeGeometry && showBike && (
+                  <div className="absolute inset-0">
+                    <Bike bike={bikeGeometry} spinAngle={spinAngle} />
+                  </div>
+                )}
+              </>
             )}
           </div>
 
           {/* Bike Measurements Table */}
-          {bikeGeometry && shadowBikeGeometry && (
+          {!showPlaceholder && bikeGeometry && shadowBikeGeometry && (
             <BikeMeasurementsTable
               bikeGeometry={bikeGeometry}
               shadowBikeGeometry={shadowBikeGeometry}

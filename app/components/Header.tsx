@@ -41,7 +41,7 @@ export default function Header() {
                 pathname === "/bike" ? "border-b-2 border-primary" : ""
               }`}
             >
-              Bike
+              Bike builder
             </Link>
           </nav>
 
