@@ -419,9 +419,9 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
                 )}
               />
             ))}
-            <Button type="submit" className="w-full ">
+            {/* <Button type="submit" className="w-full ">
               Submit
-            </Button>
+            </Button> */}
           </div>
         </form>
       </Form>
