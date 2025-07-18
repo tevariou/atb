@@ -12,7 +12,7 @@ export default class LowerBody extends Segment {
   private readonly _upperLegLength: number;
   private readonly _crank: Crank;
   private readonly _seatPost: SeatPost;
-  static readonly feetPositionRatio: number = 2 / 3;
+  private readonly _feetPositionRatio: number;
   private readonly _bottomBracket: BottomBracket;
 
   constructor({
@@ -22,6 +22,7 @@ export default class LowerBody extends Segment {
     riderInseamLength,
     riderUpperLegLength,
     riderFootLength,
+    riderCleatOffset,
   }: {
     bottomBracket: BottomBracket;
     seatPost: SeatPost;
@@ -29,7 +30,18 @@ export default class LowerBody extends Segment {
     riderInseamLength: number;
     riderUpperLegLength: number;
     riderFootLength: number;
+    riderCleatOffset: number;
   }) {
+    if (riderCleatOffset >= riderFootLength) {
+      throw new Error("Cleat offset is greater than foot length");
+    }
+
+    if (riderUpperLegLength >= riderInseamLength) {
+      throw new Error("Upper leg length is greater than inseam length");
+    }
+
+    const feetPositionRatio = 1 - riderCleatOffset / riderFootLength;
+
     const fromSaddleToPedal = Math.sqrt(
       (distance(seatPost.start, bottomBracket.coordinates) + crank.length) **
         2 +
@@ -47,7 +59,7 @@ export default class LowerBody extends Segment {
     }
 
     const heel = {
-      x: crank.end.x - riderFootLength * LowerBody.feetPositionRatio,
+      x: crank.end.x - riderFootLength * feetPositionRatio,
       y: crank.end.y,
     };
 
@@ -67,6 +79,7 @@ export default class LowerBody extends Segment {
     this._seatPost = seatPost;
     this._inseamLength = riderInseamLength;
     this._upperLegLength = riderUpperLegLength;
+    this._feetPositionRatio = feetPositionRatio;
   }
 
   draw(spinAngle?: number): string {
@@ -77,7 +90,7 @@ export default class LowerBody extends Segment {
     );
 
     const heel = {
-      x: crankEnd.x - this._footLength * LowerBody.feetPositionRatio,
+      x: crankEnd.x - this._footLength * this._feetPositionRatio,
       y: crankEnd.y,
     };
 
@@ -121,5 +134,9 @@ export default class LowerBody extends Segment {
 
   get footLength(): number {
     return this._footLength;
+  }
+
+  get feetPositionRatio(): number {
+    return this._feetPositionRatio;
   }
 }

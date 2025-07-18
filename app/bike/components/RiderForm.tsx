@@ -69,6 +69,19 @@ export default function RiderForm() {
         })
         .nullable(),
     },
+    cleatOffset: {
+      label: "Cleat offset from shoe end (cm)",
+      type: z
+        .number()
+        .min(0, "Value must be at least 0")
+        .max(100, {
+          message: "Value must be less than 100",
+        })
+        .refine((n) => !(n * 10).toString().includes("."), {
+          message: "Max precision is 1 decimal place",
+        })
+        .nullable(),
+    },
     armLength: {
       label: "Arm length (cm)",
       type: z

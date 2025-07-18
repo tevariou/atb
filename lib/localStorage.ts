@@ -6,6 +6,7 @@ export const STORAGE_KEYS = {
   BIKE: "atb-bike-data",
   SHADOW_BIKE: "atb-shadow-bike-data",
   RIDER: "atb-rider-data",
+  VERSION: "atb-version",
 };
 
 // Save data to localStorage
@@ -38,6 +39,7 @@ export function loadAllPersistedData() {
     bike: loadFromLocalStorage<BikeState>(STORAGE_KEYS.BIKE),
     shadowBike: loadFromLocalStorage<BikeState>(STORAGE_KEYS.SHADOW_BIKE),
     rider: loadFromLocalStorage<RiderState>(STORAGE_KEYS.RIDER),
+    version: loadFromLocalStorage<string>(STORAGE_KEYS.VERSION),
   };
 }
 
@@ -49,6 +51,7 @@ export function clearAllPersistedData(): void {
     localStorage.removeItem(STORAGE_KEYS.BIKE);
     localStorage.removeItem(STORAGE_KEYS.SHADOW_BIKE);
     localStorage.removeItem(STORAGE_KEYS.RIDER);
+    localStorage.removeItem(STORAGE_KEYS.VERSION);
   } catch (error) {
     console.warn("Failed to clear localStorage:", error);
   }

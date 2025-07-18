@@ -3,8 +3,13 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import rider from "@/app/bike/lib/riderSlice";
 import bike from "@/app/bike/lib/bikeSlice";
 import shadowBike from "@/app/bike/lib/shadowBikeSlice";
-import { loadAllPersistedData } from "@/lib/localStorage";
+import {
+  clearAllPersistedData,
+  loadAllPersistedData,
+} from "@/lib/localStorage";
 import { parseToken } from "@/app/bike/lib/useBikeGeometry";
+import pkg from "@/package.json";
+const version = pkg.version;
 
 const rootReducer = combineReducers({
   rider,
@@ -25,7 +30,11 @@ function getPreloadedState(): Partial<RootState> | undefined {
 
     if (tokenParam) {
       const parsedData = parseToken(tokenParam);
-      if (parsedData) {
+      if (
+        parsedData &&
+        parsedData.majorVersion &&
+        parsedData.majorVersion === version.split(".")[0]
+      ) {
         // Return the parsed data as preloaded state
         return {
           bike: parsedData.rawBike,
@@ -37,6 +46,15 @@ function getPreloadedState(): Partial<RootState> | undefined {
 
     // Fallback to localStorage if no valid token found
     const persistedData = loadAllPersistedData();
+
+    if (
+      !persistedData.version ||
+      persistedData.version !== version.split(".")[0]
+    ) {
+      clearAllPersistedData();
+      return undefined;
+    }
+
     const preloadedState: Partial<RootState> = {};
 
     if (persistedData.bike) {

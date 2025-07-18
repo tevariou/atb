@@ -38,6 +38,7 @@ export type BikeGeometryParams = {
   seatPostOffset?: number;
   riderUpperLegLength?: number;
   riderFootLength?: number;
+  riderCleatOffset?: number;
   qFactor?: number;
   handleBarWidth?: number;
   handleBarReach?: number;
@@ -97,6 +98,7 @@ export default class BikeGeometry {
     seatPostOffset = 0,
     riderUpperLegLength = 0,
     riderFootLength = 0,
+    riderCleatOffset = 0,
     qFactor = 0,
     handleBarWidth = 0,
     handleBarReach = 0,
@@ -231,6 +233,7 @@ export default class BikeGeometry {
           riderInseamLength,
           riderUpperLegLength,
           riderFootLength,
+          riderCleatOffset,
         });
 
         const upperBody = new UpperBody({
@@ -370,7 +373,7 @@ export default class BikeGeometry {
 
     const feetCircleRadius =
       this.crank.length +
-      this.lowerBody.footLength * (1 - LowerBody.feetPositionRatio);
+      this.lowerBody.footLength * (1 - this.lowerBody.feetPositionRatio);
     const frontWheelCircleRadius = this.frontWheel.radiusWithTire;
     const frontHubToOriginDistance = distance(
       this.fork.end,

@@ -6,6 +6,7 @@ export interface RiderState {
   inseamLength: number;
   upperLegLength: number;
   footLength: number;
+  cleatOffset: number;
   armLength: number;
   spineLength: number;
 }
@@ -14,6 +15,7 @@ const initialState = {
   inseamLength: 0,
   upperLegLength: 0,
   footLength: 0,
+  cleatOffset: 0,
   armLength: 0,
   spineLength: 0,
 } satisfies RiderState as RiderState;
@@ -27,12 +29,14 @@ const riderSlice = createSlice({
         inseamLength,
         upperLegLength,
         footLength,
+        cleatOffset,
         armLength,
         spineLength,
       } = action.payload;
       state.inseamLength = Math.trunc(inseamLength * 10); // Convert cm to mm
       state.upperLegLength = Math.trunc(upperLegLength * 10);
       state.footLength = Math.trunc(footLength * 10);
+      state.cleatOffset = Math.trunc(cleatOffset * 10);
       state.armLength = Math.trunc(armLength * 10);
       state.spineLength = Math.trunc(spineLength * 10);
     },
@@ -42,6 +46,7 @@ const riderSlice = createSlice({
       inseamLength: state.inseamLength / 10,
       upperLegLength: state.upperLegLength / 10,
       footLength: state.footLength / 10,
+      cleatOffset: state.cleatOffset / 10,
       armLength: state.armLength / 10,
       spineLength: state.spineLength / 10,
     })),

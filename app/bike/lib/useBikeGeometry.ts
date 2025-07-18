@@ -10,6 +10,8 @@ import { riderSelectors, riderInitialState } from "./riderSlice";
 import { bikeSelectors, bikeInitialState } from "./bikeSlice";
 import { shadowBikeSelectors } from "./shadowBikeSlice";
 import { STORAGE_KEYS, saveToLocalStorage } from "@/lib/localStorage";
+import pkg from "@/package.json";
+const version = pkg.version;
 
 function toBikeGeometry(bike?: BikeState, rider?: RiderState): BikeGeometry {
   return new BikeGeometry({
@@ -36,6 +38,7 @@ function toBikeGeometry(bike?: BikeState, rider?: RiderState): BikeGeometry {
     effectiveSeatTubeAngle: bike?.effectiveSeatTubeAngle,
     riderUpperLegLength: rider?.upperLegLength && rider.upperLegLength * 10,
     riderFootLength: rider?.footLength && rider.footLength * 10,
+    riderCleatOffset: rider?.cleatOffset && rider.cleatOffset * 10,
     riderArmLength: rider?.armLength && rider.armLength * 10,
     riderSpineLength: rider?.spineLength && rider.spineLength * 10,
     riderInseamLength: rider?.inseamLength && rider.inseamLength * 10,
@@ -75,6 +78,7 @@ function createToken(
     b: bikeValues,
     s: shadowBikeValues,
     r: riderValues,
+    v: version,
   };
 
   const jsonString = JSON.stringify(compactData);
@@ -85,10 +89,13 @@ export function parseToken(token: string): {
   rawBike: BikeState;
   rawShadowBike: BikeState;
   rawRider: RiderState;
+  majorVersion: string;
 } | null {
   try {
     const jsonString = atob(token);
     const compactData = JSON.parse(jsonString);
+
+    const majorVersion = compactData.v.split(".")[0];
 
     // Use bikeInitialState to construct bikeKeys for consistent ordering
     const bikeKeys = Object.keys(
@@ -124,7 +131,7 @@ export function parseToken(token: string): {
       {} as RiderState,
     );
 
-    return { rawBike, rawShadowBike, rawRider };
+    return { rawBike, rawShadowBike, rawRider, majorVersion };
   } catch {
     return null;
   }
@@ -167,6 +174,10 @@ export function useBikeGeometry() {
   useEffect(() => {
     saveToLocalStorage(STORAGE_KEYS.RIDER, rawRider);
   }, [rawRider]);
+
+  useEffect(() => {
+    saveToLocalStorage(STORAGE_KEYS.VERSION, version.split(".")[0]);
+  }, []);
 
   const token = useMemo(
     () => createToken(rawBike, rawShadowBike, rawRider),
