@@ -10,6 +10,10 @@
 from PIL import Image
 from google import genai
 from pydantic import BaseModel
+from cache import MAX_TEXT_LENGTH
+import logging
+
+logger = logging.getLogger("uvicorn.error")
 
 class BikeField(BaseModel):
     value: float | None
@@ -79,9 +83,9 @@ async def extract_bike_geometry_from_image(image, max_size=768):
             
             # Resize the image
             image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
-            print(f"Resized image from {width}x{height} to {new_width}x{new_height} for cost optimization")
+            logger.info(f"Resized image from {width}x{height} to {new_width}x{new_height} for cost optimization")
         else:
-            print(f"Image size {width}x{height} is already optimal")
+            logger.info(f"Image size {width}x{height} is already optimal")
         
         prompt = """
             This image contains a bike geometry chart. Please extract the table and output a JSON array. If a field is not present in the image or the value is missing, set it to null.
@@ -104,19 +108,19 @@ async def extract_bike_geometry_from_image(image, max_size=768):
         return response.parsed
         
     except Exception as e:
-        print(f"Error calling Gemini API: {e}")
+        logger.error(f"Error calling Gemini API: {e}")
         return None
     finally:
         # Always close the image to free up memory
         image.close()
 
-async def extract_bike_geometry_from_text(text_content, max_size=3000):
+async def extract_bike_geometry_from_text(text_content, max_size=MAX_TEXT_LENGTH):
     """
     Extract bike geometry data from text content using Gemini.
     
     Args:
         text_content (str): Text content containing bike geometry information
-        max_size (int): Maximum size of the text content to process (default: 3000)
+        max_size (int): Maximum size of the text content to process (default: MAX_TEXT_LENGTH)
     
     Returns:
         list: Array of bike size objects with geometry measurements
@@ -134,7 +138,7 @@ async def extract_bike_geometry_from_text(text_content, max_size=3000):
     """
 
     try:
-        print("Extracting bike geometry data from text using Gemini...")
+        logger.info("Extracting bike geometry data from text using Gemini...")
         
         # Generate content using Gemini
         response = await client.aio.models.generate_content(
@@ -149,5 +153,5 @@ async def extract_bike_geometry_from_text(text_content, max_size=3000):
         return response.parsed
         
     except Exception as e:
-        print(f"Error calling Gemini API: {e}")
+        logger.error(f"Error calling Gemini API: {e}")
         return None
