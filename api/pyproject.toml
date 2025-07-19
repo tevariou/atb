@@ -5,8 +5,10 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "aioredis>=2.0.1",
+    "fastapi[standard]>=0.116.1",
     "google-genai>=1.26.0",
-    "pytesseract>=0.3.13",
-    "sentence-transformers>=5.0.0",
-    "surya-ocr>=0.14.6",
+    "pillow>=11.3.0",
+    "python-multipart>=0.0.20",
+    "uvicorn[standard]>=0.35.0",
 ]
