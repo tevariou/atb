@@ -12,7 +12,8 @@
     "prettier:write": "prettier --write \"**/*.{ts,tsx}\"",
     "jest": "jest",
     "test": "npm run prettier:check && npm run lint && npm run typecheck && npm run jest",
-    "prepare": "husky"
+    "prepare": "husky",
+    "generate": "npx @rtk-query/codegen-openapi openapi-config.ts"
   },
   "overrides": {
     "@radix-ui/react-dismissable-layer": "^1.0.5",

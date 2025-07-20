@@ -3,6 +3,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import rider from "@/app/bike/lib/riderSlice";
 import bike from "@/app/bike/lib/bikeSlice";
 import shadowBike from "@/app/bike/lib/shadowBikeSlice";
+import { bikeGeometryApi } from "@/store/bikeGeometryApi";
 import {
   clearAllPersistedData,
   loadAllPersistedData,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   rider,
   bike,
   shadowBike,
+  [bikeGeometryApi.reducerPath]: bikeGeometryApi.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -78,6 +80,8 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({
     reducer: rootReducer,
     preloadedState: preloadedState || getPreloadedState(),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(bikeGeometryApi.middleware),
   });
   setupListeners(store.dispatch);
   return store;

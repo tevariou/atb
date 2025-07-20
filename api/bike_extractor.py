@@ -9,46 +9,11 @@
 
 from PIL import Image
 from google import genai
-from pydantic import BaseModel
-from cache import MAX_TEXT_LENGTH
+from models import MAX_TEXT_LENGTH, BikeSize
 import logging
 
 logger = logging.getLogger("uvicorn.error")
 
-class BikeField(BaseModel):
-    value: float | None
-    unit: str | None
-
-class BikeSize(BaseModel):
-    size: str
-    stack: BikeField | None
-    reach: BikeField | None
-    head_tube: BikeField | None
-    head_tube_angle: BikeField | None
-    chain_stay: BikeField | None
-    actual_seat_tube_angle: BikeField | None
-    effective_seat_tube_angle: BikeField | None
-    seat_tube: BikeField | None
-    bottom_bracket_drop: BikeField | None
-    front_center: BikeField | None
-    wheel_base: BikeField | None
-    fork_axle_to_crown: BikeField | None
-    fork_offset: BikeField | None
-    fork_travel: BikeField | None
-    fork_sag: BikeField | None
-    crank_length: BikeField | None
-    crank_q_factor: BikeField | None
-    spacers: BikeField | None
-    stem_length: BikeField | None
-    stem_angle: BikeField | None
-    seat_offset: BikeField | None
-    handlebar_width: BikeField | None
-    handlebar_reach: BikeField | None
-    handlebar_rise: BikeField | None
-    tire_front_width: BikeField | None
-    tire_rear_width: BikeField | None
-    wheel_front_diameter: BikeField | None
-    wheel_rear_diameter: BikeField | None
 
 MODEL = "gemini-2.5-flash-lite-preview-06-17"
 
@@ -67,11 +32,12 @@ async def extract_bike_geometry_from_image(image, max_size=768):
     client = genai.Client()
     
     # Load and resize the image for cost effectiveness
-    image = Image.open(image)
+    # The image parameter is already a file-like object, so we don't need to open it again
+    pil_image = Image.open(image)
     
     try:
         # Resize image while maintaining aspect ratio
-        width, height = image.size
+        width, height = pil_image.size
         if width > max_size or height > max_size:
             # Calculate new dimensions
             if width > height:
@@ -82,13 +48,15 @@ async def extract_bike_geometry_from_image(image, max_size=768):
                 new_width = int(width * (max_size / height))
             
             # Resize the image
-            image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+            resized_image = pil_image.resize((new_width, new_height), Image.Resampling.LANCZOS)
             logger.info(f"Resized image from {width}x{height} to {new_width}x{new_height} for cost optimization")
         else:
+            resized_image = pil_image
             logger.info(f"Image size {width}x{height} is already optimal")
         
         prompt = """
-            This image contains a bike geometry chart. Please extract the table and output a JSON array. If a field is not present in the image or the value is missing, set it to null.
+            This image contains a bike geometry chart. Please extract the table and output a JSON array of bike size objects.
+            If a field is not present in the image or the value is missing, set it to null.
             Actual and effective seat tube angle get the same value if a single value is provided for the seat tube angle.
         """
 
@@ -97,7 +65,7 @@ async def extract_bike_geometry_from_image(image, max_size=768):
             model=MODEL,
             contents=[
                 prompt,
-                image
+                resized_image
             ],
             config={
                 "response_mime_type": "application/json",
@@ -105,6 +73,7 @@ async def extract_bike_geometry_from_image(image, max_size=768):
             },
         )
 
+        # Ensure we return proper Pydantic models
         return response.parsed
         
     except Exception as e:
@@ -112,7 +81,7 @@ async def extract_bike_geometry_from_image(image, max_size=768):
         return None
     finally:
         # Always close the image to free up memory
-        image.close()
+        pil_image.close()
 
 async def extract_bike_geometry_from_text(text_content, max_size=MAX_TEXT_LENGTH):
     """
@@ -132,8 +101,13 @@ async def extract_bike_geometry_from_text(text_content, max_size=MAX_TEXT_LENGTH
     text_content = text_content[:max_size]
 
     prompt = f"""
-        This text contains bike geometry information. Please extract the table and output a JSON array. If a field is not present in the text or the value is missing, set it to null.
-        Actual and effective seat tube angle get the same value if a single value is provided for the seat tube angle.
+        This text contains bike geometry information. Please extract the table and output a JSON array of bike size objects.
+        If a field is not present in the text or the value is missing, set it to null.
+
+        Some information about the bike geometry:
+        Actual and effective seat tube angle get the same value if a single value is provided for the seat tube angle. 
+        
+        Text content:
         {text_content[:max_size]}
     """
 

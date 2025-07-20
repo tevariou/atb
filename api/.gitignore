@@ -1,2 +1,3 @@
 .venv
-geo.png
+.ruff_cache
+__pycache__

@@ -102,10 +102,10 @@ const bikeSlice = createSlice({
       state.reach = Math.trunc(reach);
       state.stack = Math.trunc(stack);
       state.headTube = Math.trunc(headTube);
-      state.headTubeAngle = Math.trunc(headTubeAngle * 10);
+      state.headTubeAngle = Math.trunc(headTubeAngle * 100);
       state.chainStay = Math.trunc(chainStay);
-      state.actualSeatTubeAngle = Math.trunc(actualSeatTubeAngle * 10);
-      state.effectiveSeatTubeAngle = Math.trunc(effectiveSeatTubeAngle * 10);
+      state.actualSeatTubeAngle = Math.trunc(actualSeatTubeAngle * 100);
+      state.effectiveSeatTubeAngle = Math.trunc(effectiveSeatTubeAngle * 100);
       state.seatTube = Math.trunc(seatTube);
       state.bottomBracketDrop = Math.trunc(bottomBracketDrop);
       state.frontCenter = Math.trunc(frontCenter);
@@ -132,9 +132,9 @@ const bikeSlice = createSlice({
   selectors: {
     selectBike: createSelector([(state) => state], (state) => ({
       ...state,
-      headTubeAngle: state.headTubeAngle / 10,
-      actualSeatTubeAngle: state.actualSeatTubeAngle / 10,
-      effectiveSeatTubeAngle: state.effectiveSeatTubeAngle / 10,
+      headTubeAngle: state.headTubeAngle / 100,
+      actualSeatTubeAngle: state.actualSeatTubeAngle / 100,
+      effectiveSeatTubeAngle: state.effectiveSeatTubeAngle / 100,
     })),
     selectRawBike: (state: BikeState) => state,
   },

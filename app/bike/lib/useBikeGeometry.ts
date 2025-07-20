@@ -36,6 +36,7 @@ function toBikeGeometry(bike?: BikeState, rider?: RiderState): BikeGeometry {
     handleBarReach: bike?.handlebarReach,
     handleBarHeight: bike?.handlebarRise,
     effectiveSeatTubeAngle: bike?.effectiveSeatTubeAngle,
+    wheelBase: bike?.wheelBase,
     riderUpperLegLength: rider?.upperLegLength && rider.upperLegLength * 10,
     riderFootLength: rider?.footLength && rider.footLength * 10,
     riderCleatOffset: rider?.cleatOffset && rider.cleatOffset * 10,

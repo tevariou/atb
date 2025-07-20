@@ -341,9 +341,9 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
     dispatch(isShadow ? setShadowBike(updatedBike) : setBike(updatedBike));
   };
 
-  const onBikeSelectChange = (bike: BikeState) => {
-    form.reset(bike);
-    dispatch(isShadow ? setShadowBike(bike) : setBike(bike));
+  const onBikeSelectChange = (selectedBike: BikeState) => {
+    form.reset(selectedBike);
+    dispatch(isShadow ? setShadowBike(selectedBike) : setBike(selectedBike));
   };
 
   const handleClear = () => {
@@ -357,7 +357,7 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
   return (
     <div>
       <div className="grid gap-4 p-4">
-        <BikeSelect onChange={onBikeSelectChange} />
+        <BikeSelect onChangeAction={onBikeSelectChange} />
         <Button
           type="button"
           variant="outline"
