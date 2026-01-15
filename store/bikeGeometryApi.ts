@@ -29,7 +29,7 @@ export const bikeGeometryApi = api.injectEndpoints({
       }),
     }),
   }),
-  overrideExisting: false,
+  overrideExisting: true,
 });
 
 export const {

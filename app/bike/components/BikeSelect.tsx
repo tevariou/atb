@@ -41,7 +41,7 @@ type BikeSelectProps = {
 
 export default function BikeSelect({ onChangeAction }: BikeSelectProps) {
   const [bikeSizes, setBikeSizes] = useState<(BikeState & { size: string })[]>(
-    []
+    [],
   );
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [bikeGeometryFromText] =
@@ -65,7 +65,7 @@ export default function BikeSelect({ onChangeAction }: BikeSelectProps) {
   });
 
   const convertValue = (
-    field: { value: number | null; unit: string | null } | null
+    field: { value: number | null; unit: string | null } | null,
   ) => {
     if (!field?.value) return 0;
     switch (field.unit) {
@@ -77,7 +77,7 @@ export default function BikeSelect({ onChangeAction }: BikeSelectProps) {
   };
 
   const convertWheelSize = (
-    field: { value: number | null; unit: string | null } | null
+    field: { value: number | null; unit: string | null } | null,
   ) => {
     if (!field?.value) return 0;
     switch (field.value) {

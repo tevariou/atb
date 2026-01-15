@@ -48,14 +48,50 @@ export default class LowerBody extends Segment {
         (crank.qFactor / 2) ** 2,
     );
 
-    if (fromSaddleToPedal > riderInseamLength) {
+    if (Math.floor(fromSaddleToPedal) > riderInseamLength) {
       throw new Error("From saddle to pedal is greater than inseam length");
     }
 
-    const lowerLeg = riderInseamLength - riderUpperLegLength;
+    const lowerLegLength = riderInseamLength - riderUpperLegLength;
 
-    if (lowerLeg <= 0) {
+    if (lowerLegLength <= 0) {
       throw new Error("Lower leg is less than or equal to 0");
+    }
+
+    // Calculate d at both crank positions to validate triangle inequality
+    // d_max: pedal at bottom (spin angle 0)
+    const heelAtBottom = {
+      x: crank.end.x - riderFootLength * feetPositionRatio,
+      y: crank.end.y,
+    };
+    const dMax = Math.sqrt(
+      distance(heelAtBottom, seatPost.start) ** 2 + (crank.qFactor / 2) ** 2,
+    );
+
+    // d_min: pedal at top (spin angle 180)
+    const crankEndAtTop = rotate(
+      crank.end,
+      toRadians(180),
+      bottomBracket.coordinates,
+    );
+    const heelAtTop = {
+      x: crankEndAtTop.x - riderFootLength * feetPositionRatio,
+      y: crankEndAtTop.y,
+    };
+    const dMin = Math.sqrt(
+      distance(heelAtTop, seatPost.start) ** 2 + (crank.qFactor / 2) ** 2,
+    );
+
+    // Triangle inequality: upperLegLength must be > |lowerLegLength - d| for all d
+    const minUpperLegRequired = Math.max(
+      Math.abs(lowerLegLength - dMin),
+      Math.abs(lowerLegLength - dMax),
+    );
+
+    if (riderUpperLegLength <= minUpperLegRequired) {
+      throw new Error(
+        "Upper leg length is too short relative to inseam length for the given bike geometry",
+      );
     }
 
     const heel = {
@@ -102,15 +138,16 @@ export default class LowerBody extends Segment {
         (this._crank.qFactor / 2) ** 2,
     );
 
-    const lowerLeg = this._inseamLength - this._upperLegLength;
+    const lowerLegLength = this._inseamLength - this._upperLegLength;
 
     const gamma = Math.acos(
-      (d ** 2 + lowerLeg ** 2 - this._upperLegLength ** 2) / (2 * d * lowerLeg),
+      (d ** 2 + lowerLegLength ** 2 - this._upperLegLength ** 2) /
+        (2 * d * lowerLegLength),
     );
 
     const knee = {
-      x: Math.abs(-lowerLeg * Math.cos(theta - gamma)) + heel.x,
-      y: Math.abs(-lowerLeg * Math.sin(theta - gamma)) + heel.y,
+      x: Math.abs(-lowerLegLength * Math.cos(theta - gamma)) + heel.x,
+      y: Math.abs(-lowerLegLength * Math.sin(theta - gamma)) + heel.y,
     };
 
     const end = {

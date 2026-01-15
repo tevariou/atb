@@ -267,24 +267,6 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .max(100, "Handlebar rise must be at most 100mm")
         .nullable(),
     },
-    tireFrontWidth: {
-      label: "Front tire width (mm)",
-      type: z
-        .number()
-        .int()
-        .min(0, "Value must be at least 0")
-        .max(200, "Value must be at most 200")
-        .nullable(),
-    },
-    tireRearWidth: {
-      label: "Rear tire width (mm)",
-      type: z
-        .number()
-        .int()
-        .min(0, "Value must be at least 0")
-        .max(200, "Value must be at most 200")
-        .nullable(),
-    },
     wheelFrontDiameter: {
       label: "Front wheel diameter (mm)",
       type: z
@@ -294,6 +276,15 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .max(1000, "Value must be at most 1000")
         .nullable(),
     },
+    tireFrontWidth: {
+      label: "Front tire width (mm)",
+      type: z
+        .number()
+        .int()
+        .min(0, "Value must be at least 0")
+        .max(200, "Value must be at most 200")
+        .nullable(),
+    },
     wheelRearDiameter: {
       label: "Rear wheel diameter (mm)",
       type: z
@@ -301,6 +292,15 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .int()
         .min(0, "Value must be at least 0")
         .max(1000, "Value must be at most 1000")
+        .nullable(),
+    },
+    tireRearWidth: {
+      label: "Rear tire width (mm)",
+      type: z
+        .number()
+        .int()
+        .min(0, "Value must be at least 0")
+        .max(200, "Value must be at most 200")
         .nullable(),
     },
   };

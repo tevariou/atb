@@ -12,23 +12,26 @@ export default class SeatPost extends Segment {
   constructor({
     bottomBracket,
     seatTube,
+    tiltAngle,
     crank,
     seatPostOffset,
     riderInseamLength,
   }: {
     bottomBracket: BottomBracket;
     seatTube: SeatTube;
+    tiltAngle: number;
     crank: Crank;
     riderInseamLength: number;
     seatPostOffset: number;
   }) {
     const MAX_SEAT_POST_LENGTH = 450;
     const getXWithOffset = (seatPostLength: number) =>
-      -Math.cos(seatTube.actualAngle) * seatPostLength +
+      -Math.cos(seatTube.actualAngle - tiltAngle) * seatPostLength +
       seatTube.start.x -
       seatPostOffset;
     const getYWithOffset = (seatPostLength: number) =>
-      Math.sin(seatTube.actualAngle) * seatPostLength + seatTube.start.y;
+      Math.sin(seatTube.actualAngle - tiltAngle) * seatPostLength +
+      seatTube.start.y;
     const getDWithOffset = (seatPostLength: number) =>
       Math.sqrt(
         (distance(

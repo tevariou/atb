@@ -198,11 +198,12 @@ export default class BikeGeometry {
 
     const crank = new Crank({ bottomBracket, crankLength, qFactor });
 
-    const spacers = new Spacers({ headTube, spacersLength });
+    const spacers = new Spacers({ headTube, tiltAngle, spacersLength });
 
     const stem = new Stem({
       spacers,
       headTube,
+      tiltAngle,
       stemLength,
       stemAngle: toRadians(stemAngle),
     });
@@ -218,6 +219,7 @@ export default class BikeGeometry {
       const seatPost = new SeatPost({
         bottomBracket,
         seatTube,
+        tiltAngle,
         crank,
         riderInseamLength,
         seatPostOffset,
@@ -245,7 +247,14 @@ export default class BikeGeometry {
 
         this._lowerBody = lowerBody;
         this._upperBody = upperBody;
-      } catch {}
+      } catch (error) {
+        console.log(
+          "Failed to create body",
+          error instanceof Error ? error.message : String(error),
+        );
+        this._lowerBody = undefined;
+        this._upperBody = undefined;
+      }
     } catch {}
 
     this._frontWheel = frontWheel;
