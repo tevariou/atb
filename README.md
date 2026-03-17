@@ -2,6 +2,8 @@
 
 A comprehensive web application for visualizing and comparing bicycle geometry parameters. This tool helps cyclists understand how different geometry parameters affect bike fit, handling, and rider position.
 
+<img width="1288" height="823" alt="Screenshot 2026-03-18 at 00 01 04" src="https://github.com/user-attachments/assets/6b01ac5b-d87d-4561-9007-acac4a8086b9" />
+
 ## 🚴 Features
 
 ### Interactive Bike Visualization
