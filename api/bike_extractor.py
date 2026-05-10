@@ -15,7 +15,7 @@ import logging
 logger = logging.getLogger("uvicorn.error")
 
 
-MODEL = "gemini-3-flash-preview"
+MODEL = "gemini-2.5-flash-lite"
 
 async def extract_bike_geometry_from_image(image, max_size=768):
     """

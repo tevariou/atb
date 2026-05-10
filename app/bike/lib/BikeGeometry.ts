@@ -394,22 +394,25 @@ export default class BikeGeometry {
   }
 
   get trail(): number {
-    return (
-      this.frontWheel.radiusWithTire *
-        Math.abs(
-          (this.headTube.end.x - this.headTube.start.x) /
-            (this.headTube.start.y - this.headTube.end.y),
-        ) -
-      this.fork.forkOffsetLength /
-        Math.cos(
-          Math.atan(
-            Math.abs(
-              (this.headTube.end.x - this.headTube.start.x) /
-                (this.headTube.start.y - this.headTube.end.y),
-            ),
-          ),
-        )
-    );
+    const steeringAxisDx = this.headTube.end.x - this.headTube.start.x;
+    const steeringAxisDy = this.headTube.end.y - this.headTube.start.y;
+
+    // A horizontal steering axis never intersects the ground at a finite point.
+    if (steeringAxisDy === 0) {
+      return 0;
+    }
+
+    const groundY = this.ground;
+    const steeringAxisGroundIntersectionFactor =
+      (groundY - this.headTube.start.y) / steeringAxisDy;
+    const steeringAxisGroundX =
+      this.headTube.start.x +
+      steeringAxisGroundIntersectionFactor * steeringAxisDx;
+
+    // Front contact patch is vertically below the front axle on level ground.
+    const frontContactPatchX = this.fork.end.x;
+
+    return steeringAxisGroundX - frontContactPatchX;
   }
 
   get handlebarToSaddleHeight(): number | undefined {

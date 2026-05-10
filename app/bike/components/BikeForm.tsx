@@ -236,8 +236,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
       type: z
         .number()
         .int()
-        .min(0, "Value must be at least 0")
-        .max(100, "Value must be at most 100")
+        .min(-100, "Value must be at least -100mm")
+        .max(100, "Value must be at most 100mm")
         .nullable(),
     },
     handlebarWidth: {
@@ -263,8 +263,8 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
       type: z
         .number()
         .int()
-        .min(-100, "Handlebar rise must be at least -100mm")
-        .max(100, "Handlebar rise must be at most 100mm")
+        .min(-200, "Handlebar rise must be at least -100mm")
+        .max(200, "Handlebar rise must be at most 100mm")
         .nullable(),
     },
     wheelFrontDiameter: {
