@@ -340,6 +340,15 @@ export default class BikeGeometry {
     return this._rearWheel;
   }
 
+  get overallLength(): number {
+    return (
+      this.fork.end.x -
+      this.chainStay.start.x +
+      this.frontWheel.radiusWithTire +
+      this.rearWheel.radiusWithTire
+    );
+  }
+
   get spineAngle(): number {
     if (!this.upperBody || !this.seatPost) {
       return 0;

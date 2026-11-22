@@ -22,6 +22,9 @@ export default function BikeMeasurementsTable({
   const spineAngleDelta = Math.trunc(
     bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle,
   );
+  const overallLengthDelta = Number(
+    (bikeGeometry.overallLength - shadowBikeGeometry.overallLength).toFixed(0),
+  );
 
   return (
     <div className="w-full max-w-7xl">
@@ -48,6 +51,20 @@ export default function BikeMeasurementsTable({
           </TableRow>
         </TableHeader>
         <TableBody>
+          <TableRow>
+            <TableCell>Overall Bike Length (Tire to Tire)</TableCell>
+            <TableCell>{bikeGeometry.overallLength.toFixed(0)}mm</TableCell>
+            <TableCell>
+              {shadowBikeGeometry.overallLength.toFixed(0)}mm
+            </TableCell>
+            <TableCell className="font-bold">
+              {overallLengthDelta === 0
+                ? ""
+                : `${overallLengthDelta > 0 ? "+" : ""}${overallLengthDelta}mm`}
+            </TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+
           {/* Rider spine angle row */}
           <TableRow>
             <TableCell>Riding position Angle</TableCell>
