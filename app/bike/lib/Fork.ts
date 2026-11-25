@@ -51,10 +51,9 @@ export default class Fork extends Segment {
         y: chainStay.start.y,
       };
     } else {
-      const forkTravelOffset = forkSag
-        ? forkTravel - forkTravel * (forkSag / 100)
-        : 0;
-      const forkLength = crownToAxleLength - forkTravelOffset;
+      const sagTravel = forkSag ? forkTravel * (forkSag / 100) : 0;
+      const forkLength =
+        Math.sqrt(crownToAxleLength ** 2 - forkOffsetLength ** 2) - sagTravel;
       const unRotatedFrontAxleWithOffsetCoordinates = {
         x: headTube.end.x + forkOffsetLength,
         y: headTube.end.y - forkLength,
