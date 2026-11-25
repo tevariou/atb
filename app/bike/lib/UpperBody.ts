@@ -31,39 +31,33 @@ export default class UpperBody extends Segment {
 
     const projectedArmLength = Math.sqrt(squaredProjectedArmLength);
 
-    const m = -(h.x - s.x) / (h.y - s.y);
-    const k =
-      -(
-        s.x ** 2 +
-        s.y ** 2 -
-        h.x ** 2 -
-        h.y ** 2 -
-        riderSpineLength ** 2 +
-        projectedArmLength ** 2
-      ) /
-      (2 * (h.y - s.y));
-    const a = 1 + m ** 2;
-    const b = 2 * (m * (k - s.y) - s.x);
-    const c = (k - s.y) ** 2 - riderSpineLength ** 2 + s.x ** 2;
-    const delta = b ** 2 - 4 * a * c;
-
-    if (delta < 0) {
+    const dx = h.x - s.x;
+    const dy = h.y - s.y;
+    const span = Math.hypot(dx, dy);
+    if (
+      span > riderSpineLength + projectedArmLength ||
+      span < Math.abs(riderSpineLength - projectedArmLength)
+    ) {
       throw new Error("Upper body does not intersect with seat post");
     }
 
-    let x = (-b - Math.sqrt(delta)) / (2 * a);
-    let y = m * x + k;
-    if (y < h.y) {
-      x = (-b + Math.sqrt(delta)) / (2 * a);
-      y = m * x + k;
+    super({ start: s, end: h });
+
+    if (span === 0) {
+      // Coincident, equal-radius circles allow an upright shoulder.
+      this._shoulder = { x: s.x, y: s.y + riderSpineLength };
+    } else {
+      const along =
+        (span ** 2 + riderSpineLength ** 2 - projectedArmLength ** 2) /
+        (2 * span);
+      const height = Math.sqrt(Math.max(0, riderSpineLength ** 2 - along ** 2));
+      // Choose the higher intersection (the rearward one for a vertical span).
+      const offset = dx < 0 || (dx === 0 && dy < 0) ? -height : height;
+      this._shoulder = {
+        x: s.x + (along * dx - offset * dy) / span,
+        y: s.y + (along * dy + offset * dx) / span,
+      };
     }
-
-    super({ start: seatPost.start, end: handleBar.coordinates });
-
-    this._shoulder = {
-      x: x,
-      y: y,
-    };
 
     this._spineLength = riderSpineLength;
   }
