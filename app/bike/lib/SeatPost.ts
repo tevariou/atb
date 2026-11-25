@@ -33,18 +33,20 @@ export default class SeatPost extends Segment {
       Math.sin(seatTube.actualAngle - tiltAngle) * seatPostLength +
       seatTube.start.y;
     const getDWithOffset = (seatPostLength: number) =>
-      Math.sqrt(
-        (distance(
+      Math.hypot(
+        distance(
           {
             x: getXWithOffset(seatPostLength),
             y: getYWithOffset(seatPostLength),
           },
           bottomBracket.coordinates,
-        ) +
-          crank.length) **
-          2 +
-          (crank.qFactor / 2) ** 2,
+        ) + crank.length,
+        crank.qFactor / 2,
       );
+
+    if (getDWithOffset(0) > riderInseamLength) {
+      throw new Error("Saddle is too high with the seatpost fully lowered");
+    }
 
     const getSeatPostLength = (seatPostLength: number): number => {
       if (

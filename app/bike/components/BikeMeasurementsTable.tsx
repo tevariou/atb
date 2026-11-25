@@ -15,12 +15,28 @@ interface BikeMeasurementsTableProps {
   shadowBikeGeometry: BikeGeometry;
 }
 
+function measurement(value: number | undefined, unit: string) {
+  return value === undefined ? "N/A" : `${value.toFixed(0)}${unit}`;
+}
+
+function difference(main: number | undefined, comparison: number | undefined) {
+  return main === undefined || comparison === undefined
+    ? undefined
+    : Number((main - comparison).toFixed(0));
+}
+
+function formattedDifference(value: number | undefined, unit: string) {
+  if (value === undefined) return "N/A";
+  return value === 0 ? "" : `${value > 0 ? "+" : ""}${value}${unit}`;
+}
+
 export default function BikeMeasurementsTable({
   bikeGeometry,
   shadowBikeGeometry,
 }: BikeMeasurementsTableProps) {
-  const spineAngleDelta = Math.trunc(
-    bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle,
+  const spineAngleDelta = difference(
+    bikeGeometry.spineAngle,
+    shadowBikeGeometry.spineAngle,
   );
   const overallLengthDelta = Number(
     (bikeGeometry.overallLength - shadowBikeGeometry.overallLength).toFixed(0),
@@ -68,28 +84,17 @@ export default function BikeMeasurementsTable({
           {/* Rider spine angle row */}
           <TableRow>
             <TableCell>Riding position Angle</TableCell>
-            <TableCell>{bikeGeometry.spineAngle.toFixed(0)}°</TableCell>
-            <TableCell>{shadowBikeGeometry.spineAngle.toFixed(0)}°</TableCell>
-            {(() => {
-              const diff =
-                bikeGeometry.spineAngle - shadowBikeGeometry.spineAngle;
-              const diffValue = Number(diff.toFixed(0));
-              return (
-                <TableCell
-                  className={
-                    diffValue === 0 ? "text-center font-bold" : "font-bold"
-                  }
-                >
-                  {diffValue === 0
-                    ? ""
-                    : `${diffValue > 0 ? "+" : ""}${diffValue}°`}
-                </TableCell>
-              );
-            })()}
+            <TableCell>{measurement(bikeGeometry.spineAngle, "°")}</TableCell>
+            <TableCell>
+              {measurement(shadowBikeGeometry.spineAngle, "°")}
+            </TableCell>
+            <TableCell className="font-bold">
+              {formattedDifference(spineAngleDelta, "°")}
+            </TableCell>
             <TableCell>
               <p>
                 <span className="font-bold">
-                  {spineAngleDelta >= 1 && (
+                  {spineAngleDelta !== undefined && spineAngleDelta >= 1 && (
                     <>
                       <Bike
                         className="inline w-4 h-4 mr-1"
@@ -102,7 +107,7 @@ export default function BikeMeasurementsTable({
               </p>
               <p>
                 <span className="font-bold">
-                  {spineAngleDelta <= -1 && (
+                  {spineAngleDelta !== undefined && spineAngleDelta <= -1 && (
                     <>
                       <Bike
                         className="inline w-4 h-4 mr-1"
@@ -117,37 +122,36 @@ export default function BikeMeasurementsTable({
           </TableRow>
 
           {/* Standover height row */}
-          {bikeGeometry.lowerBody &&
-            shadowBikeGeometry.lowerBody &&
-            (() => {
-              const diff =
-                (bikeGeometry.standoverHeight -
-                  shadowBikeGeometry.standoverHeight) /
-                10;
-              const diffValue = Number(diff.toFixed(0));
-              return (
-                <TableRow>
-                  <TableCell>Standover Height</TableCell>
-                  <TableCell>
-                    {(bikeGeometry.standoverHeight / 10).toFixed(0)}cm
-                  </TableCell>
-                  <TableCell>
-                    {(shadowBikeGeometry.standoverHeight / 10).toFixed(0)}cm
-                  </TableCell>
-                  <TableCell
-                    className={
-                      diffValue === 0 ? "text-center font-bold" : "font-bold"
-                    }
-                  >
-                    {diffValue === 0
-                      ? ""
-                      : `${diffValue > 0 ? "+" : ""}${diffValue}cm`}
-                  </TableCell>
-                  <TableCell>
-                    <p>
-                      <span className="font-bold">
-                        {bikeGeometry.standoverHeight >
-                          bikeGeometry.lowerBody.inseamLength && (
+          {(() => {
+            const diff =
+              (bikeGeometry.standoverHeight -
+                shadowBikeGeometry.standoverHeight) /
+              10;
+            const diffValue = Number(diff.toFixed(0));
+            return (
+              <TableRow>
+                <TableCell>Standover Height</TableCell>
+                <TableCell>
+                  {(bikeGeometry.standoverHeight / 10).toFixed(0)}cm
+                </TableCell>
+                <TableCell>
+                  {(shadowBikeGeometry.standoverHeight / 10).toFixed(0)}cm
+                </TableCell>
+                <TableCell
+                  className={
+                    diffValue === 0 ? "text-center font-bold" : "font-bold"
+                  }
+                >
+                  {diffValue === 0
+                    ? ""
+                    : `${diffValue > 0 ? "+" : ""}${diffValue}cm`}
+                </TableCell>
+                <TableCell>
+                  <p>
+                    <span className="font-bold">
+                      {bikeGeometry.riderInseamLength > 0 &&
+                        bikeGeometry.standoverHeight >
+                          bikeGeometry.riderInseamLength && (
                           <>
                             <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
                             <Bike
@@ -157,12 +161,13 @@ export default function BikeMeasurementsTable({
                             might be too tall
                           </>
                         )}
-                      </span>
-                    </p>
-                    <p>
-                      <span className="font-bold">
-                        {shadowBikeGeometry.standoverHeight >
-                          shadowBikeGeometry.lowerBody.inseamLength && (
+                    </span>
+                  </p>
+                  <p>
+                    <span className="font-bold">
+                      {shadowBikeGeometry.riderInseamLength > 0 &&
+                        shadowBikeGeometry.standoverHeight >
+                          shadowBikeGeometry.riderInseamLength && (
                           <>
                             <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
                             <Bike
@@ -172,12 +177,12 @@ export default function BikeMeasurementsTable({
                             might be too tall
                           </>
                         )}
-                      </span>
-                    </p>
-                  </TableCell>
-                </TableRow>
-              );
-            })()}
+                    </span>
+                  </p>
+                </TableCell>
+              </TableRow>
+            );
+          })()}
 
           {/* Ground pedal clearance row */}
           <TableRow>
@@ -212,32 +217,24 @@ export default function BikeMeasurementsTable({
           <TableRow>
             <TableCell>Toe Overlap Clearance</TableCell>
             <TableCell>
-              {bikeGeometry.toeOverlapClearance.toFixed(0)}mm
+              {measurement(bikeGeometry.toeOverlapClearance, "mm")}
             </TableCell>
             <TableCell>
-              {shadowBikeGeometry.toeOverlapClearance.toFixed(0)}mm
+              {measurement(shadowBikeGeometry.toeOverlapClearance, "mm")}
             </TableCell>
-            {(() => {
-              const diff =
-                bikeGeometry.toeOverlapClearance -
-                shadowBikeGeometry.toeOverlapClearance;
-              const diffValue = Number(diff.toFixed(0));
-              return (
-                <TableCell
-                  className={
-                    diffValue === 0 ? "text-center font-bold" : "font-bold"
-                  }
-                >
-                  {diffValue === 0
-                    ? ""
-                    : `${diffValue > 0 ? "+" : ""}${diffValue}mm`}
-                </TableCell>
-              );
-            })()}
+            <TableCell className="font-bold">
+              {formattedDifference(
+                difference(
+                  bikeGeometry.toeOverlapClearance,
+                  shadowBikeGeometry.toeOverlapClearance,
+                ),
+                "mm",
+              )}
+            </TableCell>
             <TableCell>
               <p>
                 <span className="font-bold">
-                  {bikeGeometry.toeOverlapClearance <= 0 && (
+                  {bikeGeometry.toeOverlapClearance === 0 && (
                     <>
                       <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
                       <Bike
@@ -251,7 +248,7 @@ export default function BikeMeasurementsTable({
               </p>
               <p>
                 <span className="font-bold">
-                  {shadowBikeGeometry.toeOverlapClearance <= 0 && (
+                  {shadowBikeGeometry.toeOverlapClearance === 0 && (
                     <>
                       <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
                       <Bike
@@ -269,23 +266,14 @@ export default function BikeMeasurementsTable({
           {/* Trail row */}
           <TableRow>
             <TableCell>Trail</TableCell>
-            <TableCell>{bikeGeometry.trail.toFixed(0)}mm</TableCell>
-            <TableCell>{shadowBikeGeometry.trail.toFixed(0)}mm</TableCell>
-            {(() => {
-              const diff = bikeGeometry.trail - shadowBikeGeometry.trail;
-              const diffValue = Number(diff.toFixed(0));
-              return (
-                <TableCell
-                  className={
-                    diffValue === 0 ? "text-center font-bold" : "font-bold"
-                  }
-                >
-                  {diffValue === 0
-                    ? ""
-                    : `${diffValue > 0 ? "+" : ""}${diffValue}mm`}
-                </TableCell>
-              );
-            })()}
+            <TableCell>{measurement(bikeGeometry.trail, "mm")}</TableCell>
+            <TableCell>{measurement(shadowBikeGeometry.trail, "mm")}</TableCell>
+            <TableCell className="font-bold">
+              {formattedDifference(
+                difference(bikeGeometry.trail, shadowBikeGeometry.trail),
+                "mm",
+              )}
+            </TableCell>
             <TableCell></TableCell>
           </TableRow>
 
@@ -293,38 +281,20 @@ export default function BikeMeasurementsTable({
           <TableRow>
             <TableCell>Handlebar to Saddle Height</TableCell>
             <TableCell>
-              {bikeGeometry.handlebarToSaddleHeight
-                ? `${bikeGeometry.handlebarToSaddleHeight.toFixed(0)}mm`
-                : "N/A"}
+              {measurement(bikeGeometry.handlebarToSaddleHeight, "mm")}
             </TableCell>
             <TableCell>
-              {shadowBikeGeometry.handlebarToSaddleHeight
-                ? `${shadowBikeGeometry.handlebarToSaddleHeight.toFixed(0)}mm`
-                : "N/A"}
+              {measurement(shadowBikeGeometry.handlebarToSaddleHeight, "mm")}
             </TableCell>
-            {(() => {
-              if (
-                !bikeGeometry.handlebarToSaddleHeight ||
-                !shadowBikeGeometry.handlebarToSaddleHeight
-              ) {
-                return <TableCell className="font-bold">N/A</TableCell>;
-              }
-              const diff =
-                bikeGeometry.handlebarToSaddleHeight -
-                shadowBikeGeometry.handlebarToSaddleHeight;
-              const diffValue = Number(diff.toFixed(0));
-              return (
-                <TableCell
-                  className={
-                    diffValue === 0 ? "text-center font-bold" : "font-bold"
-                  }
-                >
-                  {diffValue === 0
-                    ? ""
-                    : `${diffValue > 0 ? "+" : ""}${diffValue}mm`}
-                </TableCell>
-              );
-            })()}
+            <TableCell className="font-bold">
+              {formattedDifference(
+                difference(
+                  bikeGeometry.handlebarToSaddleHeight,
+                  shadowBikeGeometry.handlebarToSaddleHeight,
+                ),
+                "mm",
+              )}
+            </TableCell>
             <TableCell></TableCell>
           </TableRow>
 
@@ -396,31 +366,33 @@ export default function BikeMeasurementsTable({
             <TableCell>
               <p>
                 <span className="font-bold">
-                  {bikeGeometry.seatPost?.seatPostLength === undefined && (
-                    <>
-                      <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
-                      <Bike
-                        className="inline w-4 h-4 mr-1"
-                        style={{ color: MAIN_BIKE_COLOR }}
-                      />
-                      is too short
-                    </>
-                  )}
+                  {bikeGeometry.riderInseamLength > 0 &&
+                    bikeGeometry.seatPost?.seatPostLength === undefined && (
+                      <>
+                        <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
+                        <Bike
+                          className="inline w-4 h-4 mr-1"
+                          style={{ color: MAIN_BIKE_COLOR }}
+                        />
+                        cannot fit the rider within the seatpost range
+                      </>
+                    )}
                 </span>
               </p>
               <p>
                 <span className="font-bold">
-                  {shadowBikeGeometry.seatPost?.seatPostLength ===
-                    undefined && (
-                    <>
-                      <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
-                      <Bike
-                        className="inline w-4 h-4 mr-1"
-                        style={{ color: SHADOW_BIKE_COLOR }}
-                      />
-                      is too short
-                    </>
-                  )}
+                  {shadowBikeGeometry.riderInseamLength > 0 &&
+                    shadowBikeGeometry.seatPost?.seatPostLength ===
+                      undefined && (
+                      <>
+                        <TriangleAlert className="inline w-4 h-4 text-red-500 mr-1" />
+                        <Bike
+                          className="inline w-4 h-4 mr-1"
+                          style={{ color: SHADOW_BIKE_COLOR }}
+                        />
+                        cannot fit the rider within the seatpost range
+                      </>
+                    )}
                 </span>
               </p>
             </TableCell>

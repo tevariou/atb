@@ -56,6 +56,7 @@ export type BikeGeometryParams = {
 
 export default class BikeGeometry {
   private readonly _bottomBracket: BottomBracket;
+  private readonly _steeringAngle: number;
   private readonly _headTube: HeadTube;
   private readonly _downTube: Segment;
   private readonly _topTubeHorizontal: TopTubeHorizontal;
@@ -74,6 +75,8 @@ export default class BikeGeometry {
 
   private readonly _frontWheel: Wheel;
   private readonly _rearWheel: Wheel;
+  private readonly _toeOffset: number | undefined;
+  readonly riderInseamLength: number;
   private readonly _handleBar: HandleBar;
 
   constructor({
@@ -142,6 +145,10 @@ export default class BikeGeometry {
       actualSeatTubeAngle: toRadians(actualSeatTubeAngle),
     });
 
+    const frontWheel = new Wheel(frontWheelDiameter, frontTireWidth);
+    const rearWheel = new Wheel(rearWheelDiameter, rearTireWidth);
+    const radiusDifference =
+      frontWheel.radiusWithTire - rearWheel.radiusWithTire;
     const fork = new Fork({
       bottomBracket,
       headTube,
@@ -150,17 +157,14 @@ export default class BikeGeometry {
       crownToAxleLength,
       frontCenterLength,
       wheelBase,
+      wheelRadiusDifference: radiusDifference,
       forkTravel,
       forkSag,
     });
 
-    const frontWheel = new Wheel(frontWheelDiameter, frontTireWidth);
-    const rearWheel = new Wheel(rearWheelDiameter, rearTireWidth);
     const axleDx = fork.end.x - chainStay.start.x;
     const axleDy = fork.end.y - chainStay.start.y;
     const axleDistance = Math.hypot(axleDx, axleDy);
-    const radiusDifference =
-      frontWheel.radiusWithTire - rearWheel.radiusWithTire;
     if (Math.abs(radiusDifference) > axleDistance) {
       throw new Error("Wheel radii are incompatible with axle spacing");
     }
@@ -172,6 +176,7 @@ export default class BikeGeometry {
         : Math.asin(radiusDifference / axleDistance) -
           Math.atan2(axleDy, axleDx);
 
+    this._steeringAngle = headTube.angle - tiltAngle;
     if (tiltAngle !== 0) {
       // Rotate all bike components by the tilt angle around the bottom bracket
       chainStay.tilt(tiltAngle, bottomBracket.coordinates);
@@ -210,8 +215,13 @@ export default class BikeGeometry {
       handleBarWidth,
     });
 
+    this.riderInseamLength = riderInseamLength;
+    this._toeOffset =
+      riderFootLength > riderCleatOffset && riderCleatOffset >= 0
+        ? riderCleatOffset
+        : undefined;
     try {
-      const seatPost = new SeatPost({
+      this._seatPost = new SeatPost({
         bottomBracket,
         seatTube,
         tiltAngle,
@@ -219,38 +229,34 @@ export default class BikeGeometry {
         riderInseamLength,
         seatPostOffset,
       });
-
-      this._seatPost = seatPost;
-
+    } catch {
+      this._seatPost = undefined;
+    }
+    if (this._seatPost) {
       try {
-        const lowerBody = new LowerBody({
+        this._lowerBody = new LowerBody({
           bottomBracket,
-          seatPost,
+          seatPost: this._seatPost,
           crank,
           riderInseamLength,
           riderUpperLegLength,
           riderFootLength,
           riderCleatOffset,
         });
-
-        const upperBody = new UpperBody({
-          seatPost,
+      } catch {
+        this._lowerBody = undefined;
+      }
+      try {
+        this._upperBody = new UpperBody({
+          seatPost: this._seatPost,
           handleBar,
           riderArmLength,
           riderSpineLength,
         });
-
-        this._lowerBody = lowerBody;
-        this._upperBody = upperBody;
-      } catch (error) {
-        console.log(
-          "Failed to create body",
-          error instanceof Error ? error.message : String(error),
-        );
-        this._lowerBody = undefined;
+      } catch {
         this._upperBody = undefined;
       }
-    } catch {}
+    }
 
     this._frontWheel = frontWheel;
     this._rearWheel = rearWheel;
@@ -344,16 +350,14 @@ export default class BikeGeometry {
     );
   }
 
-  get spineAngle(): number {
-    if (!this.upperBody || !this.seatPost) {
-      return 0;
+  get spineAngle(): number | undefined {
+    if (!this.upperBody || !this.seatPost || this.upperBody.spineLength === 0) {
+      return undefined;
     }
-
+    const shoulder = this.upperBody.shoulder;
+    const saddle = this.seatPost.start;
     return toDegrees(
-      Math.asin(
-        (this.upperBody.shoulder.y - this.seatPost.start.y) /
-          this.upperBody.spineLength,
-      ),
+      Math.atan2(shoulder.y - saddle.y, Math.abs(shoulder.x - saddle.x)),
     );
   }
 
@@ -379,14 +383,9 @@ export default class BikeGeometry {
     return groundPedalClearance > 0 ? groundPedalClearance : 0;
   }
 
-  get toeOverlapClearance(): number {
-    if (!this.lowerBody) {
-      return 0;
-    }
-
-    const feetCircleRadius =
-      this.crank.length +
-      this.lowerBody.footLength * (1 - this.lowerBody.feetPositionRatio);
+  get toeOverlapClearance(): number | undefined {
+    if (this._toeOffset === undefined) return undefined;
+    const feetCircleRadius = this.crank.length + this._toeOffset;
     const frontWheelCircleRadius = this.frontWheel.radiusWithTire;
     const frontHubToOriginDistance = distance(
       this.fork.end,
@@ -397,26 +396,12 @@ export default class BikeGeometry {
     return _distance > 0 ? _distance : 0;
   }
 
-  get trail(): number {
-    const steeringAxisDx = this.headTube.end.x - this.headTube.start.x;
-    const steeringAxisDy = this.headTube.end.y - this.headTube.start.y;
-
-    // A horizontal steering axis never intersects the ground at a finite point.
-    if (steeringAxisDy === 0) {
-      return 0;
-    }
-
-    const groundY = this.ground;
-    const steeringAxisGroundIntersectionFactor =
-      (groundY - this.headTube.start.y) / steeringAxisDy;
-    const steeringAxisGroundX =
-      this.headTube.start.x +
-      steeringAxisGroundIntersectionFactor * steeringAxisDx;
-
-    // Front contact patch is vertically below the front axle on level ground.
-    const frontContactPatchX = this.fork.end.x;
-
-    return steeringAxisGroundX - frontContactPatchX;
+  get trail(): number | undefined {
+    const slope = Math.tan(this._steeringAngle);
+    if (slope === 0) return undefined;
+    const axisGroundX =
+      this.headTube.start.x + (this.headTube.start.y - this.ground) / slope;
+    return axisGroundX - this.fork.end.x;
   }
 
   get handlebarToSaddleHeight(): number | undefined {

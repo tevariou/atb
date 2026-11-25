@@ -22,49 +22,31 @@ export default class SeatTube extends Segment {
     seatTubeLength: number;
     actualSeatTubeAngle: number;
   }) {
-    const alpha = -actualSeatTubeAngle;
-    const h = topTubeHorizontal.start;
-    const k = h.y - Math.tan(alpha) * h.x;
-    const a = 1 + Math.tan(alpha) ** 2;
-    const b =
-      2 *
-      ((k - bottomBracket.coordinates.y) * Math.tan(alpha) -
-        bottomBracket.coordinates.x);
-    const c =
-      (k - bottomBracket.coordinates.y) ** 2 -
-      seatTubeLength ** 2 +
-      bottomBracket.coordinates.x ** 2;
-
-    const d = b ** 2 - 4 * a * c;
-    if (d < 0) {
+    // Intersect the seatpost axis with the circle measured from the bottom bracket.
+    const axisX = -Math.cos(actualSeatTubeAngle);
+    const axisY = Math.sin(actualSeatTubeAngle);
+    const end = bottomBracket.coordinates;
+    const dx = topTubeHorizontal.start.x - end.x;
+    const dy = topTubeHorizontal.start.y - end.y;
+    const perpendicular = dx * axisY - dy * axisX;
+    if (Math.abs(perpendicular) > seatTubeLength) {
       throw new Error("Seat tube does not intersect with top tube");
     }
-
-    let x = (-b - Math.sqrt(d)) / (2 * a);
-    let y = Math.tan(alpha) * x + h.y - Math.tan(alpha) * h.x;
-
+    const along = Math.sqrt(seatTubeLength ** 2 - perpendicular ** 2);
     const start = {
-      x: x,
-      y: y,
+      x: end.x + perpendicular * axisY + along * axisX,
+      y: end.y - perpendicular * axisX + along * axisY,
     };
-    const end = bottomBracket.coordinates;
 
     super({ start, end });
 
-    y = bottomBracket.coordinates.y + seatTubeLength / 2;
-
-    if (topTubeHorizontal.start.x === start.x) {
-      throw new Error("Top tube horizontal and seat tube start x are the same");
+    const bendY = end.y + seatTubeLength / 2;
+    if (axisY === 0 && start.y !== bendY) {
+      throw new Error("Horizontal seat tube cannot reach the bend height");
     }
-
-    const m =
-      (topTubeHorizontal.start.y - start.y) /
-      (topTubeHorizontal.start.x - start.x);
-    x = (y - start.y + start.x * m) / m;
-
     this.breakPoint = {
-      x: x,
-      y: y,
+      x: axisY === 0 ? start.x : start.x + ((bendY - start.y) * axisX) / axisY,
+      y: bendY,
     };
 
     this.actualAngle = actualSeatTubeAngle;

@@ -5,7 +5,7 @@ export const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
 export const toDegrees = (radians: number) => (radians * 180) / Math.PI;
 
 export const distance = (start: Coordinates, end: Coordinates) =>
-  Math.sqrt((end.x - start.x) ** 2 + (end.y - start.y) ** 2);
+  Math.hypot(end.x - start.x, end.y - start.y);
 
 export const rotate = (
   coordinates: Coordinates,

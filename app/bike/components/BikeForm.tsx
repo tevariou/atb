@@ -75,7 +75,7 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .min(0, "Angle must be at least 0 degrees")
         .max(89, "Angle must be less than 90 degrees")
-        .refine((n) => !(n * 100).toString().includes("."), {
+        .refine((n) => n === Number(n.toFixed(2)), {
           message: "Max precision is 2 decimal places",
         })
         .nullable(),
@@ -95,7 +95,7 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .min(0, "Angle must be at least 0 degrees")
         .max(89, "Angle must be less than 90 degrees")
-        .refine((n) => !(n * 100).toString().includes("."), {
+        .refine((n) => n === Number(n.toFixed(2)), {
           message: "Max precision is 2 decimal places",
         })
         .nullable(),
@@ -106,7 +106,7 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
         .number()
         .min(0, "Angle must be at least 0 degrees")
         .max(89, "Angle must be less than 90 degrees")
-        .refine((n) => !(n * 100).toString().includes("."), {
+        .refine((n) => n === Number(n.toFixed(2)), {
           message: "Max precision is 2 decimal places",
         })
         .nullable(),
@@ -176,6 +176,9 @@ export default function BikeForm({ isShadow = false }: BikeFormProps) {
     },
     forkSag: {
       label: "Fork sag (%)",
+      warnings: [
+        "Sag is applied to the supplied uncompressed geometry. Use 0% when your measurements already include sag.",
+      ],
       type: z
         .number()
         .int()

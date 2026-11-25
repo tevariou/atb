@@ -49,6 +49,7 @@ const shadowBikeSlice = createSlice({
         effectiveSeatTubeAngle,
         seatTube,
         bottomBracketDrop,
+        frontCenter,
         wheelBase,
         forkAxleToCrown,
         forkOffset,
@@ -71,12 +72,15 @@ const shadowBikeSlice = createSlice({
       state.reach = Math.trunc(reach);
       state.stack = Math.trunc(stack);
       state.headTube = Math.trunc(headTube);
-      state.headTubeAngle = Math.trunc(headTubeAngle * 10);
+      // Keep the tenths-based scale used by saved bikes and share links.
+      state.headTubeAngle = Math.round(headTubeAngle * 100) / 10;
       state.chainStay = Math.trunc(chainStay);
-      state.actualSeatTubeAngle = Math.trunc(actualSeatTubeAngle * 10);
-      state.effectiveSeatTubeAngle = Math.trunc(effectiveSeatTubeAngle * 10);
+      state.actualSeatTubeAngle = Math.round(actualSeatTubeAngle * 100) / 10;
+      state.effectiveSeatTubeAngle =
+        Math.round(effectiveSeatTubeAngle * 100) / 10;
       state.seatTube = Math.trunc(seatTube);
       state.bottomBracketDrop = Math.trunc(bottomBracketDrop);
+      state.frontCenter = Math.trunc(frontCenter);
       state.wheelBase = Math.trunc(wheelBase);
       state.forkAxleToCrown = Math.trunc(forkAxleToCrown);
       state.forkOffset = Math.trunc(forkOffset);
@@ -100,9 +104,10 @@ const shadowBikeSlice = createSlice({
   selectors: {
     selectShadowBike: createSelector([(state) => state], (state) => ({
       ...state,
-      headTubeAngle: state.headTubeAngle / 10,
-      actualSeatTubeAngle: state.actualSeatTubeAngle / 10,
-      effectiveSeatTubeAngle: state.effectiveSeatTubeAngle / 10,
+      headTubeAngle: Math.round(state.headTubeAngle * 10) / 100,
+      actualSeatTubeAngle: Math.round(state.actualSeatTubeAngle * 10) / 100,
+      effectiveSeatTubeAngle:
+        Math.round(state.effectiveSeatTubeAngle * 10) / 100,
     })),
     selectRawShadowBike: (state: BikeState) => state,
   },

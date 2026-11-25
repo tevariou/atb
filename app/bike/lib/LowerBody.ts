@@ -41,10 +41,9 @@ export default class LowerBody extends Segment {
 
     const feetPositionRatio = 1 - riderCleatOffset / riderFootLength;
 
-    const fromSaddleToPedal = Math.sqrt(
-      (distance(seatPost.start, bottomBracket.coordinates) + crank.length) **
-        2 +
-        (crank.qFactor / 2) ** 2,
+    const fromSaddleToPedal = Math.hypot(
+      distance(seatPost.start, bottomBracket.coordinates) + crank.length,
+      crank.qFactor / 2,
     );
 
     if (Math.floor(fromSaddleToPedal) > riderInseamLength) {

@@ -32,6 +32,7 @@ import {
   useBikeGeometryFromImageMutation,
   useBikeGeometryFromTextBikeGeometryTextPostMutation,
 } from "@/store/bikeGeometryApi";
+import { wheelDiameterMm } from "../lib/Wheel";
 import type { BikeSize } from "@/store/api";
 import { useRef } from "react";
 
@@ -76,27 +77,6 @@ export default function BikeSelect({ onChangeAction }: BikeSelectProps) {
     }
   };
 
-  const convertWheelSize = (
-    field: { value: number | null; unit: string | null } | null,
-  ) => {
-    if (!field?.value) return 0;
-    switch (field.value) {
-      case 20:
-        return 406;
-      case 26:
-        return 559;
-      case 27.5:
-      case 650:
-        return 584;
-      case 28:
-      case 29:
-      case 700:
-        return 622;
-      default:
-        return 0;
-    }
-  };
-
   const transformBikeResults = (result: BikeSize[]) => {
     return result.map((bike) => ({
       size: bike.size,
@@ -126,8 +106,8 @@ export default function BikeSelect({ onChangeAction }: BikeSelectProps) {
       handlebarRise: convertValue(bike.handlebar_rise),
       tireFrontWidth: convertValue(bike.tire_front_width),
       tireRearWidth: convertValue(bike.tire_rear_width),
-      wheelFrontDiameter: convertWheelSize(bike.wheel_front_diameter),
-      wheelRearDiameter: convertWheelSize(bike.wheel_rear_diameter),
+      wheelFrontDiameter: wheelDiameterMm(bike.wheel_front_diameter),
+      wheelRearDiameter: wheelDiameterMm(bike.wheel_rear_diameter),
     }));
   };
 
