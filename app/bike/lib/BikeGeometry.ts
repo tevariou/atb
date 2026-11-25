@@ -156,26 +156,21 @@ export default class BikeGeometry {
 
     const frontWheel = new Wheel(frontWheelDiameter, frontTireWidth);
     const rearWheel = new Wheel(rearWheelDiameter, rearTireWidth);
-    const groundRearWheelCoordinates = {
-      x: chainStay.start.x,
-      y: chainStay.start.y - rearWheel.radiusWithTire,
-    };
-    const groundFrontWheelCoordinates = {
-      x: fork.end.x,
-      y: fork.end.y - frontWheel.radiusWithTire,
-    };
-    const wheelBaseLength = distance(
-      groundRearWheelCoordinates,
-      groundFrontWheelCoordinates,
-    );
+    const axleDx = fork.end.x - chainStay.start.x;
+    const axleDy = fork.end.y - chainStay.start.y;
+    const axleDistance = Math.hypot(axleDx, axleDy);
+    const radiusDifference =
+      frontWheel.radiusWithTire - rearWheel.radiusWithTire;
+    if (Math.abs(radiusDifference) > axleDistance) {
+      throw new Error("Wheel radii are incompatible with axle spacing");
+    }
 
+    // On level ground the axle heights differ by the wheel radius difference.
     const tiltAngle =
-      wheelBaseLength !== 0
-        ? Math.asin(
-            (groundRearWheelCoordinates.y - groundFrontWheelCoordinates.y) /
-              wheelBaseLength,
-          )
-        : 0;
+      axleDistance === 0
+        ? 0
+        : Math.asin(radiusDifference / axleDistance) -
+          Math.atan2(axleDy, axleDx);
 
     if (tiltAngle !== 0) {
       // Rotate all bike components by the tilt angle around the bottom bracket
